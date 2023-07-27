@@ -1,9 +1,11 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
 import 'package:instar/presentation/UI/widgets/custom_button.dart';
+import 'package:instar/presentation/UI/widgets/term&conditions_dialog.dart';
 
 import '../../../state_managment/controllers/sign_up_controller.dart';
 import '../../widgets/custom_textform.dart';
@@ -175,11 +177,18 @@ class SignUp extends StatelessWidget {
                                         controller.update();
                                       }),
                                   RichText(
-                                    text: const TextSpan(
+                                    text: TextSpan(
                                         text: 'I agree to the ',
                                         style: AppTextStyle.subtitleTextStyle,
                                         children: [
                                           TextSpan(
+                                            recognizer: TapGestureRecognizer()
+                                              ..onTap = () {
+                                                showDialog(
+                                                    context: context,
+                                                    builder: (_) =>
+                                                        const TermAndConditionsDialog());
+                                              },
                                             text: 'terms and conditions ',
                                             style: AppTextStyle
                                                 .subtitleBoldTextStyle,
