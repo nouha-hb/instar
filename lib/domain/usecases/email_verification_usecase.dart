@@ -3,9 +3,9 @@ import 'package:instar/domain/repositories/authentication_repository.dart';
 
 import '../../core/errors/failures/failures.dart';
 
-class CreateAccountUsecase {
+class EmailVerificationUsecase {
   final AuthenticationRepository repository;
 
-  const CreateAccountUsecase(this.repository);
-  Future<Either<Failure, Unit>> call() async=>await repository.createAccount();
+  const EmailVerificationUsecase(this.repository);
+  Future<Either<Failure, Unit>> call() async => await repository.emailVerification();
 }

@@ -5,10 +5,13 @@ import '../../core/errors/failures/failures.dart';
 
 abstract class AuthenticationRepository {
   Future<Either<Failure,Unit>> createAccount();
-  Future<Either<Failure,User>> login({String email,String password});
+  Future<Either<Failure,User>> login({required String email,required String password});
   Future<Either<Failure,User>> autologin();
-  Future<Either<Failure,Unit>> updateProfile(User user);
+  Future<Either<Failure,Unit>> updateProfil(User user);
   Future<Either<Failure,Unit>> logout();
   Future<Either<Failure,User>> facebookLogin();
   Future<Either<Failure,User>> googleLogin();
+  Future<Either<Failure,Unit>> resetPassword();
+  Future<Either<Failure,Unit>> emailVerification();
+
 }
