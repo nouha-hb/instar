@@ -4,7 +4,6 @@ import 'package:instar/core/style/colors.dart';
 
 class ReusableTextField extends StatelessWidget {
   final String text;
-  final bool isPasswordType;
   final TextEditingController controller;
   final FormFieldValidator<String>? validator;
   final TextInputType keyboardType;
@@ -15,7 +14,6 @@ class ReusableTextField extends StatelessWidget {
       {super.key,
       required this.text,
       required this.controller,
-      required this.isPasswordType,
       required this.keyboardType,
       required this.validator,
       required this.height,
@@ -28,9 +26,7 @@ class ReusableTextField extends StatelessWidget {
       height: this.height.h,
       child: TextFormField(
         controller: controller,
-        obscureText: (isPasswordType),
         validator: validator,
-        autocorrect: !isPasswordType,
         keyboardType: keyboardType,
         cursorColor: Colors.black,
         style: TextStyle(color: Colors.black.withOpacity(0.9)),

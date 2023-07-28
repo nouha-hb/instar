@@ -44,7 +44,6 @@ class SignIn extends StatelessWidget {
                           width: 327,
                           height: 60,
                           controller: controller.usernameController,
-                          isPasswordType: false,
                           keyboardType: TextInputType.name,
                           text: 'username',
                           validator: controller.requiredValidator,

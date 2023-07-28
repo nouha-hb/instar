@@ -59,7 +59,6 @@ class SignUp extends StatelessWidget {
                                 width: 327,
                                 height: 60,
                                 controller: controller.nameController,
-                                isPasswordType: false,
                                 keyboardType: TextInputType.name,
                                 text: 'username',
                                 validator: controller.requiredValidator,
@@ -68,7 +67,6 @@ class SignUp extends StatelessWidget {
                                 width: 327,
                                 height: 60,
                                 controller: controller.emailController,
-                                isPasswordType: false,
                                 keyboardType: TextInputType.emailAddress,
                                 text: 'email',
                                 validator: controller.requiredValidator,
@@ -95,6 +93,7 @@ class SignUp extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       hintText: "Password",
+                               
                                       hintStyle: const TextStyle(
                                           color: Colors.grey,
                                           fontWeight: FontWeight.w400),
