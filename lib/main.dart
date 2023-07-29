@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:instar/domain/entities/user.dart';
-import 'package:instar/domain/usecases/create_account_usecase.dart';
 import 'package:instar/presentation/UI/screens/sign_in/sign_in_screen.dart';
 import 'package:instar/presentation/UI/screens/sign_up/sign_up_screen.dart';
 import 'di.dart' as di;
+import 'domain/usecases/authentication_usecases/create_account_usecase.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

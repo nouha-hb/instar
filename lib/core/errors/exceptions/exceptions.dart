@@ -6,4 +6,5 @@ class RegistrationException implements Exception{
 }
 class LoginException implements Exception{
 }
-
+class ProductNotFoundException implements Exception{
+}

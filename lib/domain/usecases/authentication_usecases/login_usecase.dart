@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:instar/domain/repositories/authentication_repository.dart';
+import '../../../core/errors/failures/failures.dart';
+import '../../entities/user.dart';
 
-import '../../core/errors/failures/failures.dart';
-import '../entities/user.dart';
 
 class LoginUsecase {
   final AuthenticationRepository repository;

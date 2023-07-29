@@ -1,10 +1,11 @@
 import 'package:get_it/get_it.dart';
 import 'package:instar/data/repositories/authentication_repository_impl.dart';
 import 'package:instar/domain/repositories/authentication_repository.dart';
-import 'package:instar/domain/usecases/create_account_usecase.dart';
-import 'package:instar/domain/usecases/login_usecase.dart';
+
 
 import 'data/data_Sources/remote_data_source/authentication_remote_data_source.dart';
+import 'domain/usecases/authentication_usecases/create_account_usecase.dart';
+import 'domain/usecases/authentication_usecases/login_usecase.dart';
 
 final sl = GetIt.instance;
 
