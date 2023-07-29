@@ -4,7 +4,7 @@ import 'package:instar/domain/entities/user.dart';
 import '../../core/errors/failures/failures.dart';
 
 abstract class AuthenticationRepository {
-  Future<Either<Failure,Unit>> createAccount();
+  Future<Either<Failure,Unit>> createAccount(User user);
   Future<Either<Failure,User>> login({required String email,required String password});
   Future<Either<Failure,User>> autologin();
   Future<Either<Failure,Unit>> updateProfil(User user);
