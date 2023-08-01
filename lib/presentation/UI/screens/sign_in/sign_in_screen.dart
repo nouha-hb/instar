@@ -6,7 +6,7 @@ import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
 import 'package:instar/presentation/UI/screens/sign_up/sign_up_screen.dart';
 import 'package:instar/presentation/UI/widgets/custom_button.dart';
-
+import 'package:flutter_social_button/flutter_social_button.dart';
 import '../../../state_managment/controllers/sign_in_controller.dart';
 import '../../widgets/custom_textform.dart';
 
@@ -33,7 +33,7 @@ class SignIn extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              "Create Account ",
+                              "Login ",
                               style: AppTextStyle.titleTextStyle,
                               
                             ),
@@ -96,6 +96,30 @@ class SignIn extends StatelessWidget {
                           ],
                         ),
                        
+                        SizedBox(
+                          height: 24.h,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                       
+                 //For facebook Button
+          
+               FlutterSocialButton(
+                onTap: () {},
+                buttonType: ButtonType.facebook, // Button type for different type buttons
+                mini: true,
+                           ), 
+                           SizedBox(width: 10.w,) ,
+          //For google Button
+          
+               FlutterSocialButton(
+                onTap: () {},
+                buttonType: ButtonType.google, // Button type for different type buttons
+                mini: true,
+                           ),  
+
+                        ],),
                         SizedBox(
                           height: 24.h,
                         ),

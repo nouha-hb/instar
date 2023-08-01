@@ -60,7 +60,15 @@ class SignUp extends StatelessWidget {
                                 height: 60,
                                 controller: controller.nameController,
                                 keyboardType: TextInputType.name,
-                                text: 'username',
+                                text: 'First name',
+                                validator: controller.requiredValidator,
+                              ),
+                              ReusableTextField(
+                                width: 327,
+                                height: 60,
+                                controller: controller.nameController,
+                                keyboardType: TextInputType.name,
+                                text: 'Last name',
                                 validator: controller.requiredValidator,
                               ),
                               ReusableTextField(
@@ -71,6 +79,15 @@ class SignUp extends StatelessWidget {
                                 text: 'email',
                                 validator: controller.requiredValidator,
                               ),
+                              ReusableTextField(
+                                width: 327,
+                                height: 60,
+                                controller: controller.phoneController,
+                                keyboardType: TextInputType.phone,
+                                text: 'phone',
+                                validator: controller.requiredValidator,
+                              ),
+
                               SizedBox(
                                   width: 327.w,
                                   height: 60.h,
@@ -84,16 +101,17 @@ class SignUp extends StatelessWidget {
                                     style: TextStyle(
                                         color: Colors.black.withOpacity(0.9)),
                                     decoration: InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: AppColors.black, width: 1.0),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: const BorderSide(
                                             color: AppColors.black, width: 1.0),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
                                       hintText: "Password",
-                               
                                       hintStyle: const TextStyle(
                                           color: Colors.grey,
                                           fontWeight: FontWeight.w400),
@@ -109,58 +127,58 @@ class SignUp extends StatelessWidget {
                                           }),
                                       labelStyle: TextStyle(
                                           color:
-                                              AppColors.camel.withOpacity(0.9)),
+                                              AppColors.black.withOpacity(0.9)),
                                       filled: true,
                                       floatingLabelBehavior:
                                           FloatingLabelBehavior.never,
                                       fillColor: Colors.white.withOpacity(0.3),
                                     ),
                                   )),
-                              SizedBox(
-                                  width: 327.w,
-                                  height: 60.h,
-                                  child: TextFormField(
-                                    controller:
-                                        controller.confirmPasswordController,
-                                    obscureText: controller.isPressed_confirm
-                                        ? false
-                                        : true,
-                                    validator: controller
-                                        .requiredConfiemPasswordValidator,
-                                    keyboardType: TextInputType.visiblePassword,
-                                    cursorColor: Colors.black,
-                                    style: TextStyle(
-                                        color: Colors.black.withOpacity(0.9)),
-                                    decoration: InputDecoration(
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            color: AppColors.black, width: 1.0),
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      hintText: "Confirm Password",
-                                      hintStyle: const TextStyle(
-                                          color: AppColors.grey,
-                                          fontWeight: FontWeight.w400),
-                                      suffixIcon: IconButton(
-                                          icon: Icon(
-                                              controller.isPressed_confirm
-                                                  ? Icons.visibility_off
-                                                  : Icons.visibility),
-                                          color: Colors.black,
-                                          onPressed: () {
-                                            controller.isPressed_confirm =
-                                                !controller.isPressed_confirm;
-                                            controller.update();
-                                          }),
-                                      filled: true,
-                                      floatingLabelBehavior:
-                                          FloatingLabelBehavior.never,
-                                      fillColor: AppColors.white,
-                                    ),
-                                  )),
+                              // SizedBox(
+                              //     width: 327.w,
+                              //     height: 60.h,
+                              //     child: TextFormField(
+                              //       controller:
+                              //           controller.confirmPasswordController,
+                              //       obscureText: controller.isPressed_confirm
+                              //           ? false
+                              //           : true,
+                              //       validator: controller
+                              //           .requiredConfiemPasswordValidator,
+                              //       keyboardType: TextInputType.visiblePassword,
+                              //       cursorColor: Colors.black,
+                              //       style: TextStyle(
+                              //           color: Colors.black.withOpacity(0.9)),
+                              //       decoration: InputDecoration(
+                              //         focusedBorder: OutlineInputBorder(
+                              //           borderSide: const BorderSide(
+                              //               color: AppColors.black, width: 1.0),
+                              //           borderRadius: BorderRadius.circular(8),
+                              //         ),
+                              //         border: OutlineInputBorder(
+                              //           borderRadius: BorderRadius.circular(8),
+                              //         ),
+                              //         hintText: "Confirm Password",
+                              //         hintStyle: const TextStyle(
+                              //             color: AppColors.grey,
+                              //             fontWeight: FontWeight.w400),
+                              //         suffixIcon: IconButton(
+                              //             icon: Icon(
+                              //                 controller.isPressed_confirm
+                              //                     ? Icons.visibility_off
+                              //                     : Icons.visibility),
+                              //             color: Colors.black,
+                              //             onPressed: () {
+                              //               controller.isPressed_confirm =
+                              //                   !controller.isPressed_confirm;
+                              //               controller.update();
+                              //             }),
+                              //         filled: true,
+                              //         floatingLabelBehavior:
+                              //             FloatingLabelBehavior.never,
+                              //         fillColor: AppColors.white,
+                              //       ),
+                              //     )),
                               Row(
                                 children: [
                                   Checkbox(

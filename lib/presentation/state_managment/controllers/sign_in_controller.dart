@@ -1,5 +1,12 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:instar/core/errors/failures/failures.dart';
+import 'package:instar/domain/repositories/authentication_repository.dart';
+import 'package:instar/domain/usecases/login_usecase.dart';
+import 'package:instar/presentation/UI/screens/sign_up/sign_up_screen.dart';
+
+import '../../../core/errors/exceptions/exceptions.dart';
 
 class SignInController extends GetxController {
   bool isPressed = false;
@@ -18,38 +25,39 @@ class SignInController extends GetxController {
     return null;
   }
 
-  // void signIn() async {
-  //   inProgress = true;
-  //   update();
-  //   try {
-  //     //Sign in service
-  //     // var email = emailController.text;
-  //     // var password = passwordController.text;
+//   Future<void> signIn() async {
+//     inProgress = true;
+//     update();
+//     try {
+//       // Sign in service
+//       var email = usernameController.text;
+//       var password = passwordController.text;
+//       final res =await LoginUsecase().call(email: email.trim(), password: password);
 
-  //     // UserCredential userCredential = await FirebaseAuth.instance
-  //     //     .signInWithEmailAndPassword(email: email.trim(), password: password);
+//       res.fold((l) {
+//         print("error");
+//       }, (r) {
+// Get.to(const SignUp());
+//       });
 
-  //     Get.to(const Welcome());
-  //   } on FirebaseAuthException catch (e) {
-  //       handleSignInError(e);
+      
+//     }  finally {
+//       inProgress = false;
+//       if (resetControllers) {
+//         usernameController.text = "";
+//         passwordController.text = "";
+//       }
 
-  //   } finally {
-  //     inProgress = false;
-  //     if(resetControllers){
-  //       emailController.text = "";
-  //     passwordController.text = "";
-  //     }
+//       update();
+//     }
+//   }
 
-  //     update();
-  //   }
-  // }
-
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  //   resetControllers=true;
-  //   update();
-  // }
+//   @override
+//   void onInit() {
+//     super.onInit();
+//     resetControllers = true;
+//     update();
+//   }
 
   // void handleSignInError(FirebaseAuthException e) {
   //   String messageToDisplay = "";

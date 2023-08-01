@@ -36,14 +36,12 @@ class ReusableTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
           focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: AppColors.black, width: 1.0),
             borderRadius: BorderRadius.circular(8),
-             borderSide: const BorderSide(
-                                              color: AppColors.black,
-                                              width: 1.0),
           ),
           hintText: text,
-          hintStyle:
-              const TextStyle(color: AppColors.grey, fontWeight: FontWeight.w400),
+          hintStyle: const TextStyle(
+              color: AppColors.grey, fontWeight: FontWeight.w400),
           labelStyle: TextStyle(color: AppColors.black.withOpacity(0.9)),
           filled: true,
           floatingLabelBehavior: FloatingLabelBehavior.never,

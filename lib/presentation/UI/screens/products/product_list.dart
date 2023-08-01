@@ -6,7 +6,7 @@ import 'package:instar/core/style/text_style.dart';
 import 'package:instar/presentation/UI/screens/products/product_description.dart';
 
 import '../../../state_managment/controllers/product_list_controller.dart';
-
+import 'package:anim_search_bar/anim_search_bar.dart';
 class ProductList extends StatelessWidget {
   const ProductList({super.key});
 
@@ -35,12 +35,25 @@ class ProductList extends StatelessWidget {
                         size: 30.sp,
                       ),
                       Icon(
-                        Icons.search,
+                        Icons.notifications_none_outlined,
                         color: AppColors.black,
                         size: 30.sp,
                       ),
                     ],
                   ),
+                  AnimSearchBar(
+                    width: 400,
+                    textController: controller.textController,
+                    rtl: true,
+                    onSuffixTap: () {
+                      
+                       // textController.clear();
+                      }, onSubmitted: (String ) { 
+                        
+                       },),
+      
+  
+    
                   SizedBox(height: 20.h),
                   const Text(
                     "Categories",
@@ -101,14 +114,14 @@ class ProductList extends StatelessWidget {
                               InkWell(
                                 child: Container(
                                   width: 150.w,
-                                  height: 120.h,
+                                  height: 150.h,
                                   decoration: BoxDecoration(
-                                    color: AppColors.grey,
+                                    color: AppColors.grey.withOpacity(0.1),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                 ),
                                 onTap: () {
-                                  Get.to(ProductDesc());
+                                 // Get.to(const ProductDesc());
                                 },
                               ),
                               const SizedBox(
