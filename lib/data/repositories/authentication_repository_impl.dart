@@ -36,8 +36,8 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
       await authLocalDataSource.saveUserInformations(tm);
       Token t = Token(token: tm.token, refreshToken: tm.refreshToken);
       return right(t);
-    } on LoginException {
-      return left(LoginFailure());
+    } on LoginException catch (e){
+      return left(LoginFailure(e.message));
     } on LocalStorageException {
       return left(LocalStorageFailure());
     }

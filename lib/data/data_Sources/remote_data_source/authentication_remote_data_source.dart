@@ -35,16 +35,20 @@ class AuthenticationRemoteDataSourceImpl
 
   @override
   Future<TokenModel> login(String email, String password) async {
+    String msg = '';
     try {
       Map<String, dynamic> user = {'username': email, 'password': password};
       final response = await dio.post(ApiConst.login, data: user);
+
       final data = response.data;
+      msg =data['message'];
 
-        final TokenModel token = TokenModel.fromJson(data);
 
+      final TokenModel token = TokenModel.fromJson(data);
       return token;
     } catch (e) {
-      throw LoginException();
+      print(msg);
+      throw LoginException(msg);
     }
   }
 }
