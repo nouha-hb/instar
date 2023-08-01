@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+# instar
+=======
 # instar
 
 A new Flutter project.
@@ -14,3 +17,4 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+>>>>>>> 16c9cb696715a215b26b4f94c6a7f31801174241

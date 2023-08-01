@@ -9,6 +9,7 @@ import 'package:instar/presentation/UI/widgets/custom_button.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
 import '../../../state_managment/controllers/sign_in_controller.dart';
 import '../../widgets/custom_textform.dart';
+import '../profile/profile_screen.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({super.key});
@@ -140,7 +141,7 @@ class SignIn extends StatelessWidget {
                         MyButton(
                         text: "Sign in ",
                         onClick: () {
-                          Get.to(SignUp());
+                          Get.to(Profile());
                         }),
                       
                       ],

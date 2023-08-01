@@ -8,6 +8,5 @@ class UpdateProfilUsecase {
   final AuthenticationRepository repository;
 
   const UpdateProfilUsecase(this.repository);
-  Future<Either<Failure, Unit>> call(User user) async =>
-      await repository.updateProfil(user);
+  Future<Either<Failure, Unit>> call(User user) async => await repository.updateProfil(user);
 }
