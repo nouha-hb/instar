@@ -46,6 +46,9 @@ dependencies:
   flutter_social_button: ^1.1.4+1
   searchbar_animation: ^0.0.4
   anim_search_bar: ^2.0.3
+  shared_preferences: ^2.2.0
+  fluttertoast: ^8.2.2
+  flutter_facebook_auth: ^6.0.0
 
 dev_dependencies:
   flutter_test:

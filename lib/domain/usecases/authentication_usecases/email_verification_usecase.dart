@@ -1,7 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:instar/domain/repositories/authentication_repository.dart';
 
-import '../../core/errors/failures/failures.dart';
+import '../../../core/errors/failures/failures.dart';
+
 
 class EmailVerificationUsecase {
   final AuthenticationRepository repository;
