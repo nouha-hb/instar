@@ -1,20 +1,51 @@
 import 'package:dartz/dartz.dart';
+import 'package:instar/core/errors/exceptions/exceptions.dart';
+
 import 'package:instar/core/errors/failures/failures.dart';
+import 'package:instar/data/data_Sources/remote_data_source/authentication_remote_data_source.dart';
+import 'package:instar/data/models/token_model.dart';
+import 'package:instar/data/models/user_model.dart';
+import 'package:instar/domain/entities/token.dart';
 import 'package:instar/domain/entities/user.dart';
 import 'package:instar/domain/repositories/authentication_repository.dart';
 
+import '../data_Sources/local_data_source/authentication_local_data_source.dart';
 
+class AuthenticationRepositoryImpl implements AuthenticationRepository {
+  final AuthenticationRemoteDataSource authRemoteDataSource;
+  final AuthenticationLocalDataSource authLocalDataSource;
 
-class AuthenticationRepositoryImpl implements AuthenticationRepository{
+  const AuthenticationRepositoryImpl(
+      {required this.authRemoteDataSource, required this.authLocalDataSource});
+
   @override
-  Future<Either<Failure, User>> autologin() {
-    // TODO: implement autologin
-    throw UnimplementedError();
+  Future<Either<Failure, Unit>> createAccount(User user) async {
+    try {
+      await authRemoteDataSource.createAccount(user);
+      return const Right(unit);
+    } on RegistrationException {
+      return Left(RegistrationFailure());
+    }
   }
 
   @override
-  Future<Either<Failure, Unit>> createAccount() {
-    // TODO: implement createAccount
+  Future<Either<Failure, Token>> login(
+      {required String email, required String password}) async {
+    try {
+      TokenModel tm = await authRemoteDataSource.login(email, password);
+      await authLocalDataSource.saveUserInformations(tm);
+      Token t = Token(token: tm.token, refreshToken: tm.refreshToken);
+      return right(t);
+    } on LoginException catch (e){
+      return left(LoginFailure(e.message));
+    } on LocalStorageException {
+      return left(LocalStorageFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, User>> autologin() {
+    // TODO: implement autologin
     throw UnimplementedError();
   }
 
@@ -37,12 +68,6 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository{
   }
 
   @override
-  Future<Either<Failure, User>> login({required String email,required String password}) {
-    // TODO: implement login
-    throw UnimplementedError();
-  }
-
-  @override
   Future<Either<Failure, Unit>> logout() {
     // TODO: implement logout
     throw UnimplementedError();
@@ -59,5 +84,4 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository{
     // TODO: implement updateProfil
     throw UnimplementedError();
   }
-
 }
