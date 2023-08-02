@@ -4,9 +4,11 @@ import 'package:get/get.dart';
 import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
 import 'package:instar/presentation/UI/screens/products/product_description.dart';
+import 'package:instar/presentation/UI/screens/profile/profile_screen.dart';
 
 import '../../../state_managment/controllers/product_list_controller.dart';
 import 'package:anim_search_bar/anim_search_bar.dart';
+
 class ProductList extends StatelessWidget {
   const ProductList({super.key});
 
@@ -29,11 +31,16 @@ class ProductList extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Icon(
-                        Icons.menu,
-                        color: AppColors.black,
-                        size: 30.sp,
-                      ),
+                      IconButton(
+                          onPressed: () {
+                            Get.to(Profile());
+                          },
+                          icon: Icon(
+                            Icons.menu,
+                            color: AppColors.black,
+                            size: 30.sp,
+                          )),
+                      Text("Découvrir"),
                       Icon(
                         Icons.notifications_none_outlined,
                         color: AppColors.black,
@@ -46,14 +53,10 @@ class ProductList extends StatelessWidget {
                     textController: controller.textController,
                     rtl: true,
                     onSuffixTap: () {
-                      
-                       // textController.clear();
-                      }, onSubmitted: (String ) { 
-                        
-                       },),
-      
-  
-    
+                      // textController.clear();
+                    },
+                    onSubmitted: (String) {},
+                  ),
                   SizedBox(height: 20.h),
                   const Text(
                     "Categories",
@@ -121,7 +124,7 @@ class ProductList extends StatelessWidget {
                                   ),
                                 ),
                                 onTap: () {
-                                 // Get.to(const ProductDesc());
+                                  Get.to(const ProductDesc());
                                 },
                               ),
                               const SizedBox(

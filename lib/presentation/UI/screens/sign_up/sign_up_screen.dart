@@ -60,7 +60,7 @@ class SignUp extends StatelessWidget {
                               ReusableTextField(
                                 width: 327,
                                 height: 60,
-                                controller: controller.nameController,
+                                controller: controller.firstnameController,
                                 keyboardType: TextInputType.name,
                                 text: 'First name',
                                 validator: controller.requiredValidator,
@@ -68,7 +68,7 @@ class SignUp extends StatelessWidget {
                               ReusableTextField(
                                 width: 327,
                                 height: 60,
-                                controller: controller.nameController,
+                                controller: controller.lastnameController,
                                 keyboardType: TextInputType.name,
                                 text: 'Last name',
                                 validator: controller.requiredValidator,

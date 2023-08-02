@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:instar/presentation/UI/widgets/custom_button.dart';
 import 'package:instar/presentation/UI/widgets/invoice_list_item.dart';
 
@@ -20,7 +21,9 @@ class Profile extends StatelessWidget {
               Icons.menu,
               color: Colors.black,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Get.back();
+            },
           ),
           actions: [
             IconButton(

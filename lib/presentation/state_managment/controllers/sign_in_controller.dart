@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instar/core/errors/failures/failures.dart';
 import 'package:instar/domain/repositories/authentication_repository.dart';
-import 'package:instar/domain/usecases/login_usecase.dart';
+import 'package:instar/domain/usecases/authentication_usecases/facebook_login_usecase.dart';
+import 'package:instar/presentation/UI/screens/products/product_list.dart';
 import 'package:instar/presentation/UI/screens/sign_up/sign_up_screen.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
 import '../../../core/errors/exceptions/exceptions.dart';
+import '../../../di.dart';
+import '../../../domain/usecases/authentication_usecases/login_usecase.dart';
 
 class SignInController extends GetxController {
   bool isPressed = false;
@@ -25,39 +28,63 @@ class SignInController extends GetxController {
     return null;
   }
 
-//   Future<void> signIn() async {
-//     inProgress = true;
-//     update();
-//     try {
-//       // Sign in service
-//       var email = usernameController.text;
-//       var password = passwordController.text;
-//       final res =await LoginUsecase().call(email: email.trim(), password: password);
+  Future<void> FacebookLogin() async {
+    try {
+      final res = await FacebookLoginUsecase(sl()).call();
+      res.fold((l) {
+        Fluttertoast.showToast(
+            msg: l.message.toString(),
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.black,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }, (r) {
+        print("success");
+      });
+    } finally {}
+  }
 
-//       res.fold((l) {
-//         print("error");
-//       }, (r) {
-// Get.to(const SignUp());
-//       });
+  Future<void> signIn() async {
+    inProgress = true;
+    update();
+    try {
+      // Sign in service
+      var email = usernameController.text;
+      var password = passwordController.text;
+      final res = await LoginUsecase(sl())
+          .call(email: email.trim(), password: password);
 
-      
-//     }  finally {
-//       inProgress = false;
-//       if (resetControllers) {
-//         usernameController.text = "";
-//         passwordController.text = "";
-//       }
+      res.fold((l) {
+        Fluttertoast.showToast(
+            msg: l.message.toString(),
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.black,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }, (r) {
+        Get.to(const ProductList());
+      });
+    } finally {
+      inProgress = false;
+      if (resetControllers) {
+        usernameController.text = "";
+        passwordController.text = "";
+      }
 
-//       update();
-//     }
-//   }
+      update();
+    }
+  }
 
-//   @override
-//   void onInit() {
-//     super.onInit();
-//     resetControllers = true;
-//     update();
-//   }
+  @override
+  void onInit() {
+    super.onInit();
+    resetControllers = true;
+    update();
+  }
 
   // void handleSignInError(FirebaseAuthException e) {
   //   String messageToDisplay = "";

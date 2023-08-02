@@ -16,7 +16,3 @@ class LocalStorageException implements Exception {
 
 
 }
-class RegistrationException implements Exception{
-}
-class LoginException implements Exception{
-}

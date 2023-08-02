@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
+import 'package:instar/presentation/UI/screens/shopping_cart/shopping_cart_list.dart';
 import 'package:instar/presentation/UI/widgets/custom_button.dart';
 
 import '../../../state_managment/controllers/product_list_controller.dart';
@@ -23,22 +24,27 @@ class ProductDesc extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  
                   SizedBox(
                     height: 30.h,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Icon(
-                        Icons.arrow_back,
-                        color: AppColors.black,
-                        size: 30.sp,
+                      IconButton(
+                        onPressed: () => Get.back(),
+                        icon: Icon(
+                          Icons.arrow_back_ios,
+                          color: AppColors.black,
+                          size: 30.sp,
+                        ),
                       ),
-                      Icon(
-                        Icons.shopping_cart,
-                        color: AppColors.black,
-                        size: 30.sp,
+                      IconButton(
+                        onPressed: () => Get.to(ShoppingCart()),
+                        icon: Icon(
+                          Icons.shopping_cart,
+                          color: AppColors.black,
+                          size: 30.sp,
+                        ),
                       ),
                     ],
                   ),
@@ -75,10 +81,9 @@ class ProductDesc extends StatelessWidget {
                     ],
                   ),
                   Align(
-                    alignment:Alignment.bottomRight,
-                    child: MyButton(text: "Add to cart", onClick: () {})),
+                      alignment: Alignment.bottomRight,
+                      child: MyButton(text: "Add to cart", onClick: () {})),
                 ],
-                
               ),
             );
           }),
