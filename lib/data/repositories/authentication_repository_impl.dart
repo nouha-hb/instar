@@ -61,6 +61,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
     throw UnimplementedError();
   }
 
+// ! completed
   @override
   Future<Either<Failure, Token>> googleLogin() async {
     try {
@@ -84,8 +85,30 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   }
 
   @override
-  Future<Either<Failure, Unit>> updateProfil(User user) {
-    // TODO: implement updateProfil
-    throw UnimplementedError();
+  Future<Either<Failure, Unit>> updateProfil(User user) async {
+    try {
+      await authRemoteDataSource.updateProfil(user);
+      return const Right(unit);
+    }on ServerException catch (e) {
+      return Left(ServerFailure(message: e.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, User>> getUser(String id) async {
+    try {
+      final model = await authRemoteDataSource.getcurrentUser(id);
+      return Right(User(
+          ban: model.ban,
+          number: model.number,
+          role: model.role,
+          firstName: model.firstName,
+          lastName: model.lastName,
+          email: model.email,
+          phone: model.phone,
+          password: model.password));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.message));
+    }
   }
 }

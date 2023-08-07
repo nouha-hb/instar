@@ -6,20 +6,27 @@ class UserModel extends User {
       required super.lastName,
       required super.email,
       required super.phone,
-      required super.password});
+      required super.password,  super.id, required super.ban, required super.number, required super.role});
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+      id: json['id'],
+      ban: json['ban'],
+      role: json['role'],
+      number: json['number'],
       firstName: json['Firstname'],
       lastName: json['Lastname'],
       email: json['email'],
       phone: json['phone'],
-      password: json['password']);
+      password: json['password'],);
 
   Map<String, dynamic> toJson() => {
     'Firstname': firstName,
     'Lastname': lastName,
     'email': email,
     'phone': phone,
-    'password': password
+    'password': password,
+    'ban':ban,
+    'role':role,
+    'number':number
   };
 }

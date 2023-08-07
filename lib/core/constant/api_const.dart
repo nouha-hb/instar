@@ -4,5 +4,9 @@ class ApiConst {
   static const String login = "$baseUrl/login";
   static const String products = "$baseUrl/products";
   static const String category = "$baseUrl/products/category";
+  static const String getProfile = "$baseUrl/profilgetById";
+  static const String updateProfil = "$baseUrl/UpdateProfil";
 
 }
+
+

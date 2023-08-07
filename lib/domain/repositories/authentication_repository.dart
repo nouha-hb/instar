@@ -14,5 +14,7 @@ abstract class AuthenticationRepository {
   Future<Either<Failure,Token>> googleLogin();
   Future<Either<Failure,Unit>> resetPassword();
   Future<Either<Failure,Unit>> emailVerification();
+  Future<Either<Failure,User>> getUser(String id);
+
 
 }

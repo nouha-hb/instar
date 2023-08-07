@@ -1,10 +1,7 @@
-import 'dart:convert';
-
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:instar/core/constant/api_const.dart';
 import 'package:instar/data/models/token_model.dart';
 import 'package:instar/data/models/user_model.dart';
-import 'package:instar/domain/entities/token.dart';
 import 'package:instar/domain/entities/user.dart';
 import 'package:dio/dio.dart';
 
@@ -14,25 +11,29 @@ abstract class AuthenticationRemoteDataSource {
   Future<void> createAccount(User user);
   Future<TokenModel> login(String email, String password);
   Future<TokenModel> googleLogin();
-
+  Future<User> getcurrentUser(String id);
+  Future<void> updateProfil(User user);
 }
 
 class AuthenticationRemoteDataSourceImpl
     implements AuthenticationRemoteDataSource {
-  //final _tk=Authentication.remoteDa    
+  //final _tk=Authentication.remoteDa
   final dio = Dio();
- // dio.options.headers['content-Type'] = 'application/json';
+  // dio.options.headers['content-Type'] = 'application/json';
   //dio.options.headers["authorization"] = "";
 
   @override
   Future<void> createAccount(User user) async {
     try {
       UserModel userModel = UserModel(
+          role: user.role,
           firstName: user.firstName,
           lastName: user.lastName,
           email: user.email,
           phone: user.phone,
-          password: user.password);
+          password: user.password,
+          ban: user.ban,
+          number: user.number);
       await dio.post(ApiConst.register, data: userModel.toJson());
     } catch (e) {
       throw RegistrationException();
@@ -52,19 +53,35 @@ class AuthenticationRemoteDataSourceImpl
       final TokenModel token = TokenModel.fromJson(data);
       return token;
     } catch (e) {
-      print(msg);
       throw LoginException(msg);
     }
   }
 
-
 //not completed
   @override
   Future<TokenModel> googleLogin() {
-    final _googleSignIN = GoogleSignIn();
-    _googleSignIN.signIn();
+    final googleSignIN = GoogleSignIn();
+    googleSignIN.signIn();
     throw UnimplementedError();
   }
-  
 
+  @override
+  Future<User> getcurrentUser(String id) async {
+    try {
+      final _response = await dio.post(ApiConst.getProfile);
+      return UserModel.fromJson(_response.data);
+    } catch (e) {
+      throw ServerException(message: 'User not Found');
+    }
+  }
+  
+  @override
+  Future<void> updateProfil(User user) async{
+   try {
+    UserModel model = UserModel(firstName: user.firstName, lastName: user.lastName, email: user.email, phone: user.phone, password: user.password, ban: user.ban, number: user.number, role: user.role);
+    await dio.post(ApiConst.updateProfil,data: model.toJson());
+    } catch (e) {
+      throw ServerException(message: 'cannot update profile');
+    }
+  }
 }
