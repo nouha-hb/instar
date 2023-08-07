@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:instar/core/errors/exceptions/exceptions.dart';
 import 'package:instar/core/errors/failures/failures.dart';
 import 'package:instar/data/data_Sources/remote_data_source/product_remote_data_source.dart';
-import 'package:instar/data/models/product_model.dart';
 import 'package:instar/domain/entities/product.dart';
 import 'package:instar/domain/repositories/product_repository.dart';
 
@@ -17,6 +16,8 @@ class ProductRepositoryImp implements ProductRepository {
       final productModels = await productRemoteDataSource.getAllProducts();
       final products = productModels
           .map((e) => Product(
+              id: e.id,
+              category: e.category,
               name: e.name,
               description: e.description,
               price: e.price,
@@ -29,16 +30,9 @@ class ProductRepositoryImp implements ProductRepository {
   }
 
   @override
-  Future<Either<Failure, Product>> getOneProduct(String productId,List<Product> list) async{
+  Future<Either<Failure, Product>> getOneProduct(String productId) async{
    try {
-    final products = list
-          .map((e) => ProductModel(
-              name: e.name,
-              description: e.description,
-              price: e.price,
-              quantity: e.quantity))
-          .toList();
-      final product = await productRemoteDataSource.getOneProducts(id: productId,list: products);
+      final product = await productRemoteDataSource.getOneProducts(id: productId);
       return right(product);
     } on ProductNotFoundException {
       return left(ProductNotFoundFailure());
@@ -47,9 +41,22 @@ class ProductRepositoryImp implements ProductRepository {
 
   @override
   Future<Either<Failure, List<Product>>> getProductsByCategory(
-      String category) {
-    // TODO: implement getProductsByCategory
-    throw UnimplementedError();
+      String category)async {
+    try {
+      final productModels = await productRemoteDataSource.getProductsByCategory(category: category);
+      final products = productModels
+          .map((e) => Product(
+              id: e.id,
+              category: e.category,
+              name: e.name,
+              description: e.description,
+              price: e.price,
+              quantity: e.quantity))
+          .toList();
+      return right(products);
+    } on ServerException {
+      return left(ServerFailure());
+    }
   }
 
   @override

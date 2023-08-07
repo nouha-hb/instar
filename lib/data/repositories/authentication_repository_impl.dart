@@ -36,7 +36,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
       await authLocalDataSource.saveUserInformations(tm);
       Token t = Token(token: tm.token, refreshToken: tm.refreshToken);
       return right(t);
-    } on LoginException catch (e){
+    } on LoginException catch (e) {
       return left(LoginFailure(e.message));
     } on LocalStorageException {
       return left(LocalStorageFailure());
@@ -62,9 +62,13 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   }
 
   @override
-  Future<Either<Failure, User>> googleLogin() {
-    // TODO: implement googleLogin
-    throw UnimplementedError();
+  Future<Either<Failure, Token>> googleLogin() async {
+    try {
+      final r = await authRemoteDataSource.googleLogin();
+      return right(Token(token: r.token, refreshToken: r.refreshToken));
+    } catch (e) {
+      return left(Failure());
+    }
   }
 
   @override

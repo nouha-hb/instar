@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:instar/core/constant/api_const.dart';
 import 'package:instar/data/models/token_model.dart';
 import 'package:instar/data/models/user_model.dart';
@@ -12,11 +13,16 @@ import '../../../core/errors/exceptions/exceptions.dart';
 abstract class AuthenticationRemoteDataSource {
   Future<void> createAccount(User user);
   Future<TokenModel> login(String email, String password);
+  Future<TokenModel> googleLogin();
+
 }
 
 class AuthenticationRemoteDataSourceImpl
     implements AuthenticationRemoteDataSource {
+  //final _tk=Authentication.remoteDa    
   final dio = Dio();
+ // dio.options.headers['content-Type'] = 'application/json';
+  //dio.options.headers["authorization"] = "";
 
   @override
   Future<void> createAccount(User user) async {
@@ -41,8 +47,7 @@ class AuthenticationRemoteDataSourceImpl
       final response = await dio.post(ApiConst.login, data: user);
 
       final data = response.data;
-      msg =data['message'];
-
+      msg = data['message'];
 
       final TokenModel token = TokenModel.fromJson(data);
       return token;
@@ -51,4 +56,15 @@ class AuthenticationRemoteDataSourceImpl
       throw LoginException(msg);
     }
   }
+
+
+//not completed
+  @override
+  Future<TokenModel> googleLogin() {
+    final _googleSignIN = GoogleSignIn();
+    _googleSignIN.signIn();
+    throw UnimplementedError();
+  }
+  
+
 }
