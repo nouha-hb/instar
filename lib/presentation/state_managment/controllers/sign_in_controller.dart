@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:instar/core/errors/failures/failures.dart';
 import 'package:instar/domain/repositories/authentication_repository.dart';
 import 'package:instar/domain/usecases/authentication_usecases/facebook_login_usecase.dart';
-import 'package:instar/presentation/UI/screens/products/product_list.dart';
+import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
 import 'package:instar/presentation/UI/screens/sign_up/sign_up_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../../core/errors/exceptions/exceptions.dart';
@@ -66,7 +66,7 @@ class SignInController extends GetxController {
             textColor: Colors.white,
             fontSize: 16.0);
       }, (r) {
-        Get.to(const ProductList());
+        Get.to(const MainPage());
       });
     } finally {
       inProgress = false;

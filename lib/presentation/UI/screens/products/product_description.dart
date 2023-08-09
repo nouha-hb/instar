@@ -62,27 +62,27 @@ class ProductDesc extends StatelessWidget {
                     height: 20.h,
                   ),
                   Text(controller.products[0].name.toString(),
-                      style: AppTextStyle.subtitleBoldTextStyle),
+                      style: AppTextStyle.darkLabelTextStyle),
                   Text(controller.products[0].description.toString(),
-                      style: AppTextStyle.subtitleBoldTextStyle),
+                      style: AppTextStyle.darkLabelTextStyle),
                   Text(
                     'Price : ',
                     style: TextStyle(color: AppColors.black),
                   ),
                   Text(controller.products[0].price.toString(),
-                      style: AppTextStyle.subtitleTextStyle),
+                      style: AppTextStyle.darkLabelTextStyle),
                   SizedBox(
                     height: 20.h,
                   ),
                   Row(
                     children: [
                       Text("Quantity : ",
-                          style: AppTextStyle.subtitleTextStyle),
+                          style: AppTextStyle.darkLabelTextStyle),
                     ],
                   ),
                   Align(
                       alignment: Alignment.bottomRight,
-                      child: MyButton(text: "Add to cart", onClick: () {})),
+                      child: PrimaryButton(text: "Add to cart", onClick: () {})),
                 ],
               ),
             );
