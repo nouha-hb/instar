@@ -1,11 +1,19 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
+import 'package:instar/domain/entities/product.dart';
+import 'package:instar/domain/usecases/authentication_usecases/google_login_usecase.dart';
+import 'package:instar/domain/usecases/authentication_usecases/login_usecase.dart';
+import 'package:instar/presentation/UI/screens/categoryprod.dart';
 import 'package:instar/presentation/UI/screens/sign_up/sign_up_screen.dart';
 import 'package:instar/presentation/UI/widgets/custom_button.dart';
+
+import '../../../../di.dart';
+
 import '../../../state_managment/controllers/sign_in_controller.dart';
 import '../../widgets/custom_textform.dart';
 import '../forget_password/forgetpassword.dart';
@@ -20,6 +28,7 @@ class SignIn extends StatelessWidget {
           init: SignInController(),
           initState: (_) {},
           builder: (controller) {
+
             return SingleChildScrollView(
               reverse: true,
               child: Form(
@@ -167,6 +176,7 @@ textAlign: TextAlign.center,                text: TextSpan(
                     height: 30.h,
                   ),
                     ],
+
                   ),
                 ),
               ),

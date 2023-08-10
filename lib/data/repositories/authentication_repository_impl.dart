@@ -36,7 +36,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
       await authLocalDataSource.saveUserInformations(tm);
       Token t = Token(token: tm.token, refreshToken: tm.refreshToken);
       return right(t);
-    } on LoginException catch (e){
+    } on LoginException catch (e) {
       return left(LoginFailure(e.message));
     } on LocalStorageException {
       return left(LocalStorageFailure());
@@ -61,10 +61,15 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
     throw UnimplementedError();
   }
 
+// ! completed
   @override
-  Future<Either<Failure, User>> googleLogin() {
-    // TODO: implement googleLogin
-    throw UnimplementedError();
+  Future<Either<Failure, Token>> googleLogin() async {
+    try {
+      final r = await authRemoteDataSource.googleLogin();
+      return right(Token(token: r.token, refreshToken: r.refreshToken));
+    } catch (e) {
+      return left(Failure());
+    }
   }
 
   @override
@@ -80,8 +85,30 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   }
 
   @override
-  Future<Either<Failure, Unit>> updateProfil(User user) {
-    // TODO: implement updateProfil
-    throw UnimplementedError();
+  Future<Either<Failure, Unit>> updateProfil(User user) async {
+    try {
+      await authRemoteDataSource.updateProfil(user);
+      return const Right(unit);
+    }on ServerException catch (e) {
+      return Left(ServerFailure(message: e.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, User>> getUser(String id) async {
+    try {
+      final model = await authRemoteDataSource.getcurrentUser(id);
+      return Right(User(
+          ban: model.ban,
+          number: model.number,
+          role: model.role,
+          firstName: model.firstName,
+          lastName: model.lastName,
+          email: model.email,
+          phone: model.phone,
+          password: model.password));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.message));
+    }
   }
 }

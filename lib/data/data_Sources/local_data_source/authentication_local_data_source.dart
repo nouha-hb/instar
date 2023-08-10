@@ -9,6 +9,7 @@ import '../../models/token_model.dart';
 abstract class AuthenticationLocalDataSource {
   Future<void> saveUserInformations(TokenModel token);
   Future<TokenModel> getUserInformations();
+  Future<void> logout();
 }
 
 class AuthenticationLocalDataSourceImpl
@@ -30,6 +31,16 @@ class AuthenticationLocalDataSourceImpl
       final data = sp.getString(StringConst.SP_TOKEN_KEY);
       TokenModel token = TokenModel.fromJson(json.decode(data.toString()));
       return token;
+    } catch (e) {
+      throw LocalStorageException();
+    }
+  }
+
+  @override
+  Future<void> logout() async {
+    try {
+      final sp = await SharedPreferences.getInstance();
+      sp.setString(StringConst.SP_TOKEN_KEY, '');
     } catch (e) {
       throw LocalStorageException();
     }

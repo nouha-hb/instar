@@ -9,6 +9,11 @@ import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
 
 import 'di.dart' as di;
 
+import 'di.dart';
+import 'domain/usecases/authentication_usecases/create_account_usecase.dart';
+import 'domain/usecases/authentication_usecases/google_login_usecase.dart';
+
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
@@ -33,6 +38,25 @@ class MyApp extends StatelessWidget {
       builder: (_, __) => const GetMaterialApp(
         debugShowCheckedModeBanner: false,
         home: LandingPage(),
+      ),
+    );
+  }
+}
+
+
+
+
+
+/*
+class Google extends StatelessWidget {
+  const Google({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child:ElevatedButton(onPressed: ()async{                              await GoogleLoginUsecase(sl()).call();
+},child: Text('google'),)
       ),
     );
   }
@@ -63,10 +87,11 @@ class _FacebookState extends State<Facebook> {
     setState(() {
       _checking = false;
     });
-    print('token = ${accessToken!.toJson()}');
+    //print('token = ${accessToken!.toJson()}');
     if (accessToken != null) {
       print(accessToken.toJson());
       final userData = await FacebookAuth.instance.getUserData();
+       print('id = ${userData["id"]}');
       _accessToken = accessToken;
       setState(() {
         _userData = userData;
@@ -81,7 +106,6 @@ class _FacebookState extends State<Facebook> {
 
     if (result.status == LoginStatus.success) {
       _accessToken = result.accessToken;
-
       final userData = await FacebookAuth.instance.getUserData();
       _userData = userData;
     } else {
@@ -143,3 +167,4 @@ class _FacebookState extends State<Facebook> {
     );
   }
 }
+*/

@@ -9,6 +9,6 @@ class GetOneProductsUsecase {
 
   GetOneProductsUsecase(this.repository);
 
-  Future<Either<Failure, Product>> call(String productId,List<Product> list) async =>
-      await repository.getOneProduct(productId,list);
+  Future<Either<Failure, Product>> call(String productId) async =>
+      await repository.getOneProduct(productId);
 }
