@@ -1,21 +1,18 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:instar/domain/entities/user.dart';
-import 'package:instar/domain/usecases/authentication_usecases/login_usecase.dart';
-import 'package:instar/presentation/UI/screens/sign_in/sign_in_screen.dart';
-import 'package:instar/presentation/UI/screens/sign_up/sign_up_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'core/constant/string_const.dart';
-import 'data/models/token_model.dart';
+import 'package:instar/presentation/UI/screens/landing_screen/landing_screen.dart';
+import 'package:instar/presentation/UI/screens/main_page/home_page.dart';
+import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
+
 import 'di.dart' as di;
+
 import 'di.dart';
 import 'domain/usecases/authentication_usecases/create_account_usecase.dart';
 import 'domain/usecases/authentication_usecases/google_login_usecase.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,9 +37,7 @@ class MyApp extends StatelessWidget {
       designSize: const Size(375, 812),
       builder: (_, __) => const GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        home: SignIn(),
-
-        // home: ConventionSignee(),
+        home: LandingPage(),
       ),
     );
   }

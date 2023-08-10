@@ -41,11 +41,17 @@ dependencies:
   equatable: ^2.0.5
   get_it: ^7.6.0
   dio: ^5.3.0
+  google_sign_in: ^6.1.4
   dartz: ^0.10.1
   shared_preferences: ^2.2.0
-  fluttertoast: ^8.2.2
   flutter_facebook_auth: ^6.0.0
+  flutter_social_button: ^1.1.4+1
+  searchbar_animation: ^0.0.4
+  anim_search_bar: ^2.0.3
+  fluttertoast: ^8.2.2
+  flutter_svg: ^2.0.7
   google_sign_in: ^6.1.4
+
 
 dev_dependencies:
   flutter_test:
@@ -70,10 +76,19 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/images/background_home_page.png
+    - assets/images/logo.png
+    - assets/images/product.png
+    - assets/images/cuisine.svg
+    - assets/images/decoration.svg
+    - assets/images/enfants.svg
+    - assets/images/literie.svg
+    - assets/images/salle_de_bain.svg
+    - assets/images/salon.svg
 
+
+    
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

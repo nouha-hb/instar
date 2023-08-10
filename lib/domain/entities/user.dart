@@ -24,5 +24,7 @@ class User extends Equatable {
       required this.password});
 
   @override
-  List<Object?> get props => [firstName, lastName, email, phone, password];
+  List<Object?> get props => [firstName,lastName,email,phone,password,ban,id,number,role];
+
 }
+

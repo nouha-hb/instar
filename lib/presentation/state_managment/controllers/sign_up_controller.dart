@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:instar/domain/entities/user.dart';
+import 'package:instar/domain/usecases/authentication_usecases/create_account_usecase.dart';
 import 'package:instar/presentation/UI/screens/sign_in/sign_in_screen.dart';
+
+import '../../../di.dart';
 
 class SignUpController extends GetxController {
   static bool isPasswordType = false;
 
-  late TextEditingController nameController = TextEditingController();
-  late TextEditingController surnameController = TextEditingController();
-  late TextEditingController hobbiesController = TextEditingController();
+  late TextEditingController firstnameController = TextEditingController();
+  late TextEditingController lastnameController = TextEditingController();
 
   late TextEditingController emailController = TextEditingController();
   late TextEditingController passwordController = TextEditingController();
@@ -48,42 +51,45 @@ class SignUpController extends GetxController {
     update();
 
     try {
-      // UserCredential userCredential = await FirebaseAuth.instance
-      //     .createUserWithEmailAndPassword(
-      //         email: emailController.text.trim(),
-      //         password: passwordController.text);
-      // await FirebaseFirestore.instance.collection('users').add({
-      //   'username': nameController.text.trim(),
-      //   'surname': surnameController.text.trim(),
-      //   'hobbies': hobbiesController.text.trim(),
-      //   'email': emailController.text.trim(),
-      //   'password': passwordController.text.trim(),
-      //   'phone': phoneController.text.trim(),
-      //   'image_path': imageFile!.path.toString(),
-      // });
-      await Get.dialog(
-        AlertDialog(
-          title: const Text("Sign up succeeded"),
-          content: const Text("your account is created you can Sign in now"),
-          actions: [
-            TextButton(
-                onPressed: () {
-                  Get.to(SignIn());
-                },
-                child: const Text("Ok"))
-          ],
-        ),
-      );
+      var firstname = firstnameController.text.trim();
+      var lastname = lastnameController.text.trim();
+      var email = emailController.text.trim();
+      var password = passwordController.text.trim();
+      var phone = phoneController.text.trim();
+      User user = new User(
+          firstName: firstname,
+          lastName: lastname,
+          email: email,
+          phone: phone,
+          password: password);
+      final res = await CreateAccountUsecase(sl()).call(user);
+
+      res.fold((l) {
+        print("error");
+      }, (r) {
+        Get.dialog(
+          AlertDialog(
+            title: const Text("Sign up succeeded"),
+            content: const Text("your account is created you can Sign in now"),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Get.to(SignIn());
+                  },
+                  child: const Text("Ok"))
+            ],
+          ),
+        );
+      });
     } finally {
       loading = false;
       update();
       loading = false;
       emailController.text = "";
-      nameController.text = "";
-      surnameController.text = "";
+      firstnameController.text = "";
+      lastnameController.text = "";
       passwordController.text = "";
       phoneController.text = "";
-      hobbiesController.text = "";
       confirmPasswordController.text = "";
     }
   }
