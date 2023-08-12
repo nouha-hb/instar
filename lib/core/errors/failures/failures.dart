@@ -25,3 +25,6 @@ class LoginFailure extends Failure {
 class ProductNotFoundFailure extends Failure {}
 
 class LocalStorageFailure extends Failure {}
+
+class NotAuthorizedFailure extends Failure {}
+

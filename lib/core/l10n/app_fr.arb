@@ -1,0 +1,14 @@
+{
+    "language":"Français",
+    "login": "se connecter",
+    "signUp":"s'inscrire",
+    "email":"E-mail",
+    "password":"Mot de passe",
+    "connect":"connexion",
+    "forgot_password": "Mot de passe oublié?",
+    "continue_with_facebook" :"Continuer avec Facebook",
+    "continue_with_google" :"Continuer avec Google",
+    "dont_have_account":"vous n'avez pas déja un compte?",
+    "register":"inscrivez vous"
+
+}

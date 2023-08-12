@@ -31,16 +31,23 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
           },
         ),
       );
-
+      print("token ${tk.token}");
+      if (response.statusCode == 401) {
+        throw NotAuthorizedException();
+      }
       List<dynamic> data = response.data;
-      print(data);
+      // print(data);
       List<ProductModel> products =
           data.map((e) => ProductModel.fromJson(e)).toList();
-      print(products);
+      // print(products);
       return products;
-    } catch (e) {
-      print(e.toString());
-      throw ServerException();
+    } on DioException catch(e) {
+      if(e.response!.statusCode==401){
+      throw NotAuthorizedException();
+      }else{
+        throw ServerException();
+
+      }
     }
   }
 
@@ -60,7 +67,8 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   }
 
   @override
-  Future<List<ProductModel>> getProductsByCategory({required String category}) async {
+  Future<List<ProductModel>> getProductsByCategory(
+      {required String category}) async {
     try {
       final _sp = await SharedPreferences.getInstance();
       final tk =
@@ -75,7 +83,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
       );
 
       List<dynamic> _data = response.data;
-     // print(_data);
+      // print(_data);
       List<ProductModel> products =
           _data.map((e) => ProductModel.fromJson(e)).toList();
       print(products);

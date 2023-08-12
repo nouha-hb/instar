@@ -1,0 +1,14 @@
+{
+    "language":"English",
+    "login": "Login",
+    "signUp":"Sign Up",
+    "email":"E-mail",
+    "password":"Password",
+    "connect":"connect",
+    "forgot_password": "Forgot your password?",
+    "continue_with_facebook" :"Continue with Facebook",
+    "continue_with_google" :"Continue with Google",
+    "dont_have_account":"you don't already have an account?",
+    "register":"register"
+
+}

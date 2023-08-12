@@ -18,6 +18,8 @@ class LoginException implements Exception {
 
 class ProductNotFoundException implements Exception {}
 
+class NotAuthorizedException implements Exception {}
+
 class LocalStorageException implements Exception {
 
 

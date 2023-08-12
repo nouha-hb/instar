@@ -26,13 +26,16 @@ class ProductRepositoryImp implements ProductRepository {
       return right(products);
     } on ServerException {
       return left(ServerFailure());
+    } on NotAuthorizedException {
+      return left(NotAuthorizedFailure());
     }
   }
 
   @override
-  Future<Either<Failure, Product>> getOneProduct(String productId) async{
-   try {
-      final product = await productRemoteDataSource.getOneProducts(id: productId);
+  Future<Either<Failure, Product>> getOneProduct(String productId) async {
+    try {
+      final product =
+          await productRemoteDataSource.getOneProducts(id: productId);
       return right(product);
     } on ProductNotFoundException {
       return left(ProductNotFoundFailure());
@@ -41,9 +44,10 @@ class ProductRepositoryImp implements ProductRepository {
 
   @override
   Future<Either<Failure, List<Product>>> getProductsByCategory(
-      String category)async {
+      String category) async {
     try {
-      final productModels = await productRemoteDataSource.getProductsByCategory(category: category);
+      final productModels = await productRemoteDataSource.getProductsByCategory(
+          category: category);
       final products = productModels
           .map((e) => Product(
               id: e.id,

@@ -1,18 +1,13 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
-import 'package:instar/domain/entities/product.dart';
-import 'package:instar/domain/usecases/authentication_usecases/google_login_usecase.dart';
-import 'package:instar/domain/usecases/authentication_usecases/login_usecase.dart';
-import 'package:instar/presentation/UI/screens/categoryprod.dart';
+
 import 'package:instar/presentation/UI/screens/sign_up/sign_up_screen.dart';
 import 'package:instar/presentation/UI/widgets/custom_button.dart';
-
-import '../../../../di.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../state_managment/controllers/sign_in_controller.dart';
 import '../../widgets/custom_textform.dart';
@@ -28,7 +23,6 @@ class SignIn extends StatelessWidget {
           init: SignInController(),
           initState: (_) {},
           builder: (controller) {
-
             return SingleChildScrollView(
               reverse: true,
               child: Form(
@@ -37,29 +31,28 @@ class SignIn extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      
-          SizedBox(
-            height: 10.h,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(
-                  Icons.arrow_back,
-                  color: AppColors.darkGrey,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 39.h,
-          ),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: const Icon(
+                              Icons.arrow_back,
+                              color: AppColors.darkGrey,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 39.h,
+                      ),
                       Text(
-                        "Login ",
+                        AppLocalizations.of(context)!.login,
                         style: AppTextStyle.titleTextStyle,
                       ),
                       SizedBox(
@@ -70,7 +63,7 @@ class SignIn extends StatelessWidget {
                         height: 40,
                         controller: controller.usernameController,
                         keyboardType: TextInputType.name,
-                        text: 'Email',
+                        text: AppLocalizations.of(context)!.email,
                         validator: controller.requiredValidator,
                       ),
                       SizedBox(
@@ -85,17 +78,17 @@ class SignIn extends StatelessWidget {
                             validator: controller.requiredValidator,
                             keyboardType: TextInputType.visiblePassword,
                             cursorColor: Colors.black,
-                            style: TextStyle(
-                                color: Colors.black.withOpacity(0.9)),
+                            style:
+                                TextStyle(color: Colors.black.withOpacity(0.9)),
                             decoration: InputDecoration(
                               enabledBorder: const UnderlineInputBorder(
                                 borderSide: BorderSide(color: AppColors.grey),
                               ),
-                              focusedBorder:const  UnderlineInputBorder(
+                              focusedBorder: const UnderlineInputBorder(
                                 borderSide:
                                     BorderSide(color: AppColors.primary),
                               ),
-                              hintText: "Mot de passe ",
+                              hintText: AppLocalizations.of(context)!.password,
                               hintStyle: AppTextStyle.lightLabelTextStyle,
                               suffixIcon: IconButton(
                                   icon: Icon(controller.isPressed
@@ -114,69 +107,72 @@ class SignIn extends StatelessWidget {
                               fillColor: Colors.white.withOpacity(0.3),
                             ),
                           )),
-                           SizedBox(
-                    height: 100.h,
-                  ),
-                     PrimaryButton(
-                      text: "connexion",
-                      onClick: () {
-                        controller.signIn();
-                      }),
-                      
-                     
-                  SizedBox(
-                    height: 24.h,
-                  ),
-                  RichText(
-                    text: TextSpan(
-                        style: AppTextStyle.darkLabelTextStyle,
-                        children: [
+                      SizedBox(
+                        height: 100.h,
+                      ),
+                      PrimaryButton(
+                          text: AppLocalizations.of(context)!.connect,
+                          onClick: () {
+                            controller.signIn();
+                          }),
+                      SizedBox(
+                        height: 24.h,
+                      ),
+                      RichText(
+                        text: TextSpan(
+                            style: AppTextStyle.darkLabelTextStyle,
+                            children: [
+                              TextSpan(
+                                text: AppLocalizations.of(context)!
+                                    .forgot_password,
+                                style: AppTextStyle.darkLabelTextStyle,
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () => Get.to(ForgetPassword()),
+                              )
+                            ]),
+                      ),
+                      SizedBox(
+                        height: 60.h,
+                      ),
+                      SecondaryButton(
+                          text: AppLocalizations.of(context)!
+                              .continue_with_facebook
+                              .toUpperCase(),
+                          onClick: () {}),
+                      SizedBox(
+                        height: 24.h,
+                      ),
+                      SecondaryButton(
+                          text: AppLocalizations.of(context)!
+                              .continue_with_google
+                              .toUpperCase(),
+                          onClick: () {}),
+                      SizedBox(
+                        height: 24.h,
+                      ),
+                      RichText(
+                        softWrap: true,
+                        textAlign: TextAlign.center,
+                        text: TextSpan(children: [
                           TextSpan(
-                            text: 'Mot de passe oublié?',
+                            text:
+                                "${AppLocalizations.of(context)!.dont_have_account}\n",
                             style: AppTextStyle.darkLabelTextStyle,
                             recognizer: TapGestureRecognizer()
                               ..onTap = () => Get.to(ForgetPassword()),
-                          )
-                        ]),
-                  ),
-                     SizedBox(
-                    height: 60.h,
-                  ),
-                  SecondaryButton(text: "CONTINUER AVEC FACEBOOK", onClick: (){}),
-                     SizedBox(
-                    height: 24.h,
-                  ),
-                  SecondaryButton(text: "CONTINUER AVEC Google", onClick: (){}),
-                
-                  
-                  SizedBox(
-                    height: 24.h,
-                  ),
-                  RichText(
-softWrap: true,    
-textAlign: TextAlign.center,                text: TextSpan(
-                        children: [
-                          
-                           TextSpan(
-                            text: "vous n'avez pas déja un compte ?\n" ,
-                            style: AppTextStyle.darkLabelTextStyle,
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () => Get.to(ForgetPassword()),
-                          ),  TextSpan(
-                
-                            text: 'Inscrivez vous ?',
-                                                  style: AppTextStyle.blueLabelTextStyle,
-                                                
-                
+                          ),
+                          TextSpan(
+                            text: AppLocalizations.of(context)!.register,
+                            style: AppTextStyle.blueLabelTextStyle,
                             recognizer: TapGestureRecognizer()
                               ..onTap = () => Get.to(SignUp()),
-                          )]),
-                  ),
-                  SizedBox(
-                    height: 30.h,
-                  ),
+                          )
+                        ]),
+                      ),
+                      SizedBox(
+                        height: 30.h,
+                      ),
                     ],
-
                   ),
                 ),
               ),
