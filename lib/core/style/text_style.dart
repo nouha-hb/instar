@@ -20,4 +20,8 @@ class AppTextStyle {
       fontWeight: FontWeight.w400, fontSize: 16.sp, color: AppColors.primary);
   static TextStyle elementNameTextStyle = GoogleFonts.alata(
       fontWeight: FontWeight.w400, fontSize: 16.sp, color: AppColors.black);
+      static TextStyle productTextStyle = GoogleFonts.alata(
+      fontWeight: FontWeight.w400, fontSize: 11.sp, color: AppColors.black);
+            static TextStyle producDescTitiletTextStyle = GoogleFonts.alata(
+      fontWeight: FontWeight.w400, fontSize: 20.sp, color: AppColors.black);
 }

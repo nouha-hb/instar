@@ -27,28 +27,26 @@ class SignUp extends StatelessWidget {
                   reverse: false,
                   child: Column(
                     children: [
-                      
-          SizedBox(
-            height: 10.h,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(
-                  Icons.arrow_back,
-                  color: AppColors.darkGrey,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 39.h,
-          ),
-
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(
+                              Icons.arrow_back,
+                              color: AppColors.darkGrey,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 39.h,
+                      ),
                       Text(
                         "Créer un compte ",
                         style: AppTextStyle.titleTextStyle,
@@ -88,7 +86,7 @@ class SignUp extends StatelessWidget {
                               controller: controller.emailController,
                               keyboardType: TextInputType.emailAddress,
                               text: 'Email',
-                              validator: controller.requiredValidator,
+                              validator: controller.requiredEmailValidator,
                             ),
                             SizedBox(
                               height: 20.h,
@@ -99,7 +97,7 @@ class SignUp extends StatelessWidget {
                               controller: controller.phoneController,
                               keyboardType: TextInputType.phone,
                               text: 'Téléphone',
-                              validator: controller.requiredValidator,
+                              validator: controller.requiredPhoneValidator,
                             ),
                             SizedBox(
                               height: 20.h,
@@ -236,7 +234,9 @@ class SignUp extends StatelessWidget {
                                     controller.SignUp();
                                   }
                                 }),
-                                SizedBox(height: 20.h,),
+                            SizedBox(
+                              height: 20.h,
+                            ),
                             RichText(
                               softWrap: true,
                               textAlign: TextAlign.center,

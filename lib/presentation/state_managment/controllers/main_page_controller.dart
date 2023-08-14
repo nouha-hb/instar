@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instar/presentation/UI/screens/main_page/categories_page.dart';
+import 'package:instar/presentation/UI/screens/main_page/favorite_page.dart';
 import 'package:instar/presentation/UI/screens/main_page/home_page.dart';
 import 'package:instar/presentation/UI/screens/main_page/shopping_cart.dart';
 
@@ -28,8 +29,8 @@ class MainController extends GetxController {
       "page": ShoppingList(),
     },
     {
-      "name": "Profile",
-      "page": Profile(),
+      "name": "favorite",
+      "page": favoriteList(),
     },
   ];
 

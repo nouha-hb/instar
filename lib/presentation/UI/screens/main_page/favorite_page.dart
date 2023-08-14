@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:instar/core/style/assets.dart';
 import 'package:instar/presentation/UI/widgets/shopping_list_component.dart';
 
-class ShoppingList extends StatelessWidget {
-  const ShoppingList({super.key});
+class favoriteList extends StatelessWidget {
+  const favoriteList({super.key});
 
   @override
   Widget build(BuildContext context) {

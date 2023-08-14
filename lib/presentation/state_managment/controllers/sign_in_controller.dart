@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instar/core/errors/failures/failures.dart';
@@ -20,7 +21,17 @@ class SignInController extends GetxController {
   bool inProgress = false;
   bool resetControllers = true;
   final formKey = GlobalKey<FormState>();
+  String? requiredEmailValidator(String? text) {
+    if (text == null || text.trim().isEmpty) {
+      return ("this field is required");
+    }
+    bool isvalid = EmailValidator.validate(text);
+    if (isvalid.toString() == 'false') {
+      return ("Invalid email form");
+    }
+        return null;
 
+  }
   String? requiredValidator(String? text) {
     if (text == null || text.trim().isEmpty) {
       return ("This field is required");

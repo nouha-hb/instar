@@ -66,20 +66,22 @@ class MainPage extends StatelessWidget {
                               label: 'Panier'),
                           BottomNavigationBarItem(
                               icon: Icon(
-                                Icons.person_2_outlined,
+                                Icons.favorite,
                                 size: 30.sp,
                               ),
-                              label: 'Profile')
+                              label: 'favorite')
                         ],
                       ),
                     )),
               ),
                
-              body: Column(
-                children: [
-                  SheetAppBar(text:controller.pages[controller.currentIndex]["name"].toString()),
-                controller.pages[controller.currentIndex]['page'] as Widget,
-                ],
+              body: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SheetAppBar(text:controller.pages[controller.currentIndex]["name"].toString()),
+                  controller.pages[controller.currentIndex]['page'] as Widget,
+                  ],
+                ),
               ));
         });
   }

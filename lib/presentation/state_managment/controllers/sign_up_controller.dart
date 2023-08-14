@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:instar/domain/entities/user.dart';
 import 'package:instar/domain/usecases/authentication_usecases/create_account_usecase.dart';
 import 'package:instar/presentation/UI/screens/sign_in/sign_in_screen.dart';
+import 'package:email_validator/email_validator.dart';
 
 import '../../../di.dart';
 
@@ -27,9 +28,30 @@ class SignUpController extends GetxController {
   }
 
   late VoidCallback onClickedSignIn;
+  String? requiredEmailValidator(String? text) {
+    if (text == null || text.trim().isEmpty) {
+      return ("this field is required");
+    }
+    bool isvalid = EmailValidator.validate(text);
+    if (isvalid.toString() == 'false') {
+      return ("Invalid email form");
+    }
+        return null;
+
+  }
+
   String? requiredValidator(String? text) {
     if (text == null || text.trim().isEmpty) {
       return ("this field is required");
+    }
+    return null;
+  }
+ String? requiredPhoneValidator(String? text) {
+    if (text == null || text.trim().isEmpty) {
+      return ("this field is required");
+    }
+  if (text.length!=8) {
+      return ("phone number should be 8 numbers");
     }
     return null;
   }
@@ -37,6 +59,12 @@ class SignUpController extends GetxController {
   String? requiredConfiemPasswordValidator(String? confirmPasswordText) {
     if (confirmPasswordText == null || confirmPasswordText.trim().isEmpty) {
       return ("this field is required");
+    }
+    if (confirmPasswordText.length < 6) {
+      return ("Password should be atleast 6 characters");
+    }
+    if (confirmPasswordText.length > 15) {
+      return ("Password should be atleast 6 characters");
     }
     if (passwordController.text != confirmPasswordText) {
       return "passwords don't match";
