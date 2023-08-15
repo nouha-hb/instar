@@ -1,4 +1,9 @@
 {
+
+    "ar":"Arabe",
+    "fr":"Français",
+    "en":"Anglais",
+    "lang":"langue",
     "language":"Français",
     "login": "se connecter",
     "signUp":"s'inscrire",

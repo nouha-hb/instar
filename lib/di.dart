@@ -4,7 +4,10 @@ import 'package:instar/data/repositories/authentication_repository_impl.dart';
 import 'package:instar/data/repositories/product_repository_impl.dart';
 import 'package:instar/domain/repositories/authentication_repository.dart';
 import 'package:instar/domain/repositories/product_repository.dart';
+import 'package:instar/domain/usecases/authentication_usecases/auto_login_usecase.dart';
+import 'package:instar/domain/usecases/authentication_usecases/facebook_login_usecase.dart';
 import 'package:instar/domain/usecases/authentication_usecases/get_user_usecase.dart';
+import 'package:instar/domain/usecases/authentication_usecases/google_login_usecase.dart';
 import 'package:instar/domain/usecases/authentication_usecases/logout_usecase.dart';
 import 'package:instar/domain/usecases/authentication_usecases/update_profil_usecase.dart';
 import 'package:instar/domain/usecases/product_usecases/get_all_products_usecase.dart';
@@ -34,14 +37,17 @@ Future<void> init() async {
       () => ProductRemoteDataSourceImpl());
 
   // usecases
-    /*---Auth usecases---*/
+  /*---Auth usecases---*/
   sl.registerLazySingleton(() => CreateAccountUsecase(sl()));
   sl.registerLazySingleton(() => LoginUsecase(sl()));
   sl.registerLazySingleton(() => UpdateProfilUsecase(sl()));
   sl.registerLazySingleton(() => GetUserUsecase(sl()));
   sl.registerLazySingleton(() => LogoutUsecase(sl()));
-  
-    /*---product usecases---*/
+  sl.registerLazySingleton(() => GoogleLoginUsecase(sl()));
+  sl.registerLazySingleton(() => FacebookLoginUsecase(sl()));
+  sl.registerLazySingleton(() => AutoLoginUsecase(sl()));
+
+  /*---product usecases---*/
   sl.registerLazySingleton(() => GetAllProductsUsecase(sl()));
   sl.registerLazySingleton(() => GetOneProductsUsecase(sl()));
   sl.registerLazySingleton(() => GetProductsByCategoryUsecase(sl()));

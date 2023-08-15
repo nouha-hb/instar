@@ -1,4 +1,8 @@
 {
+    "ar":"Arabic",
+    "fr":"French",
+    "en":"English",
+    "lang":"language",
     "language":"English",
     "login": "Login",
     "signUp":"Sign Up",

@@ -4,11 +4,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
+import 'package:instar/domain/usecases/authentication_usecases/google_login_usecase.dart';
+import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
+import 'package:instar/presentation/UI/screens/settings/language_settings.dart';
 
 import 'package:instar/presentation/UI/screens/sign_up/sign_up_screen.dart';
 import 'package:instar/presentation/UI/widgets/custom_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../di.dart';
 import '../../../state_managment/controllers/sign_in_controller.dart';
 import '../../widgets/custom_textform.dart';
 import '../forget_password/forgetpassword.dart';
@@ -138,7 +142,9 @@ class SignIn extends StatelessWidget {
                           text: AppLocalizations.of(context)!
                               .continue_with_facebook
                               .toUpperCase(),
-                          onClick: () {}),
+                          onClick: () {
+                            Get.to(SelectLanguageScreent());
+                          }),
                       SizedBox(
                         height: 24.h,
                       ),
@@ -146,7 +152,14 @@ class SignIn extends StatelessWidget {
                           text: AppLocalizations.of(context)!
                               .continue_with_google
                               .toUpperCase(),
-                          onClick: () {}),
+                          onClick: () async {
+                            final res = await GoogleLoginUsecase(sl()).call();
+                            res.fold(
+                                (l) => print('google left'),
+                                (r) => Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (_) => MainPage())));
+                          }),
                       SizedBox(
                         height: 24.h,
                       ),
