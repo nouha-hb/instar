@@ -1,130 +1,93 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
+import 'package:instar/core/style/text_style.dart';
+import 'package:instar/presentation/UI/screens/forget_password/newpassword.dart';
+import 'package:instar/presentation/UI/widgets/custom_button.dart';
+import 'package:instar/presentation/UI/widgets/custom_textform.dart';
 
-
-
+import '../../../../core/style/colors.dart';
 
 class ForgetPassword extends StatelessWidget {
   String email;
   ForgetPassword({Key? key, this.email = ''}) : super(key: key);
   final TextEditingController _emailController = TextEditingController();
+  String? requiredValidator(String? text) {
+    if (text == null || text.trim().isEmpty) {
+      return ("this field is required");
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     if (email.isNotEmpty) {
       _emailController.text = email;
     }
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(
-            0.02.sw,
-            0.02.sh,
-            0.02.sw,
-            0.02.sh,
+      body: Column(
+        children: [
+         
+          SizedBox(
+            height: 10.h,
           ),
-          child: Column(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(
-                height: 0.2.sh,
-              ),
-        
-              SizedBox(
-                height: 0.04.sh,
-              ),
-              Text(
-                " Saisissez votre \n Email",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 24.0.sp,
-                    fontFamily: 'Gotham',
-                    fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(
-                  0.06.sw,
-                  0.02.sh,
-                  0.06.sw,
-                  0.02.sh,
-                ),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                      child: TextField(
-                        controller: _emailController,
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText:
-                              " - - - - - - - - - - - - - - - - - - - - -",
-                          hintStyle: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16.0.sp,
-                              fontFamily: 'Gotham',
-                              fontWeight: FontWeight.bold),
-                        ),
-                        style: TextStyle(
-                            fontSize: 16.0.sp,
-                            fontFamily: 'Gotham',
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    SizedBox(height: 0.02.sh),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.black,
-                          fixedSize: Size(180, 40),
-                          textStyle: const TextStyle(color: Colors.white),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.0))),
-                      onPressed: () async {
-                      /*  UserMethods.renvoyerSMS(
-                            "+216" + _emailController.text, context);
-                        if (_emailController.text.isNotEmpty) {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  PasswordSMS(email: _emailController.text),
-                            ),
-                          );
-                        } */
-                        if (_emailController.text.isEmpty) {
-                          displayToastMessage("Entrez votre email", context);
-                        }
-                  
-                      },
-                      child: Container(
-                        padding: EdgeInsets.fromLTRB(
-                          0.01.sw,
-                          0.005.sh,
-                          0.01.sw,
-                          0.01.sh,
-                        ),
-                        child: const Center(
-                          child: Text(
-                            "Suivant",
-                            style: TextStyle(
-                                fontSize: 22.0,
-                                fontFamily: 'Gotham',
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
+              IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: AppColors.darkGrey,
                 ),
               ),
             ],
           ),
-        ),
+          SizedBox(
+            height: 39.h,
+          ),
+          Text(
+            "Mot de passe oublié",
+            style: AppTextStyle.titleTextStyle,
+          ),
+          SizedBox(
+            height: 20.h,
+          ),
+          ReusableTextField(
+              text: "Email",
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
+              validator: requiredValidator,
+              height: 60,
+              width: 326),
+          SizedBox(height: 20.h),
+          RichText(
+            softWrap: true,
+            textAlign: TextAlign.center,
+            text: TextSpan(children: [
+              TextSpan(
+                text: "Veuillez saisir votre adresse e-mail\n",
+                style: AppTextStyle.darkLabelTextStyle,
+              ),
+              TextSpan(
+                text:
+                    'Vous receverez un lien pour créer un nouveau mot de passe par e-mail',
+                style: AppTextStyle.lightLabelTextStyle,
+              )
+            ]),
+          ),
+          SizedBox(height: 24.h,),
+           PrimaryButton(
+               text: "Envoyer",
+               onClick: () {
+                 Get.to(NewPassword());
+               }),
+          
+        ],
       ),
     );
-  }
-
-  displayToastMessage(String message, BuildContext context) {
-    Fluttertoast.showToast(msg: message);
   }
 }
