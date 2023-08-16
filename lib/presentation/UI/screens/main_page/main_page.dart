@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:instar/core/style/text_style.dart';
 import 'package:instar/presentation/UI/screens/main_page/profile_page.dart';
 import 'package:instar/presentation/UI/screens/my_profile/my_profile.dart';
+import 'package:instar/presentation/UI/screens/paiement/detail_paiement.dart';
 import 'package:instar/presentation/UI/widgets/sheet_app_bar.dart';
 
 import '../../../../core/style/colors.dart';
@@ -54,46 +55,68 @@ class MainPage extends StatelessWidget {
                         width: 25.w,
                         height: 25.h,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5.r),
-                          border: Border.all(color: AppColors.darkGrey)
-                        ),
+                            borderRadius: BorderRadius.circular(5.r),
+                            border: Border.all(color: AppColors.darkGrey)),
                         child: Icon(
                           Icons.home,
                         ),
                       ),
-                      title:  Text('Acceuil', style: AppTextStyle.elementNameTextStyle,),
+                      title: Text(
+                        'Acceuil',
+                        style: AppTextStyle.elementNameTextStyle,
+                      ),
                       onTap: () {
                         Navigator.pop(context);
                       },
                     ),
                     ListTile(
-                      leading:Container(
-                        width: 25.w,
-                        height: 25.h,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5.r),
-                          border: Border.all(color: AppColors.darkGrey)
-                        ),
-                        child: Icon(
-                        Icons.settings,
-                      ),),
-                      title:  Text('Paramétres',style: AppTextStyle.elementNameTextStyle),
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                    ListTile(
-                    
                       leading: Container(
                         width: 25.w,
                         height: 25.h,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5.r),
-                          border: Border.all(color: AppColors.darkGrey)
-                        ),child:Icon(
-                        Icons.person,
-                      )),
-                      title:  Text('Profile', style: AppTextStyle.elementNameTextStyle),
+                            borderRadius: BorderRadius.circular(5.r),
+                            border: Border.all(color: AppColors.darkGrey)),
+                        child: Icon(
+                          Icons.home,
+                        ),
+                      ),
+                      title: Text(
+                        'Paiement',
+                        style: AppTextStyle.elementNameTextStyle,
+                      ),
+                      onTap: () {
+                        Get.to(PaiementDetail());
+                      },
+                    ),
+                    ListTile(
+                      leading: Container(
+                        width: 25.w,
+                        height: 25.h,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.r),
+                            border: Border.all(color: AppColors.darkGrey)),
+                        child: Icon(
+                          Icons.settings,
+                        ),
+                      ),
+                      title: Text('Paramétres',
+                          style: AppTextStyle.elementNameTextStyle),
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                    ListTile(
+                      leading: Container(
+                          width: 25.w,
+                          height: 25.h,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.r),
+                              border: Border.all(color: AppColors.darkGrey)),
+                          child: Icon(
+                            Icons.person,
+                          )),
+                      title: Text('Profile',
+                          style: AppTextStyle.elementNameTextStyle),
                       onTap: () {
                         Get.to(MyProfile());
                       },

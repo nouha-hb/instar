@@ -7,6 +7,8 @@ import 'package:email_validator/email_validator.dart';
 
 import '../../../di.dart';
 
+import '../../../di.dart';
+
 class SignUpController extends GetxController {
   static bool isPasswordType = false;
 

@@ -46,16 +46,13 @@ dependencies:
   shared_preferences: ^2.2.0
   flutter_facebook_auth: ^6.0.0
   flutter_social_button: ^1.1.4+1
-  searchbar_animation: ^0.0.4
-  anim_search_bar: ^2.0.3
-  fluttertoast: ^8.2.2
-  flutter_svg: ^2.0.7
-  flutter_localization: ^0.1.13
-  intl: ^0.18.0
-
-  email_validator: ^2.1.17
   flutter_localizations:
     sdk: flutter
+  flutter_svg: ^2.0.7
+  fluttertoast: ^8.2.2
+  anim_search_bar: ^2.0.3
+  checkbox_grouped: ^2.0.0
+  email_validator: ^2.1.17
 
 dev_dependencies:
   flutter_test:
@@ -90,9 +87,10 @@ flutter:
     - assets/images/literie.svg
     - assets/images/salle_de_bain.svg
     - assets/images/salon.svg
+    - assets/images/paymentinfo.png
 
+  #   - images/a_dot_ham.jpeg
 
-    
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

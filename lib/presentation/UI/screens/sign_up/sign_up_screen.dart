@@ -27,6 +27,32 @@ class SignUp extends StatelessWidget {
                   reverse: false,
                   child: Column(
                     children: [
+                      
+          SizedBox(
+            height: 10.h,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: AppColors.darkGrey,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 39.h,
+          ),
+
+                      Text(
+                        "Créer un compte ",
+                        style: AppTextStyle.titleTextStyle,
+                      ),
                       SizedBox(
                         height: 10.h,
                       ),

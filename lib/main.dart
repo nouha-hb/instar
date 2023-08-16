@@ -6,6 +6,12 @@ import 'package:instar/core/l10n/l10n.dart';
 import 'package:instar/presentation/UI/screens/landing_screen/landing_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:instar/presentation/UI/screens/landing_screen/landing_screen.dart';
+import 'package:instar/presentation/UI/screens/main_page/home_page.dart';
+import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
+import 'package:instar/presentation/UI/screens/paiement/detail_paiement.dart';
+import 'package:instar/presentation/UI/screens/paiement/paiement.dart';
+
 import 'di.dart' as di;
 
 void main() async {
