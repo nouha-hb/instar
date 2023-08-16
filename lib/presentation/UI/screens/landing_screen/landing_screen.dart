@@ -5,6 +5,7 @@ import 'package:instar/core/style/assets.dart';
 import 'package:instar/presentation/UI/screens/sign_in/sign_in_screen.dart';
 import 'package:instar/presentation/UI/screens/sign_up/sign_up_screen.dart';
 import 'package:instar/presentation/UI/widgets/custom_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({
@@ -16,7 +17,7 @@ class LandingPage extends StatelessWidget {
     return Container(
       width: 375.w,
       height: 812.h,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image:
             DecorationImage(image: AssetImage(Assets.home), fit: BoxFit.cover),
       ),
@@ -29,7 +30,7 @@ class LandingPage extends StatelessWidget {
             Container(
               width: 198.w,
               height: 198.h,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage(Assets.logo), fit: BoxFit.cover),
               ),
@@ -38,7 +39,7 @@ class LandingPage extends StatelessWidget {
               height: 60.h,
             ),
             SecondaryButton(
-                text: "Login",
+                text: AppLocalizations.of(context)!.login,
                 onClick: () {
                   Get.to(SignIn());
                 }),
@@ -46,7 +47,7 @@ class LandingPage extends StatelessWidget {
               height: 24.h,
             ),
             PrimaryButton(
-                text: "Sign up",
+                text: AppLocalizations.of(context)!.signUp,
                 onClick: () {
                   Get.to(SignUp());
                 })

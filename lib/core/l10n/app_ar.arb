@@ -1,0 +1,13 @@
+{
+    "language":"العربية",
+    "login": "تسجيل الدخول",
+    "signUp":"إنشاء حساب",
+    "email":"بريد إلكتروني",
+    "password":"كلمة المرور",
+    "connect":"اتصال",
+    "forgot_password": "نسيت كلمة المرور؟",
+    "continue_with_facebook" :"تسجيل الدخول عبر فيسبوك",
+    "continue_with_google" :"تسجيل الدخول عبر جوجل",
+    "dont_have_account":"ليس لديك حساب بالفعل؟",
+    "register":"إنشاء حساب"
+}

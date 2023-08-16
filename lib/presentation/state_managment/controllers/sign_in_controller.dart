@@ -29,9 +29,23 @@ class SignInController extends GetxController {
     if (isvalid.toString() == 'false') {
       return ("Invalid email form");
     }
-        return null;
-
+    return null;
   }
+
+  String? requiredPasswordValidator(String? confirmPasswordText) {
+    if (confirmPasswordText == null || confirmPasswordText.trim().isEmpty) {
+      return ("this field is required");
+    }
+    if (confirmPasswordText.length < 6) {
+      return ("Password should be atleast 6 characters");
+    }
+    if (confirmPasswordText.length > 15) {
+      return ("Password should be atleast 6 characters");
+    }
+
+    return null;
+  }
+
   String? requiredValidator(String? text) {
     if (text == null || text.trim().isEmpty) {
       return ("This field is required");

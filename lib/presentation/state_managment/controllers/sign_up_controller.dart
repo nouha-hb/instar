@@ -84,7 +84,10 @@ class SignUpController extends GetxController {
       var email = emailController.text.trim();
       var password = passwordController.text.trim();
       var phone = phoneController.text.trim();
-      User user = new User(
+      User user =  User(
+          ban:false,
+          role: "user",
+          number:1,
           firstName: firstname,
           lastName: lastname,
           email: email,

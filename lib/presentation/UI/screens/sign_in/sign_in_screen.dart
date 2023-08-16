@@ -5,8 +5,11 @@ import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:get/get.dart';
 import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
+
 import 'package:instar/presentation/UI/screens/sign_up/sign_up_screen.dart';
 import 'package:instar/presentation/UI/widgets/custom_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import '../../../state_managment/controllers/sign_in_controller.dart';
 import '../../widgets/custom_textform.dart';
 import '../forget_password/forgetpassword.dart';
@@ -22,7 +25,7 @@ class SignIn extends StatelessWidget {
           initState: (_) {},
           builder: (controller) {
             return SingleChildScrollView(
-              reverse: true,
+              reverse: false,
               child: Form(
                 key: controller.formKey,
                 child: Center(
@@ -39,7 +42,7 @@ class SignIn extends StatelessWidget {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.arrow_back,
                               color: AppColors.darkGrey,
                             ),
@@ -50,7 +53,7 @@ class SignIn extends StatelessWidget {
                         height: 39.h,
                       ),
                       Text(
-                        "Login ",
+                        AppLocalizations.of(context)!.login,
                         style: AppTextStyle.titleTextStyle,
                       ),
                       SizedBox(
@@ -61,8 +64,8 @@ class SignIn extends StatelessWidget {
                         height: 40,
                         controller: controller.usernameController,
                         keyboardType: TextInputType.name,
-                        text: 'Email',
-                        validator: controller.requiredEmailValidator,
+                        text: AppLocalizations.of(context)!.email,
+                        validator: controller.requiredValidator,
                       ),
                       SizedBox(
                         height: 20.h,
@@ -73,7 +76,7 @@ class SignIn extends StatelessWidget {
                           child: TextFormField(
                             controller: controller.passwordController,
                             obscureText: controller.isPressed ? false : true,
-                            validator: controller.requiredValidator,
+                            validator: controller.requiredPasswordValidator,
                             keyboardType: TextInputType.visiblePassword,
                             cursorColor: Colors.black,
                             style:
@@ -86,7 +89,7 @@ class SignIn extends StatelessWidget {
                                 borderSide:
                                     BorderSide(color: AppColors.primary),
                               ),
-                              hintText: "Mot de passe ",
+                              hintText: AppLocalizations.of(context)!.password,
                               hintStyle: AppTextStyle.lightLabelTextStyle,
                               suffixIcon: IconButton(
                                   icon: Icon(controller.isPressed
@@ -124,7 +127,8 @@ class SignIn extends StatelessWidget {
                             style: AppTextStyle.darkLabelTextStyle,
                             children: [
                               TextSpan(
-                                text: 'Mot de passe oublié?',
+                                text: AppLocalizations.of(context)!
+                                    .forgot_password,
                                 style: AppTextStyle.darkLabelTextStyle,
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () => Get.to(ForgetPassword()),
@@ -139,27 +143,32 @@ class SignIn extends StatelessWidget {
                         children: [
                           FlutterSocialButton(onTap: (){
 
-                          },
+                          }, 
                           mini: true,
-                          buttonType: ButtonType.facebook,
-                          ),
-                          SizedBox(width:20.w,),
-                              FlutterSocialButton(onTap: (){
+                          buttonType: ButtonType.facebook,),
+                           SizedBox(
+                        width: 20.w,
+                      ),
+                          FlutterSocialButton(onTap: (){
 
-                          },
+                          }, 
                           mini: true,
-
-                          buttonType: ButtonType.google,
-                          ),
+                          buttonType: ButtonType.google,),
                         ],
                       ),
-                      // SecondaryButton(
-                      //     text: "CONTINUER AVEC FACEBOOK", onClick: () {}),
+                      //SecondaryButton(
+                      //     text: AppLocalizations.of(context)!
+                      //         .continue_with_facebook
+                      //         .toUpperCase(),
+                      //     onClick: () {}),
                       // SizedBox(
                       //   height: 24.h,
                       // ),
                       // SecondaryButton(
-                      //     text: "CONTINUER AVEC Google", onClick: () {}),
+                      //     text: AppLocalizations.of(context)!
+                      //         .continue_with_google
+                      //         .toUpperCase(),
+                      //     onClick: () {}),
                       SizedBox(
                         height: 24.h,
                       ),
@@ -168,13 +177,14 @@ class SignIn extends StatelessWidget {
                         textAlign: TextAlign.center,
                         text: TextSpan(children: [
                           TextSpan(
-                            text: "vous n'avez pas déja un compte ?\n",
+                            text:
+                                "${AppLocalizations.of(context)!.dont_have_account}\n",
                             style: AppTextStyle.darkLabelTextStyle,
                             recognizer: TapGestureRecognizer()
                               ..onTap = () => Get.to(ForgetPassword()),
                           ),
                           TextSpan(
-                            text: 'Inscrivez vous ?',
+                            text: AppLocalizations.of(context)!.register,
                             style: AppTextStyle.blueLabelTextStyle,
                             recognizer: TapGestureRecognizer()
                               ..onTap = () => Get.to(SignUp()),

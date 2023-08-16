@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:instar/core/style/text_style.dart';
+import 'package:instar/presentation/UI/screens/main_page/profile_page.dart';
+import 'package:instar/presentation/UI/screens/my_profile/my_profile.dart';
 import 'package:instar/presentation/UI/widgets/sheet_app_bar.dart';
 
 import '../../../../core/style/colors.dart';
@@ -17,8 +20,87 @@ class MainPage extends StatelessWidget {
         init: MainController(),
         initState: (_) {},
         builder: (controller) {
-   
           return Scaffold(
+              appBar: AppBar(
+                elevation: 0,
+                backgroundColor: AppColors.white,
+                foregroundColor: AppColors.black,
+                title: Text(
+                  controller.pages[controller.currentIndex]["name"].toString(),
+                  style: AppTextStyle.elementNameTextStyle,
+                ),
+                centerTitle: true,
+              ),
+              drawer: Drawer(
+                child: ListView(
+                  // Important: Remove any padding from the ListView.
+                  padding: EdgeInsets.zero,
+                  children: [
+                    UserAccountsDrawerHeader(
+                      // <-- SEE HERE
+                      decoration: BoxDecoration(color: AppColors.white),
+                      accountName: Text(
+                        "xxxx",
+                        style: AppTextStyle.elementNameTextStyle,
+                      ),
+                      accountEmail: Text(
+                        "xxx@gmail.com",
+                        style: AppTextStyle.elementNameTextStyle,
+                      ),
+                      currentAccountPicture: FlutterLogo(),
+                    ),
+                    ListTile(
+                      leading: Container(
+                        width: 25.w,
+                        height: 25.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.r),
+                          border: Border.all(color: AppColors.darkGrey)
+                        ),
+                        child: Icon(
+                          Icons.home,
+                        ),
+                      ),
+                      title:  Text('Acceuil', style: AppTextStyle.elementNameTextStyle,),
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                    ListTile(
+                      leading:Container(
+                        width: 25.w,
+                        height: 25.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.r),
+                          border: Border.all(color: AppColors.darkGrey)
+                        ),
+                        child: Icon(
+                        Icons.settings,
+                      ),),
+                      title:  Text('Paramétres',style: AppTextStyle.elementNameTextStyle),
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                    ListTile(
+                    
+                      leading: Container(
+                        width: 25.w,
+                        height: 25.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.r),
+                          border: Border.all(color: AppColors.darkGrey)
+                        ),child:Icon(
+                        Icons.person,
+                      )),
+                      title:  Text('Profile', style: AppTextStyle.elementNameTextStyle),
+                      onTap: () {
+                        Get.to(MyProfile());
+                      },
+                    ),
+                  ],
+                ),
+              ),
               bottomNavigationBar: BottomAppBar(
                 child: Container(
                     width: MediaQuery.sizeOf(context).width,
@@ -37,7 +119,7 @@ class MainPage extends StatelessWidget {
                         topRight: Radius.circular(25.0.r),
                       ),
                       child: BottomNavigationBar(
-                      type: BottomNavigationBarType.fixed,
+                        type: BottomNavigationBarType.fixed,
                         currentIndex: controller.currentIndex,
                         onTap: controller.onTap,
                         selectedItemColor: AppColors.primary,
@@ -74,12 +156,11 @@ class MainPage extends StatelessWidget {
                       ),
                     )),
               ),
-               
               body: SingleChildScrollView(
                 child: Column(
                   children: [
-                    SheetAppBar(text:controller.pages[controller.currentIndex]["name"].toString()),
-                  controller.pages[controller.currentIndex]['page'] as Widget,
+                    // SheetAppBar(text:controller.pages[controller.currentIndex]["name"].toString()),
+                    controller.pages[controller.currentIndex]['page'] as Widget,
                   ],
                 ),
               ));
