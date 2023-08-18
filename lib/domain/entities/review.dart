@@ -4,19 +4,21 @@ import 'package:instar/domain/entities/user.dart';
 import '../../presentation/UI/screens/products/product_static_list.dart';
 
 class Review extends Equatable {
-  final User user;
-  final Product product;
+  final String? id;
+  final String userID;
+  final String productID;
   final int rating;
   final String comment;
   final String image;
 
   const Review(
-      {required this.user,
-      required this.product,
+      {required this.id,
+      required this.userID,
+      required this.productID,
       required this.rating,
       required this.comment,
       required this.image});
 
   @override
-  List<Object?> get props => [user, product, rating, comment, image];
+  List<Object?> get props => [userID, productID, rating, comment, image,id];
 }

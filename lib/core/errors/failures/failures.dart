@@ -28,3 +28,4 @@ class LocalStorageFailure extends Failure {}
 
 class NotAuthorizedFailure extends Failure {}
 
+

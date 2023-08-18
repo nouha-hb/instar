@@ -43,7 +43,7 @@ class LandingPage extends StatelessWidget {
                 text: AppLocalizations.of(context)!.login,
                 onClick: () {
                   Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (_) => SelectLanguageScreent()));
+                      .push(MaterialPageRoute(builder: (_) => SignIn()));
                 }),
             SizedBox(
               height: 24.h,

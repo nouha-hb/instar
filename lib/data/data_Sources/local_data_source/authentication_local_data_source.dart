@@ -10,6 +10,7 @@ abstract class AuthenticationLocalDataSource {
   Future<void> saveUserInformations(TokenModel token);
   Future<TokenModel> getUserInformations();
   Future<void> logout();
+  Future<bool> autoLogin();
 }
 
 class AuthenticationLocalDataSourceImpl
@@ -18,6 +19,7 @@ class AuthenticationLocalDataSourceImpl
   Future<void> saveUserInformations(TokenModel token) async {
     try {
       final sp = await SharedPreferences.getInstance();
+      print('sp $token');
       sp.setString(StringConst.SP_TOKEN_KEY, json.encode(token.toJson()));
     } catch (e) {
       throw LocalStorageException();
@@ -41,6 +43,22 @@ class AuthenticationLocalDataSourceImpl
     try {
       final sp = await SharedPreferences.getInstance();
       sp.setString(StringConst.SP_TOKEN_KEY, '');
+    } catch (e) {
+      throw LocalStorageException();
+    }
+  }
+
+  @override
+  Future<bool> autoLogin() async {
+    try {
+      TokenModel token = await getUserInformations();
+      print('login info ${token.toString()}');
+      if (token.expiryDate.isAfter(DateTime.now())) {
+        await logout();
+        return false;
+      } else {
+        return true;
+      }
     } catch (e) {
       throw LocalStorageException();
     }

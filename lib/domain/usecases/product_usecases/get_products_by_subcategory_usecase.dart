@@ -9,6 +9,6 @@ class GetProductsBySubCategoryUsecase {
 
   GetProductsBySubCategoryUsecase(this.repository);
 
-  Future<Either<Failure,  List<Product>>> call(String subCategory) async =>
-      await repository.getProductsBySubCategory(subCategory);
+  Future<Either<Failure,  List<Product>>> call(String category,String subCategory) async =>
+      await repository.getProductsBySubCategory(category,subCategory);
 }

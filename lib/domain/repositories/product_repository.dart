@@ -6,7 +6,7 @@ abstract class ProductRepository {
   Future<Either<Failure, List<Product>>> getAllProducts();
   Future<Either<Failure, Product>> getOneProduct(String productId);
   Future<Either<Failure, List<Product>>> getProductsByCategory(String category);
-  Future<Either<Failure, List<Product>>> getProductsBySubCategory(String subCategory);
+  Future<Either<Failure, List<Product>>> getProductsBySubCategory(String category,String subCategory);
 
 
 }

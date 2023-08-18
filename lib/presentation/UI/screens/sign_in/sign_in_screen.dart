@@ -4,7 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
+import 'package:instar/domain/usecases/authentication_usecases/facebook_login_usecase.dart';
 import 'package:instar/domain/usecases/authentication_usecases/google_login_usecase.dart';
+import 'package:instar/domain/usecases/authentication_usecases/login_usecase.dart';
 import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
 import 'package:instar/presentation/UI/screens/settings/language_settings.dart';
 
@@ -116,8 +118,8 @@ class SignIn extends StatelessWidget {
                       ),
                       PrimaryButton(
                           text: AppLocalizations.of(context)!.connect,
-                          onClick: () {
-                            controller.signIn();
+                          onClick: () async {
+                             controller.signIn(context);
                           }),
                       SizedBox(
                         height: 24.h,
@@ -142,8 +144,11 @@ class SignIn extends StatelessWidget {
                           text: AppLocalizations.of(context)!
                               .continue_with_facebook
                               .toUpperCase(),
-                          onClick: () {
-                            Get.to(SelectLanguageScreent());
+                          onClick: () async {
+                            final token =
+                                await FacebookLoginUsecase(sl()).call();
+                            token.fold((l) => print("facebook l"),
+                                (r) => print("facebook r"));
                           }),
                       SizedBox(
                         height: 24.h,
@@ -167,7 +172,7 @@ class SignIn extends StatelessWidget {
                         softWrap: true,
                         textAlign: TextAlign.center,
                         text: TextSpan(children: [
-                          TextSpan(
+                          /*  TextSpan(
                             text:
                                 "${AppLocalizations.of(context)!.dont_have_account}\n",
                             style: AppTextStyle.darkLabelTextStyle,
@@ -179,7 +184,7 @@ class SignIn extends StatelessWidget {
                             style: AppTextStyle.blueLabelTextStyle,
                             recognizer: TapGestureRecognizer()
                               ..onTap = () => Get.to(SignUp()),
-                          )
+                          )*/
                         ]),
                       ),
                       SizedBox(

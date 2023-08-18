@@ -20,7 +20,4 @@ class ProductNotFoundException implements Exception {}
 
 class NotAuthorizedException implements Exception {}
 
-class LocalStorageException implements Exception {
-
-
-}
+class LocalStorageException implements Exception {}
