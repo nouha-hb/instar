@@ -1,5 +1,5 @@
 class ApiConst {
-  static const String baseUrl = "http://192.168.1.18:3000/api"; //ip Address
+  static const String baseUrl = "http://192.168.1.12:3000/api"; //ip Address
 
   //auth apis
   static const String register = "$baseUrl/register";
@@ -14,5 +14,11 @@ class ApiConst {
   //review apis
   static const String reviews = "$baseUrl/reviews";
 
+  //promotions apis
+  static const String getPromotions = "$baseUrl/";
+
+  //wishlist apis
+  static const String wishlist = "$baseUrl/wishlist";
+  static const String getWishlist = "$baseUrl/wishlist/find";
 
 }

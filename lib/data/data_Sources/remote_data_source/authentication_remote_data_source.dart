@@ -31,8 +31,7 @@ class AuthenticationRemoteDataSourceImpl
           email: user.email,
           phone: user.phone,
           password: user.password,
-          ban: user.ban
-          );
+          ban: user.ban);
       await dio.post(ApiConst.register, data: userModel.toJson());
     } catch (e) {
       throw RegistrationException();
@@ -50,6 +49,7 @@ class AuthenticationRemoteDataSourceImpl
       final TokenModel token = TokenModel.fromJson(data);
       return token;
     } catch (e) {
+      print('server error');
       throw LoginException(msg);
     }
   }

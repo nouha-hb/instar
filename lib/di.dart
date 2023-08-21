@@ -1,12 +1,15 @@
 import 'package:get_it/get_it.dart';
 import 'package:instar/data/data_Sources/remote_data_source/product_remote_data_source.dart';
 import 'package:instar/data/data_Sources/remote_data_source/review_remote_data_source.dart';
+import 'package:instar/data/data_Sources/remote_data_source/wishlist_remote_data_source.dart';
 import 'package:instar/data/repositories/authentication_repository_impl.dart';
 import 'package:instar/data/repositories/product_repository_impl.dart';
 import 'package:instar/data/repositories/review_repository_impl.dart';
+import 'package:instar/data/repositories/wishlist_repository_impl.dart';
 import 'package:instar/domain/repositories/authentication_repository.dart';
 import 'package:instar/domain/repositories/product_repository.dart';
 import 'package:instar/domain/repositories/review_repository.dart';
+import 'package:instar/domain/repositories/wishlist_repository.dart';
 import 'package:instar/domain/usecases/authentication_usecases/auto_login_usecase.dart';
 import 'package:instar/domain/usecases/authentication_usecases/facebook_login_usecase.dart';
 import 'package:instar/domain/usecases/authentication_usecases/get_user_usecase.dart';
@@ -17,13 +20,20 @@ import 'package:instar/domain/usecases/product_usecases/get_all_products_usecase
 import 'package:instar/domain/usecases/product_usecases/get_one_product_usecase.dart';
 import 'package:instar/domain/usecases/product_usecases/get_products_by_category_usecase.dart';
 import 'package:instar/domain/usecases/product_usecases/get_products_by_subcategory_usecase.dart';
+import 'package:instar/domain/usecases/promotion_usecases/get_all_promotions_usecase.dart';
 import 'package:instar/domain/usecases/review_usecases/add_review_usecase.dart';
 import 'package:instar/domain/usecases/review_usecases/get_all_reviews_usecase.dart';
 import 'package:instar/domain/usecases/review_usecases/remove_review.dart';
 import 'package:instar/domain/usecases/review_usecases/update_review_usecase.dart';
+import 'package:instar/domain/usecases/widhlist_usecases/create_wishlist_usecase.dart';
+import 'package:instar/domain/usecases/widhlist_usecases/get_wishlist_usecase.dart';
+import 'package:instar/domain/usecases/widhlist_usecases/update_wishlist_usecase.dart';
 
 import 'data/data_Sources/local_data_source/authentication_local_data_source.dart';
 import 'data/data_Sources/remote_data_source/authentication_remote_data_source.dart';
+import 'data/data_Sources/remote_data_source/promotion_remote_data_source.dart';
+import 'data/repositories/promotion_repository_impl.dart';
+import 'domain/repositories/promotion_repository.dart';
 import 'domain/usecases/authentication_usecases/create_account_usecase.dart';
 import 'domain/usecases/authentication_usecases/login_usecase.dart';
 
@@ -36,6 +46,10 @@ Future<void> init() async {
           authRemoteDataSource: sl(), authLocalDataSource: sl()));
   sl.registerLazySingleton<ProductRepository>(() => ProductRepositoryImp(sl()));
   sl.registerLazySingleton<ReviewRepository>(() => ReviewRepositoryImpl(sl()));
+  sl.registerLazySingleton<PromotionRepository>(() => PromotionRepositoryImpl(sl()));
+  sl.registerLazySingleton<WishListRepository>(() => WishListRepositoryImpl(sl()));
+
+
 
   // data sources
   sl.registerLazySingleton<AuthenticationRemoteDataSource>(
@@ -45,7 +59,11 @@ Future<void> init() async {
   sl.registerLazySingleton<ProductRemoteDataSource>(
       () => ProductRemoteDataSourceImpl());
   sl.registerLazySingleton<ReviewRemoteDataSource>(
-      () => RevieReviewRemoteDataSourceImpl());
+      () => ReviewRemoteDataSourceImpl());
+  sl.registerLazySingleton<PromotionRemoteDataSource>(
+      () => PromotionRemoteDataSourceImpl());
+  sl.registerLazySingleton<WishlistRemoteDataSource>(
+      () => WishlistRemoteDataSourceImpl());
 
   // usecases
   /*---Auth usecases---*/
@@ -70,4 +88,11 @@ Future<void> init() async {
   sl.registerLazySingleton(() => RemoveReviewUsecase(sl()));
   sl.registerLazySingleton(() => UpdateReviewUsecase(sl()));
 
+  /*---promotion usecases---*/
+  sl.registerLazySingleton(() => GetAllPromotionsUsecase(sl()));
+
+    /*---wishlist usecases---*/
+  sl.registerLazySingleton(() => CreateWishListUsecase(sl()));
+  sl.registerLazySingleton(() => GetWishListUsecase(sl()));
+  sl.registerLazySingleton(() => UpdateWishListUsecase(sl()));
 }

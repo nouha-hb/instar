@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:instar/domain/entities/Product3D.dart';
 
 class Product extends Equatable {
   final String id;
@@ -9,7 +10,7 @@ class Product extends Equatable {
   final String category;
   final String subCategory;
   final String image;
-  final String image3D;
+  final List<Product3D> image3D;
   const Product({
     required this.category,
     required this.id,

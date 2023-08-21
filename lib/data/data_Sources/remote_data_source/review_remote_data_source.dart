@@ -12,7 +12,7 @@ abstract class ReviewRemoteDataSource {
   Future<void> removeReview(String id);
 }
 
-class RevieReviewRemoteDataSourceImpl implements ReviewRemoteDataSource {
+class ReviewRemoteDataSourceImpl implements ReviewRemoteDataSource {
   Dio dio = Dio();
 
   @override

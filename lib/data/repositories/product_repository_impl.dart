@@ -41,8 +41,10 @@ class ProductRepositoryImp implements ProductRepository {
       final product =
           await productRemoteDataSource.getOneProducts(id: productId);
       return right(product);
-    } on ProductNotFoundException {
-      return left(ProductNotFoundFailure());
+  } on ServerException {
+      return left(ServerFailure());
+    } on NotAuthorizedException {
+      return left(NotAuthorizedFailure());
     }
   }
 
@@ -65,8 +67,10 @@ class ProductRepositoryImp implements ProductRepository {
               image3D: e.image3D))
           .toList();
       return right(products);
-    } on ServerException {
+  } on ServerException {
       return left(ServerFailure());
+    } on NotAuthorizedException {
+      return left(NotAuthorizedFailure());
     }
   }
 
@@ -89,8 +93,10 @@ class ProductRepositoryImp implements ProductRepository {
               image3D: e.image3D))
           .toList();
       return right(products);
-    } on ServerException {
+} on ServerException {
       return left(ServerFailure());
+    } on NotAuthorizedException {
+      return left(NotAuthorizedFailure());
     }
   }
 }
