@@ -65,10 +65,14 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   @override
   Future<Either<Failure, Token>> googleLogin() async {
     try {
-      final r = await authRemoteDataSource.googleLogin();
-      return right(Token(token: r.token, refreshToken: r.refreshToken));
-    } catch (e) {
-      return left(Failure());
+      TokenModel _tm  = await authRemoteDataSource.googleLogin();
+       await authLocalDataSource.saveUserInformations(_tm);
+      Token t = Token(token: _tm.token, refreshToken: _tm.refreshToken);
+      return right(t);
+    } on LoginException catch (e) {
+      return left(LoginFailure(e.message));
+    } on LocalStorageException {
+      return left(LocalStorageFailure());
     }
   }
 

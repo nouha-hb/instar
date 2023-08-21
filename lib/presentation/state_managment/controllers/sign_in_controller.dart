@@ -21,6 +21,7 @@ class SignInController extends GetxController {
   bool inProgress = false;
   bool resetControllers = true;
   final formKey = GlobalKey<FormState>();
+  late BuildContext context;
   String? requiredEmailValidator(String? text) {
     if (text == null || text.trim().isEmpty) {
       return ("this field is required");
@@ -90,14 +91,16 @@ class SignInController extends GetxController {
             backgroundColor: Colors.black,
             textColor: Colors.white,
             fontSize: 16.0);
+        return false;
       }, (r) {
-        Get.to(const MainPage());
+        return true;
       });
     } finally {
       inProgress = false;
       if (resetControllers) {
-        usernameController.text = "";
-        passwordController.text = "";
+        print("error");
+        // usernameController.text = "";
+        // passwordController.text = "";
       }
 
       update();

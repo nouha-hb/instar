@@ -58,7 +58,11 @@ class _PaiementDetailState extends State<PaiementDetail> {
                       ),
                       Text("Détails de paiement",style: TextStyle(fontWeight: FontWeight.bold)),
                       IconButton(
-                        onPressed: () => Get.to(ShoppingCart()),
+                        onPressed: () =>  Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ShoppingCart()
+                                  )),
                         icon: Icon(
                           Icons.shopping_cart_checkout_rounded,
                           color: AppColors.black,

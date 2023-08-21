@@ -21,38 +21,13 @@ class SignUp extends StatelessWidget {
             init: SignUpController(),
             initState: (_) {},
             builder: (controller) {
+              controller.context = context;
               return Form(
                 key: controller.formKey,
                 child: SingleChildScrollView(
                   reverse: false,
                   child: Column(
                     children: [
-                      
-          SizedBox(
-            height: 10.h,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(
-                  Icons.arrow_back,
-                  color: AppColors.darkGrey,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 39.h,
-          ),
-
-                      Text(
-                        "Créer un compte ",
-                        style: AppTextStyle.titleTextStyle,
-                      ),
                       SizedBox(
                         height: 10.h,
                       ),
@@ -257,6 +232,23 @@ class SignUp extends StatelessWidget {
                                   if (controller.formKey.currentState != null &&
                                       controller.formKey.currentState!
                                           .validate()) {
+                                    showDialog<String>(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          AlertDialog(
+                                        title: const Text('Success'),
+                                        content: const Text(
+                                            'Your account is created :'),
+                                        actions: <Widget>[
+                                         
+                                          TextButton(
+                                            onPressed: () =>
+                                                Navigator.push(context, MaterialPageRoute(builder: (context) => SignIn(),)),
+                                            child: const Text('OK'),
+                                          ),
+                                        ],
+                                      ),
+                                    );
                                     controller.SignUp();
                                   }
                                 }),
@@ -275,7 +267,9 @@ class SignUp extends StatelessWidget {
                                   text: 'Connexion',
                                   style: AppTextStyle.blueLabelTextStyle,
                                   recognizer: TapGestureRecognizer()
-                                    ..onTap = () => Get.to(SignIn()),
+                                    ..onTap = () => Navigator.of(context)
+                                        .pushReplacement(MaterialPageRoute(
+                                            builder: (_) => SignIn())),
                                 )
                               ]),
                             ),

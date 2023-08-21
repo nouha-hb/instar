@@ -5,9 +5,13 @@ import 'package:instar/core/style/text_style.dart';
 import 'package:instar/presentation/UI/screens/main_page/profile_page.dart';
 import 'package:instar/presentation/UI/screens/my_profile/my_profile.dart';
 import 'package:instar/presentation/UI/screens/paiement/detail_paiement.dart';
+import 'package:instar/presentation/UI/screens/settings/language_settings.dart';
+import 'package:instar/presentation/UI/screens/settings/settings.dart';
 import 'package:instar/presentation/UI/widgets/sheet_app_bar.dart';
 
 import '../../../../core/style/colors.dart';
+import '../../../../di.dart';
+import '../../../../domain/usecases/authentication_usecases/get_user_usecase.dart';
 import '../../../state_managment/controllers/main_page_controller.dart';
 
 class MainPage extends StatelessWidget {
@@ -33,96 +37,149 @@ class MainPage extends StatelessWidget {
                 centerTitle: true,
               ),
               drawer: Drawer(
-                child: ListView(
-                  // Important: Remove any padding from the ListView.
-                  padding: EdgeInsets.zero,
-                  children: [
-                    UserAccountsDrawerHeader(
-                      // <-- SEE HERE
-                      decoration: BoxDecoration(color: AppColors.white),
-                      accountName: Text(
-                        "xxxx",
-                        style: AppTextStyle.elementNameTextStyle,
-                      ),
-                      accountEmail: Text(
-                        "xxx@gmail.com",
-                        style: AppTextStyle.elementNameTextStyle,
-                      ),
-                      currentAccountPicture: FlutterLogo(),
-                    ),
-                    ListTile(
-                      leading: Container(
-                        width: 25.w,
-                        height: 25.h,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.r),
-                            border: Border.all(color: AppColors.darkGrey)),
-                        child: Icon(
-                          Icons.home,
-                        ),
-                      ),
-                      title: Text(
-                        'Acceuil',
-                        style: AppTextStyle.elementNameTextStyle,
-                      ),
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                    ListTile(
-                      leading: Container(
-                        width: 25.w,
-                        height: 25.h,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.r),
-                            border: Border.all(color: AppColors.darkGrey)),
-                        child: Icon(
-                          Icons.home,
-                        ),
-                      ),
-                      title: Text(
-                        'Paiement',
-                        style: AppTextStyle.elementNameTextStyle,
-                      ),
-                      onTap: () {
-                        Get.to(PaiementDetail());
-                      },
-                    ),
-                    ListTile(
-                      leading: Container(
-                        width: 25.w,
-                        height: 25.h,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.r),
-                            border: Border.all(color: AppColors.darkGrey)),
-                        child: Icon(
-                          Icons.settings,
-                        ),
-                      ),
-                      title: Text('Paramétres',
-                          style: AppTextStyle.elementNameTextStyle),
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                    ListTile(
-                      leading: Container(
-                          width: 25.w,
-                          height: 25.h,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5.r),
-                              border: Border.all(color: AppColors.darkGrey)),
-                          child: Icon(
-                            Icons.person,
-                          )),
-                      title: Text('Profile',
-                          style: AppTextStyle.elementNameTextStyle),
-                      onTap: () {
-                        Get.to(MyProfile());
-                      },
-                    ),
-                  ],
-                ),
+                child: FutureBuilder(
+                    future: GetUserUsecase(sl()).call("id"),
+                    builder: (_, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                            child: SizedBox(
+                                width: 50.w,
+                                height: 50.h,
+                                child: const CircularProgressIndicator()));
+                      }
+                       else if (snapshot.hasData) {
+                        final res = snapshot.data;
+                        res!.fold((l) {
+                          return Center(child: Text(l.message.toString()));
+                        }, (r) {
+                          return ListView(
+                            // Important: Remove any padding from the ListView.
+                            padding: EdgeInsets.zero,
+                            children: [
+                              UserAccountsDrawerHeader(
+                                // <-- SEE HERE
+                                decoration:
+                                    BoxDecoration(color: AppColors.white),
+                                accountName: Text(
+                                  r.firstName,
+                                  style: AppTextStyle.elementNameTextStyle,
+                                ),
+                                accountEmail: Text(
+                                  r.email,
+                                  style: AppTextStyle.elementNameTextStyle,
+                                ),
+                                currentAccountPicture: FlutterLogo(),
+                              ),
+                              ListTile(
+                                leading: Container(
+                                  width: 25.w,
+                                  height: 25.h,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5.r),
+                                      border:
+                                          Border.all(color: AppColors.primary)),
+                                  child: Icon(Icons.home,
+                                      color: AppColors.primary),
+                                ),
+                                title: Text(
+                                  'Acceuil',
+                                  style: AppTextStyle.elementNameTextStyle,
+                                ),
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                              ),
+                              ListTile(
+                                leading: Container(
+                                  width: 25.w,
+                                  height: 25.h,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5.r),
+                                      border:
+                                          Border.all(color: AppColors.primary)),
+                                  child: Icon(Icons.home,
+                                      color: AppColors.primary),
+                                ),
+                                title: Text(
+                                  'Paiement',
+                                  style: AppTextStyle.elementNameTextStyle,
+                                ),
+                                onTap: () {
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (_) => PaiementDetail()));
+                                },
+                              ),
+                              ListTile(
+                                leading: Container(
+                                  width: 25.w,
+                                  height: 25.h,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5.r),
+                                      border:
+                                          Border.all(color: AppColors.primary)),
+                                  child: Icon(Icons.home,
+                                      color: AppColors.primary),
+                                ),
+                                title: Text(
+                                  'Language',
+                                  style: AppTextStyle.elementNameTextStyle,
+                                ),
+                                onTap: () {
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (_) =>
+                                              SelectLanguageScreent()));
+                                },
+                              ),
+                              ListTile(
+                                leading: Container(
+                                  width: 25.w,
+                                  height: 25.h,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5.r),
+                                      border:
+                                          Border.all(color: AppColors.primary)),
+                                  child: Icon(Icons.settings,
+                                      color: AppColors.primary),
+                                ),
+                                title: Text('Paramétres',
+                                    style: AppTextStyle.elementNameTextStyle),
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Settings(),
+                                      ));
+                                },
+                              ),
+                              ListTile(
+                                leading: Container(
+                                    width: 25.w,
+                                    height: 25.h,
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(5.r),
+                                        border: Border.all(
+                                            color: AppColors.darkGrey)),
+                                    child: Icon(Icons.person,
+                                        color: AppColors.primary)),
+                                title: Text('Profile',
+                                    style: AppTextStyle.elementNameTextStyle),
+                                onTap: () {
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (_) => MyProfile()));
+                                },
+                              ),
+                            ],
+                          );
+                        });
+                      }
+                      return Center(
+                        child: Text("user not found"),
+                      );
+                    }),
               ),
               bottomNavigationBar: BottomAppBar(
                 child: Container(

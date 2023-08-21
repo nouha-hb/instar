@@ -2,14 +2,20 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
+import 'package:instar/domain/usecases/authentication_usecases/google_login_usecase.dart';
+import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
+import 'package:instar/presentation/UI/screens/settings/language_settings.dart';
 
 import 'package:instar/presentation/UI/screens/sign_up/sign_up_screen.dart';
 import 'package:instar/presentation/UI/widgets/custom_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../di.dart';
+import '../../../../domain/usecases/authentication_usecases/login_usecase.dart';
 import '../../../state_managment/controllers/sign_in_controller.dart';
 import '../../widgets/custom_textform.dart';
 import '../forget_password/forgetpassword.dart';
@@ -24,6 +30,7 @@ class SignIn extends StatelessWidget {
           init: SignInController(),
           initState: (_) {},
           builder: (controller) {
+            controller.context = context;
             return SingleChildScrollView(
               reverse: false,
               child: Form(
@@ -63,9 +70,9 @@ class SignIn extends StatelessWidget {
                         width: 326,
                         height: 40,
                         controller: controller.usernameController,
-                        keyboardType: TextInputType.name,
+                        keyboardType: TextInputType.emailAddress,
                         text: AppLocalizations.of(context)!.email,
-                        validator: controller.requiredValidator,
+                        validator: controller.requiredEmailValidator,
                       ),
                       SizedBox(
                         height: 20.h,
@@ -113,10 +120,45 @@ class SignIn extends StatelessWidget {
                       ),
                       PrimaryButton(
                           text: "connexion",
-                          onClick: () {
+                          onClick: () async {
                             if (controller.formKey.currentState != null &&
                                 controller.formKey.currentState!.validate()) {
-                              controller.signIn();
+                              controller.inProgress = true;
+                              controller.update();
+                              try {
+                                // Sign in service
+                                var email = controller.usernameController.text;
+                                var password =
+                                    controller.passwordController.text;
+                                final res = await LoginUsecase(sl()).call(
+                                    email: email.trim(), password: password);
+
+                                res.fold((l) {
+                                  Fluttertoast.showToast(
+                                      msg: l.message.toString(),
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.CENTER,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: Colors.black,
+                                      textColor: Colors.white,
+                                      fontSize: 16.0);
+                                }, (r) {
+                                  
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => MainPage(),
+                                      ));
+                                });
+                              } finally {
+                                controller.inProgress = false;
+                                if (controller.resetControllers) {
+                                  // controller.usernameController.text = "";
+                                  // controller.passwordController.text = "";
+                                }
+
+                                controller.update();
+                              }
                             }
                           }),
                       SizedBox(
@@ -131,7 +173,11 @@ class SignIn extends StatelessWidget {
                                     .forgot_password,
                                 style: AppTextStyle.darkLabelTextStyle,
                                 recognizer: TapGestureRecognizer()
-                                  ..onTap = () => Get.to(ForgetPassword()),
+                                  ..onTap = () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ForgetPassword(),
+                                      )),
                               )
                             ]),
                       ),
@@ -141,19 +187,26 @@ class SignIn extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          FlutterSocialButton(onTap: (){
-
-                          }, 
-                          mini: true,
-                          buttonType: ButtonType.facebook,),
-                           SizedBox(
-                        width: 20.w,
-                      ),
-                          FlutterSocialButton(onTap: (){
-
-                          }, 
-                          mini: true,
-                          buttonType: ButtonType.google,),
+                          FlutterSocialButton(
+                            onTap: () {},
+                            mini: true,
+                            buttonType: ButtonType.facebook,
+                          ),
+                          SizedBox(
+                            width: 20.w,
+                          ),
+                          FlutterSocialButton(
+                            onTap: () async {
+                              final res = await GoogleLoginUsecase(sl()).call();
+                              res.fold(
+                                  (l) => print('google left'),
+                                  (r) => Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (_) => MainPage())));
+                            },
+                            mini: true,
+                            buttonType: ButtonType.google,
+                          ),
                         ],
                       ),
                       //SecondaryButton(
@@ -177,17 +230,20 @@ class SignIn extends StatelessWidget {
                         textAlign: TextAlign.center,
                         text: TextSpan(children: [
                           TextSpan(
-                            text:
-                                "${AppLocalizations.of(context)!.dont_have_account}\n",
-                            style: AppTextStyle.darkLabelTextStyle,
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () => Get.to(ForgetPassword()),
-                          ),
+                              text:
+                                  "${AppLocalizations.of(context)!.dont_have_account}\n",
+                              style: AppTextStyle.darkLabelTextStyle,
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () => Navigator.of(context)
+                                    .pushReplacement(MaterialPageRoute(
+                                        builder: (_) => ForgetPassword()))),
                           TextSpan(
                             text: AppLocalizations.of(context)!.register,
                             style: AppTextStyle.blueLabelTextStyle,
                             recognizer: TapGestureRecognizer()
-                              ..onTap = () => Get.to(SignUp()),
+                              ..onTap = () => Navigator.of(context)
+                                  .pushReplacement(MaterialPageRoute(
+                                      builder: (_) => SignUp())),
                           )
                         ]),
                       ),

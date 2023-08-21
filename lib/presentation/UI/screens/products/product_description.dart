@@ -38,7 +38,7 @@ class ProductDesc extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           IconButton(
-                            onPressed: () => Get.back(),
+                            onPressed: () => Navigator.pop(context),
                             icon: Icon(
                               Icons.arrow_back_ios,
                               color: AppColors.darkGrey,
@@ -50,7 +50,11 @@ class ProductDesc extends StatelessWidget {
                             style: AppTextStyle.elementNameTextStyle,
                           ),
                           IconButton(
-                            onPressed: () => Get.to(ShoppingList()),
+                            onPressed: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ShoppingList()
+                                  )),
                             icon: Icon(
                               Icons.shopping_cart_outlined,
                               color: AppColors.black,

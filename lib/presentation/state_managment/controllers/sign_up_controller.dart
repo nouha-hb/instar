@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:instar/core/style/colors.dart';
 import 'package:instar/domain/entities/user.dart';
 import 'package:instar/domain/usecases/authentication_usecases/create_account_usecase.dart';
 import 'package:instar/presentation/UI/screens/sign_in/sign_in_screen.dart';
 import 'package:email_validator/email_validator.dart';
-
-import '../../../di.dart';
-
 import '../../../di.dart';
 
 class SignUpController extends GetxController {
@@ -22,11 +21,26 @@ class SignUpController extends GetxController {
   late TextEditingController phoneController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   bool isPressed = false;
-  bool isPressed_confirm = false;
+  late BuildContext context;
+  //bool isPressed_confirm = false;
 
   bool isChecked = false;
   void oncheck() {
     isChecked = !isChecked;
+  }
+
+  showAlertDialog(BuildContext context) {
+    AlertDialog(
+      title: const Text("Sign up succeeded"),
+      content: const Text("your account is created you can Sign in now"),
+      actions: [
+        TextButton(
+            onPressed: () {
+              Get.to(SignIn());
+            },
+            child: const Text("Ok"))
+      ],
+    );
   }
 
   late VoidCallback onClickedSignIn;
@@ -38,8 +52,7 @@ class SignUpController extends GetxController {
     if (isvalid.toString() == 'false') {
       return ("Invalid email form");
     }
-        return null;
-
+    return null;
   }
 
   String? requiredValidator(String? text) {
@@ -48,11 +61,12 @@ class SignUpController extends GetxController {
     }
     return null;
   }
- String? requiredPhoneValidator(String? text) {
+
+  String? requiredPhoneValidator(String? text) {
     if (text == null || text.trim().isEmpty) {
       return ("this field is required");
     }
-  if (text.length!=8) {
+    if (text.length != 8) {
       return ("phone number should be 8 numbers");
     }
     return null;
@@ -86,10 +100,10 @@ class SignUpController extends GetxController {
       var email = emailController.text.trim();
       var password = passwordController.text.trim();
       var phone = phoneController.text.trim();
-      User user =  User(
-          ban:false,
+      User user = User(
+          ban: false,
           role: "user",
-          number:1,
+          number: 1,
           firstName: firstname,
           lastName: lastname,
           email: email,
@@ -100,24 +114,17 @@ class SignUpController extends GetxController {
       res.fold((l) {
         print("error");
       }, (r) {
-        Get.dialog(
-          AlertDialog(
-            title: const Text("Sign up succeeded"),
-            content: const Text("your account is created you can Sign in now"),
-            actions: [
-              TextButton(
-                  onPressed: () {
-                    Get.to(SignIn());
-                  },
-                  child: const Text("Ok"))
-            ],
-          ),
-        );
+       
+        print("succeded");
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SignIn(),
+            ));
       });
     } finally {
       loading = false;
       update();
-      loading = false;
       emailController.text = "";
       firstnameController.text = "";
       lastnameController.text = "";

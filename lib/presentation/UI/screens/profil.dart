@@ -49,30 +49,32 @@ class _DemoProfilState extends State<DemoProfil> {
             } else if (snapshot.hasData) {
               final res = snapshot.data;
               res!.fold((l) {
-                return Text('error');
+                return Center(child: Text('error'));
               }, (r) {
-                return Form(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      TextFormField(
-                        controller: name,
-                      ),
-                      TextFormField(
-                        controller: lname,
-                      ),
-                      TextFormField(
-                        controller: email,
-                      ),
-                      TextFormField(
-                        controller: phone,
-                      ),
-                    ],
+                return Center(
+                  child: Form(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        TextFormField(
+                          controller: name,
+                        ),
+                        TextFormField(
+                          controller: lname,
+                        ),
+                        TextFormField(
+                          controller: email,
+                        ),
+                        TextFormField(
+                          controller: phone,
+                        ),
+                      ],
+                    ),
                   ),
                 );
               });
              
-            } return Text('text');
+            } return Center(child: Text('text'));
           }),
     );
   }

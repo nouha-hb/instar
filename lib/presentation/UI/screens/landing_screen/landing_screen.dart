@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:instar/core/style/assets.dart';
+import 'package:instar/presentation/UI/screens/settings/language_settings.dart';
 import 'package:instar/presentation/UI/screens/sign_in/sign_in_screen.dart';
 import 'package:instar/presentation/UI/screens/sign_up/sign_up_screen.dart';
 import 'package:instar/presentation/UI/widgets/custom_button.dart';
@@ -41,7 +42,8 @@ class LandingPage extends StatelessWidget {
             SecondaryButton(
                 text: AppLocalizations.of(context)!.login,
                 onClick: () {
-                  Get.to(SignIn());
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (_) => SignIn()));
                 }),
             SizedBox(
               height: 24.h,
@@ -49,7 +51,7 @@ class LandingPage extends StatelessWidget {
             PrimaryButton(
                 text: AppLocalizations.of(context)!.signUp,
                 onClick: () {
-                  Get.to(SignUp());
+                 Navigator.push(context, MaterialPageRoute(builder:(context) => SignUp(),));
                 })
           ],
         ),

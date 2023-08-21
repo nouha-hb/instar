@@ -23,7 +23,7 @@ class EditProfile extends StatelessWidget {
           foregroundColor: AppColors.black,
           leading: IconButton(
               onPressed: () {
-                Get.back();
+                Navigator.pop(context);
               },
               icon: Icon(Icons.arrow_back_ios)),
         ),
@@ -131,7 +131,11 @@ class EditProfile extends StatelessWidget {
                         text: "changer le mot de passe",
                         iconData: Icons.arrow_forward_ios,
                         onTap: () {
-                          Get.to(ChangePassword());
+                          Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ChangePassword()
+                                  ));
                         },
                       ),
                       SizedBox(

@@ -71,7 +71,9 @@ class NewPassword extends StatelessWidget {
                     displayToastMessage(
                         "Mot de Passe n'est pas valide", context);
                   }
-                  Get.to(PasswordCODE());
+                 Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (_) => PasswordCODE()));
                 }),
           ],
         ),

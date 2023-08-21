@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:instar/core/style/colors.dart';
+import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
 
 import '../../widgets/profile_button_component.dart';
 import 'edit_profile.dart';
@@ -13,6 +14,11 @@ class MyProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+           leading: IconButton(
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>MainPage() ,));
+            },
+            icon: Icon(Icons.arrow_back_ios)),
           elevation: 0,
           backgroundColor: AppColors.white,
           title: Text("Profile"),
@@ -33,7 +39,9 @@ class MyProfile extends StatelessWidget {
               height: 10.h,
             ),
             InkWell(
-                onTap: () {},
+                onTap: () {
+                 // Get.to(page)
+                },
                 child: ProfileButton(icon: Icons.wallet, text: "Mes achats")),
             SizedBox(
               height: 10.h,
@@ -48,7 +56,9 @@ class MyProfile extends StatelessWidget {
             ),
             InkWell(
                 onTap: () {
-                  Get.to(EditProfile());
+                 Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (_) => EditProfile()));
                 },
                 child: ProfileButton(icon: Icons.settings, text: "Paramétres")),
             SizedBox(

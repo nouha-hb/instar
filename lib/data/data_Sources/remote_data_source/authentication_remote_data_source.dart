@@ -59,10 +59,38 @@ class AuthenticationRemoteDataSourceImpl
 
 //not completed
   @override
-  Future<TokenModel> googleLogin() {
-    final googleSignIN = GoogleSignIn();
-    googleSignIN.signIn();
-    throw UnimplementedError();
+  Future<TokenModel> googleLogin() async {
+    try {
+      final googleSignIN = GoogleSignIn();
+      final user = await googleSignIN.signIn();
+      if (user != null) {
+        final _name = user!.displayName!.split(' ');
+        final _email = user.email;
+        final _id = user.id;
+        final usr = UserModel(
+            firstName: _name[0],
+            lastName: _name[1],
+            email: _email,
+            phone: '',
+            password: '123',
+            ban: false,
+            number: 1,
+            role: 'user',
+            id: _id);
+        await createAccount(usr);
+        final token = await login(_email, '123');
+        await googleSignIN.signOut;
+        await googleSignIN.disconnect();
+        return token;
+      } else {
+        print("error");
+        throw LoginException("Login failure");
+      }
+    } on LocalStorageException {
+      rethrow;
+    } catch (e) {
+      throw ServerException();
+    }
   }
 
   @override
@@ -74,12 +102,20 @@ class AuthenticationRemoteDataSourceImpl
       throw ServerException(message: 'User not Found');
     }
   }
-  
+
   @override
-  Future<void> updateProfil(User user) async{
-   try {
-    UserModel model = UserModel(firstName: user.firstName, lastName: user.lastName, email: user.email, phone: user.phone, password: user.password, ban: user.ban, number: user.number, role: user.role);
-    await dio.post(ApiConst.updateProfil,data: model.toJson());
+  Future<void> updateProfil(User user) async {
+    try {
+      UserModel model = UserModel(
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          phone: user.phone,
+          password: user.password,
+          ban: user.ban,
+          number: user.number,
+          role: user.role);
+      await dio.post(ApiConst.updateProfil, data: model.toJson());
     } catch (e) {
       throw ServerException(message: 'cannot update profile');
     }

@@ -29,7 +29,11 @@ class _ProductComponentState extends State<ProductComponent> {
     return Padding(
       padding: EdgeInsets.all(6.0.r),
       child: InkWell(
-        onTap: () => Get.to(ProductDesc()),
+        onTap: () =>  Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ProductDesc()
+                                  )),
         child: Container(
           width: 155.w,
           height: 220.h,

@@ -26,6 +26,7 @@ class ForgetPassword extends StatelessWidget {
       _emailController.text = email;
     }
     return Scaffold(
+      
       body: Column(
         children: [
          
@@ -83,7 +84,9 @@ class ForgetPassword extends StatelessWidget {
            PrimaryButton(
                text: "Envoyer",
                onClick: () {
-                 Get.to(NewPassword());
+                Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (_) => NewPassword()));
                }),
           
         ],

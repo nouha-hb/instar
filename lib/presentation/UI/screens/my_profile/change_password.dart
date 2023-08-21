@@ -11,26 +11,25 @@ import 'package:instar/presentation/UI/widgets/custom_textform.dart';
 import '../../../state_managment/controllers/profile_controller.dart';
 
 class ChangePassword extends StatelessWidget {
-
-  ChangePassword({Key? key, }) : super(key: key);
+  const ChangePassword({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
- 
     return Scaffold(
       appBar: AppBar(
-          elevation: 0,
-          backgroundColor: AppColors.white,
-          title: Text("Nouveau mot de passe"),
-          centerTitle: true,
-          foregroundColor: AppColors.black,
-           leading: IconButton(
-              onPressed: () {
-
-                Get.back();
-              },
-              icon: Icon(Icons.arrow_back_ios)),
-        ),
+        elevation: 0,
+        backgroundColor: AppColors.white,
+        title: Text("Nouveau mot de passe"),
+        centerTitle: true,
+        foregroundColor: AppColors.black,
+        leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: Icon(Icons.arrow_back_ios)),
+      ),
       body: GetBuilder<ProfileController>(
           init: ProfileController(),
           initState: (_) {},
@@ -44,9 +43,6 @@ class ChangePassword extends StatelessWidget {
                       SizedBox(
                         height: 10.h,
                       ),
-                    
-                  
-                    
                       SizedBox(
                         height: 30.h,
                       ),
@@ -66,7 +62,8 @@ class ChangePassword extends StatelessWidget {
                                 borderSide: BorderSide(color: AppColors.grey),
                               ),
                               focusedBorder: const UnderlineInputBorder(
-                                borderSide: BorderSide(color: AppColors.primary),
+                                borderSide:
+                                    BorderSide(color: AppColors.primary),
                               ),
                               hintText: "Mot de passe ",
                               hintStyle: AppTextStyle.lightLabelTextStyle,
@@ -76,12 +73,14 @@ class ChangePassword extends StatelessWidget {
                                       : Icons.visibility),
                                   color: AppColors.primary,
                                   onPressed: () {
-                                    controller.isPressed = !controller.isPressed;
+                                    controller.isPressed =
+                                        !controller.isPressed;
                                     controller.update();
                                   }),
                               labelStyle: AppTextStyle.lightLabelTextStyle,
                               filled: true,
-                              floatingLabelBehavior: FloatingLabelBehavior.never,
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.never,
                               fillColor: Colors.white.withOpacity(0.3),
                             ),
                           )),
@@ -105,7 +104,8 @@ class ChangePassword extends StatelessWidget {
                                 borderSide: BorderSide(color: AppColors.grey),
                               ),
                               focusedBorder: const UnderlineInputBorder(
-                                borderSide: BorderSide(color: AppColors.primary),
+                                borderSide:
+                                    BorderSide(color: AppColors.primary),
                               ),
                               hintText: "Confirmer le Mot de passe ",
                               hintStyle: AppTextStyle.lightLabelTextStyle,
@@ -115,12 +115,14 @@ class ChangePassword extends StatelessWidget {
                                       : Icons.visibility),
                                   color: AppColors.primary,
                                   onPressed: () {
-                                    controller.isPressed = !controller.isPressed;
+                                    controller.isPressed =
+                                        !controller.isPressed;
                                     controller.update();
                                   }),
                               labelStyle: AppTextStyle.lightLabelTextStyle,
                               filled: true,
-                              floatingLabelBehavior: FloatingLabelBehavior.never,
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.never,
                               fillColor: Colors.white.withOpacity(0.3),
                             ),
                           )),
@@ -132,9 +134,11 @@ class ChangePassword extends StatelessWidget {
                           onClick: () {
                             if (controller.formKey.currentState != null &&
                                 controller.formKey.currentState!.validate()) {
-                                      controller.resetPasswords();
-                
-                              Get.dialog(AlertDialog(title: Text("Passwords changed "),));
+                              controller.resetPasswords();
+
+                              Get.dialog(AlertDialog(
+                                title: Text("Passwords changed "),
+                              ));
                             }
                           }),
                     ],

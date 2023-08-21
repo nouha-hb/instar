@@ -74,7 +74,9 @@ class PasswordCODE extends StatelessWidget {
                     //   displayToastMessage(
                     //       "Mot de Passe n'est pas valide", context);
                     // }
-                    Get.to(MainPage());
+                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (_) => MainPage()));
                   }),
             ],
           ),

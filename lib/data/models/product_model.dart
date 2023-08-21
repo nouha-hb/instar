@@ -11,7 +11,7 @@ class ProductModel extends Product {
       required super.quantity});
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(id: json['_id'],category: json['category'],
-      name: json['name'], description: json['description'], price: json['price'], quantity: json['quantity']);
+      name: json['name'], description: json['description'], price: double.parse(json['price']) , quantity: json['quantity']);
 
   Map<String, dynamic> toJson() => {
         '_id':id,
