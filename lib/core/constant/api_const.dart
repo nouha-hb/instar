@@ -21,4 +21,8 @@ class ApiConst {
   static const String wishlist = "$baseUrl/wishlist";
   static const String getWishlist = "$baseUrl/wishlist/find";
 
+  //cart apis
+  static const String cart = "$baseUrl/carts";
+  static const String getCart = "$baseUrl/carts/find";
+
 }
