@@ -14,6 +14,7 @@ import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
 import 'package:instar/presentation/UI/screens/prod.dart';
 import 'package:instar/presentation/UI/screens/settings/language_settings.dart';
 import 'package:instar/presentation/UI/screens/sign_in/sign_in_screen.dart';
+import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
 import 'package:instar/presentation/state_managment/settings_controller.dart';
 import 'package:provider/provider.dart';
 import 'di.dart' as di;
@@ -52,7 +53,7 @@ class _MyAppState extends State<MyApp> {
       designSize: const Size(375, 812),
       builder: (_, __) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: MyWidget(),
+        home: SplashScreen(),
         supportedLocales: L10n.all,
         locale: Provider.of<SettingsController>(context).locale ??
             const Locale('fr'),
@@ -76,8 +77,8 @@ class MyWidget extends StatelessWidget {
       body: ElevatedButton(
         child: Text('ed'),
         onPressed: () async {
-          // await LogoutUsecase(sl()).call();
-          //   await LoginUsecase(sl()).call(email: 'sdd', password: '123456');
+           await LogoutUsecase(sl()).call();
+           // await LoginUsecase(sl()).call(email: 'emafghil', password: '1234');
           final res = await AutoLoginUsecase(sl()).call();
           res.fold((l) {
             print(l.toString());
@@ -85,7 +86,7 @@ class MyWidget extends StatelessWidget {
                 .push(MaterialPageRoute(builder: (_) => SignIn()));
           }, (r) {
             Navigator.of(context)
-                .push(MaterialPageRoute(builder: (_) => ProductsScreen()));
+                .push(MaterialPageRoute(builder: (_) => MainPage()));
           });
         },
       ),
