@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:instar/core/style/colors.dart';
+import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
 import 'package:instar/presentation/UI/screens/my_profile/change_mobile_number.dart';
 import 'package:instar/presentation/UI/screens/my_profile/change_password.dart';
+import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
 import 'package:instar/presentation/UI/widgets/edit_profile_button.dart';
 import 'package:instar/presentation/state_managment/controllers/profile_controller.dart';
 
@@ -23,7 +25,7 @@ class EditProfile extends StatelessWidget {
           foregroundColor: AppColors.black,
           leading: IconButton(
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainPage(),));
               },
               icon: Icon(Icons.arrow_back_ios)),
         ),
@@ -52,16 +54,19 @@ class EditProfile extends StatelessWidget {
                         height: 20.h,
                       ),
                       EditProfileButton(
-                        text: controller.username,
+                        text: ProfileController.name,
                         iconData: Icons.edit,
                         onTap: () {
-                          Get.dialog(
-                            AlertDialog(
+                          controller.nameController.text =
+                              ProfileController.name;
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15.r)),
                               title: const Text('changer le nom'),
                               content: ReusableTextField(
-                                controller: controller.usernameController,
+                                controller: controller.nameController,
                                 height: 50,
                                 keyboardType: TextInputType.name,
                                 text: '',
@@ -73,10 +78,10 @@ class EditProfile extends StatelessWidget {
                                   child: const Text("Confirmer"),
                                   onPressed: () {
                                     controller.change_name(controller
-                                        .usernameController.text
+                                        .nameController.text
                                         .toString());
-                                    controller.resetName();
-                                    Get.back();
+                                    // controller.resetName();
+                                    Navigator.pop(context);
                                   },
                                 ),
                               ],
@@ -88,32 +93,35 @@ class EditProfile extends StatelessWidget {
                         height: 10.h,
                       ),
                       EditProfileButton(
-                        text: controller.email,
+                        text: ProfileController.lastName,
                         iconData: Icons.edit,
                         onTap: () {
-                          Get.dialog(
-                            AlertDialog(
+                          controller.lastnameController.text =
+                              ProfileController.lastName;
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15.r)),
-                              title: const Text('changer email'),
+                              title: const Text('changer prénom'),
                               content: ReusableTextField(
-                                controller: controller.emailController,
+                                controller: controller.lastnameController,
                                 height: 50,
                                 keyboardType: TextInputType.name,
                                 text: '',
-                                validator: controller.requiredEmailValidator,
+                                validator: controller.requiredValidator,
                                 width: 200,
                               ),
                               actions: [
                                 TextButton(
                                   child: const Text("Confirmer"),
                                   onPressed: () {
-                                    controller.change_email(controller
-                                        .emailController.text
+                                    controller.change_LastName(controller
+                                        .lastnameController.text
                                         .toString());
-                                    controller.resetEmail();
+                                    controller.resetLastName();
 
-                                    Get.back();
+                                    Navigator.pop(context);
                                   },
                                 ),
                               ],
@@ -132,10 +140,9 @@ class EditProfile extends StatelessWidget {
                         iconData: Icons.arrow_forward_ios,
                         onTap: () {
                           Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ChangePassword()
-                                  ));
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ChangePassword()));
                         },
                       ),
                       SizedBox(
@@ -145,7 +152,11 @@ class EditProfile extends StatelessWidget {
                         text: "changer le numéro de téléphone",
                         iconData: Icons.arrow_forward_ios,
                         onTap: () {
-                          Get.to(ChangePhone());
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ChangePhone(),
+                              ));
                         },
                       ),
                     ],

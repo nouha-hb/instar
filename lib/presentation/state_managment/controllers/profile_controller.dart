@@ -1,26 +1,37 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:instar/domain/usecases/authentication_usecases/update_profil_usecase.dart';
+import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
+
+import '../../../di.dart';
+import '../../../domain/entities/user.dart';
 
 class ProfileController extends GetxController {
-  TextEditingController usernameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  String username = "username";
-  String email = "email";
+  TextEditingController nameController = TextEditingController();
+  TextEditingController lastnameController = TextEditingController();
+  static String name = SplashScreen.currentUser.firstName;
+  static String lastName = SplashScreen.currentUser.lastName;
+  static String phone = SplashScreen.currentUser.phone;
+  static String password = SplashScreen.currentUser.password;
+  final formKey = GlobalKey<FormState>();
+  final formKeypass = GlobalKey<FormState>();
+
+
   late TextEditingController passwordController = TextEditingController();
   late TextEditingController confirmPasswordController =
       TextEditingController();
-  late TextEditingController phoneController = TextEditingController();
-  final formKey = GlobalKey<FormState>();
+  TextEditingController phoneController = TextEditingController();
+
   bool isPressed = false;
   bool isPressed_confirm = false;
   void resetName() {
-    usernameController.text = "";
+    nameController.text = "";
     update();
   }
 
-  void resetEmail() {
-    emailController.text = "";
+  void resetLastName() {
+    lastnameController.text = "";
     update();
   }
 
@@ -33,28 +44,6 @@ class ProfileController extends GetxController {
   void resetPhone() {
     phoneController.text = "";
     update();
-  }
-
-  void change_name(String name) {
-    this.username = name;
-    update();
-    
-  }
-
-  void change_email(String email) {
-    this.email = email;
-    update();
-  }
-
-  String? requiredEmailValidator(String? text) {
-    if (text == null || text.trim().isEmpty) {
-      return ("this field is required");
-    }
-    bool isvalid = EmailValidator.validate(text);
-    if (isvalid.toString() == 'false') {
-      return ("Invalid email form");
-    }
-    return null;
   }
 
   String? requiredValidator(String? text) {
@@ -94,4 +83,102 @@ class ProfileController extends GetxController {
     }
     return null;
   }
+  Future change_name(String name) async {
+    try {
+      ProfileController.name = name;
+      update();
+      User user = User(
+          ban: SplashScreen.currentUser.ban,
+          role: SplashScreen.currentUser.role,
+          firstName: nameController.text,
+          lastName: ProfileController.name,
+          email: SplashScreen.currentUser.email,
+          phone: SplashScreen.currentUser.phone,
+          password: SplashScreen.currentUser.password);
+      final res = await UpdateProfilUsecase(sl()).call(user);
+      res.fold((l) => print("user update left"), (r) {});
+      print("update profile right");
+      print(SplashScreen.currentUser.firstName);
+      update();
+    } on Exception catch (e) {
+      // TODO
+    }
+  }
+
+  Future change_password(String password) async {
+    try {
+      ProfileController.password = password;
+      update();
+      User user = User(
+          ban: SplashScreen.currentUser.ban,
+          role: SplashScreen.currentUser.role,
+          firstName: ProfileController.name,
+          lastName: ProfileController.name,
+          email: SplashScreen.currentUser.email,
+          phone: ProfileController.phone,
+          password:password);
+      final res = await UpdateProfilUsecase(sl()).call(user);
+      res.fold((l) => print("user update phone left"), (r) {});
+      print("update profile password right");
+
+      update();
+    } on Exception catch (e) {
+      // TODO
+    }
+  }
+  Future change_phone(String phone) async {
+    try {
+      ProfileController.phone = phone;
+      update();
+      User user = User(
+          ban: SplashScreen.currentUser.ban,
+          role: SplashScreen.currentUser.role,
+          firstName: ProfileController.name,
+          lastName: ProfileController.name,
+          email: SplashScreen.currentUser.email,
+          phone: phone,
+          password: SplashScreen.currentUser.password);
+      final res = await UpdateProfilUsecase(sl()).call(user);
+      res.fold((l) => print("user update phone left"), (r) {});
+      print("update profile phone right");
+
+      update();
+    } on Exception catch (e) {
+      // TODO
+    }
+  }
+
+  Future change_LastName(String lastname) async {
+    try {
+      ProfileController.lastName = lastname;
+      update();
+      User user = User(
+          ban: SplashScreen.currentUser.ban,
+          role: SplashScreen.currentUser.role,
+          firstName: ProfileController.name,
+          lastName: lastnameController.text,
+          email: SplashScreen.currentUser.email,
+          phone: SplashScreen.currentUser.phone,
+          password: SplashScreen.currentUser.password);
+      final res = await UpdateProfilUsecase(sl()).call(user);
+      res.fold((l) => print("user update left"), (r) {});
+      print("update profile right");
+      print(SplashScreen.currentUser.firstName);
+      update();
+    } on Exception catch (e) {
+      // TODO
+    }
+  }
+
+  // String? requiredEmailValidator(String? text) {
+  //   if (text == null || text.trim().isEmpty) {
+  //     return ("this field is required");
+  //   }
+  //   // bool isvalid = EmailValidator.validate(text);
+  //   // if (isvalid.toString() == 'false') {
+  //   //   return ("Invalid email form");
+  //   // }
+  //   return null;
+  // }
+
 }

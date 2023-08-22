@@ -93,6 +93,7 @@ class SignInController extends GetxController {
             textColor: Colors.white,
             fontSize: 16.0);
       }, (r) {
+        
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (_) => MainPage()));
       });

@@ -111,7 +111,7 @@ class SignUp extends StatelessWidget {
                                   controller: controller.passwordController,
                                   obscureText:
                                       controller.isPressed ? false : true,
-                                  validator: controller.requiredValidator,
+                                  validator: controller.requiredConfiemPasswordValidator,
                                   keyboardType: TextInputType.visiblePassword,
                                   cursorColor: Colors.black,
                                   style: TextStyle(

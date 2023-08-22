@@ -32,6 +32,10 @@ class MainController extends GetxController {
       "name": "favorite",
       "page": favoriteList(),
     },
+      {
+      "name": "Profile",
+      "page": Profile(),
+    },
   ];
 
   // var categories = ["All", "tables", "mmeubles", "decoration", "xxxx", "xxxx"];

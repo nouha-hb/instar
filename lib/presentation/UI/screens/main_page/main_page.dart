@@ -7,7 +7,9 @@ import 'package:instar/presentation/UI/screens/my_profile/my_profile.dart';
 import 'package:instar/presentation/UI/screens/paiement/detail_paiement.dart';
 import 'package:instar/presentation/UI/screens/settings/language_settings.dart';
 import 'package:instar/presentation/UI/screens/settings/settings.dart';
+import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
 import 'package:instar/presentation/UI/widgets/sheet_app_bar.dart';
+import 'package:instar/presentation/state_managment/controllers/profile_controller.dart';
 
 import '../../../../core/style/colors.dart';
 import '../../../../di.dart';
@@ -38,7 +40,8 @@ class MainPage extends StatelessWidget {
               ),
               drawer: Drawer(
                 child: FutureBuilder(
-                    future: GetUserUsecase(sl()).call("id"),
+                    future: GetUserUsecase(sl())
+                        .call(SplashScreen.userToken.userId),
                     builder: (_, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return Center(
@@ -46,138 +49,93 @@ class MainPage extends StatelessWidget {
                                 width: 50.w,
                                 height: 50.h,
                                 child: const CircularProgressIndicator()));
-                      }
-                       else if (snapshot.hasData) {
+                      } else if (snapshot.hasData) {
                         final res = snapshot.data;
                         res!.fold((l) {
                           return Center(child: Text(l.message.toString()));
+                          print("drawer left");
                         }, (r) {
-                          return ListView(
-                            // Important: Remove any padding from the ListView.
-                            padding: EdgeInsets.zero,
-                            children: [
-                              UserAccountsDrawerHeader(
-                                // <-- SEE HERE
-                                decoration:
-                                    BoxDecoration(color: AppColors.white),
-                                accountName: Text(
-                                  r.firstName,
-                                  style: AppTextStyle.elementNameTextStyle,
-                                ),
-                                accountEmail: Text(
-                                  r.email,
-                                  style: AppTextStyle.elementNameTextStyle,
-                                ),
-                                currentAccountPicture: FlutterLogo(),
-                              ),
-                              ListTile(
-                                leading: Container(
-                                  width: 25.w,
-                                  height: 25.h,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5.r),
-                                      border:
-                                          Border.all(color: AppColors.primary)),
-                                  child: Icon(Icons.home,
-                                      color: AppColors.primary),
-                                ),
-                                title: Text(
-                                  'Acceuil',
-                                  style: AppTextStyle.elementNameTextStyle,
-                                ),
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                              ),
-                              ListTile(
-                                leading: Container(
-                                  width: 25.w,
-                                  height: 25.h,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5.r),
-                                      border:
-                                          Border.all(color: AppColors.primary)),
-                                  child: Icon(Icons.home,
-                                      color: AppColors.primary),
-                                ),
-                                title: Text(
-                                  'Paiement',
-                                  style: AppTextStyle.elementNameTextStyle,
-                                ),
-                                onTap: () {
-                                  Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(
-                                          builder: (_) => PaiementDetail()));
-                                },
-                              ),
-                              ListTile(
-                                leading: Container(
-                                  width: 25.w,
-                                  height: 25.h,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5.r),
-                                      border:
-                                          Border.all(color: AppColors.primary)),
-                                  child: Icon(Icons.home,
-                                      color: AppColors.primary),
-                                ),
-                                title: Text(
-                                  'Language',
-                                  style: AppTextStyle.elementNameTextStyle,
-                                ),
-                                onTap: () {
-                                  Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(
-                                          builder: (_) =>
-                                              SelectLanguageScreent()));
-                                },
-                              ),
-                              ListTile(
-                                leading: Container(
-                                  width: 25.w,
-                                  height: 25.h,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5.r),
-                                      border:
-                                          Border.all(color: AppColors.primary)),
-                                  child: Icon(Icons.settings,
-                                      color: AppColors.primary),
-                                ),
-                                title: Text('Paramétres',
-                                    style: AppTextStyle.elementNameTextStyle),
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => Settings(),
-                                      ));
-                                },
-                              ),
-                              ListTile(
-                                leading: Container(
-                                    width: 25.w,
-                                    height: 25.h,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(5.r),
-                                        border: Border.all(
-                                            color: AppColors.darkGrey)),
-                                    child: Icon(Icons.person,
-                                        color: AppColors.primary)),
-                                title: Text('Profile',
-                                    style: AppTextStyle.elementNameTextStyle),
-                                onTap: () {
-                                  Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(
-                                          builder: (_) => MyProfile()));
-                                },
-                              ),
-                            ],
-                          );
+                          print("drawer right");
+
+                          return Text("drawer right fold");
                         });
                       }
-                      return Center(
-                        child: Text("user not found"),
+                      return ListView(
+                        // Important: Remove any padding from the ListView.
+                        padding: EdgeInsets.zero,
+                        children: [
+
+                          UserAccountsDrawerHeader(
+                            // <-- SEE HERE
+                            decoration: BoxDecoration(color: AppColors.white),
+                            accountName: Text(
+                              "Hi👋 " + ProfileController.name,
+                              style: AppTextStyle.elementNameTextStyle,
+                            ),
+                            accountEmail: Text(
+                              SplashScreen.currentUser.email,
+                              style: AppTextStyle.elementNameTextStyle,
+                            ),
+                          ),
+                          ListTile(
+                            leading: Container(
+                              width: 30.w,
+                              height: 30.h,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5.r),
+                                  border: Border.all(color: AppColors.primary)),
+                              child: Icon(Icons.home, color: AppColors.primary),
+                            ),
+                            title: Text(
+                              'Acceuil',
+                              style: AppTextStyle.elementNameTextStyle,
+                            ),
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                          ListTile(
+                            leading: Container(
+                              width: 30.w,
+                              height: 30.h,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5.r),
+                                  border: Border.all(color: AppColors.primary)),
+                              child: Icon(Icons.home, color: AppColors.primary),
+                            ),
+                            title: Text(
+                              'Paiement',
+                              style: AppTextStyle.elementNameTextStyle,
+                            ),
+                            onTap: () {
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (_) => PaiementDetail()));
+                            },
+                          ),
+                         
+                          ListTile(
+                            leading: Container(
+                              width: 30.w,
+                              height: 30.h,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5.r),
+                                  border: Border.all(color: AppColors.primary)),
+                              child: Icon(Icons.settings,
+                                  color: AppColors.primary),
+                            ),
+                            title: Text('Paramétres',
+                                style: AppTextStyle.elementNameTextStyle),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Settings(),
+                                  ));
+                            },
+                          ),
+                          
+                        ],
                       );
                     }),
               ),
@@ -231,7 +189,13 @@ class MainPage extends StatelessWidget {
                                 Icons.favorite,
                                 size: 30.sp,
                               ),
-                              label: 'favorite')
+                              label: 'favorite'),
+                              BottomNavigationBarItem(
+                              icon: Icon(
+                                Icons.person,
+                                size: 30.sp,
+                              ),
+                              label: 'person')
                         ],
                       ),
                     )),

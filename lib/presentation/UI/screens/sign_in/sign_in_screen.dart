@@ -125,47 +125,7 @@ class SignIn extends StatelessWidget {
                           onClick: () async {
                             controller.signIn(context);
                           }),
-                      //   if (controller.formKey.currentState != null &&
-                      //       controller.formKey.currentState!.validate()) {
-                      //     controller.inProgress = true;
-                      //     controller.update();
-                      //     try {
-                      //       // Sign in service
-                      //       var email = controller.usernameController.text;
-                      //       var password =
-                      //           controller.passwordController.text;
-                      //       final res = await LoginUsecase(sl()).call(
-                      //           email: email.trim(), password: password);
-
-                      //       res.fold((l) {
-                      //         Fluttertoast.showToast(
-                      //             msg: l.message.toString(),
-                      //             toastLength: Toast.LENGTH_SHORT,
-                      //             gravity: ToastGravity.CENTER,
-                      //             timeInSecForIosWeb: 1,
-                      //             backgroundColor: Colors.black,
-                      //             textColor: Colors.white,
-                      //             fontSize: 16.0);
-                      //       }, (r) {
-                      //         Navigator.push(
-                      //             context,
-                      //             MaterialPageRoute(
-                      //               builder: (context) => MainPage(),
-                      //             ));
-                      //         print("sucrs");
-                      //       });
-                      //     } finally {
-                      //       controller.inProgress = false;
-                      //       if (controller.resetControllers) {
-                      //         // controller.usernameController.text = "";
-                      //         // controller.passwordController.text = "";
-                      //       }
-
-                      //       controller.update();
-                      //     }
-                      //   }
-                      // }
-                      // ),
+                      
 
                       SizedBox(
                         height: 24.h,

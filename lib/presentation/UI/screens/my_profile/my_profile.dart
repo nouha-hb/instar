@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:instar/core/style/colors.dart';
 import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
+import 'package:instar/presentation/UI/screens/settings/settings.dart';
 
 import '../../widgets/profile_button_component.dart';
 import 'edit_profile.dart';
@@ -58,7 +59,7 @@ class MyProfile extends StatelessWidget {
                 onTap: () {
                  Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
-                                          builder: (_) => EditProfile()));
+                                          builder: (_) => Settings()));
                 },
                 child: ProfileButton(icon: Icons.settings, text: "Paramétres")),
             SizedBox(

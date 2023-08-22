@@ -10,6 +10,7 @@ import 'package:instar/domain/usecases/authentication_usecases/logout_usecase.da
 import 'package:instar/presentation/UI/screens/landing_screen/landing_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:instar/presentation/UI/screens/main_page/profile_page.dart';
 import 'package:instar/presentation/UI/screens/profil.dart';
 import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
 import 'package:instar/presentation/UI/screens/prod.dart';
@@ -61,7 +62,7 @@ class _MyAppState extends State<MyApp> {
       designSize: const Size(375, 812),
       builder: (_, __) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: MyWidget(),
+        home: SplashScreen(),
         supportedLocales: L10n.all,
         locale: Provider.of<SettingsController>(context).locale ??
             const Locale('fr'),
@@ -85,8 +86,8 @@ class MyWidget extends StatelessWidget {
       body: ElevatedButton(
         child: Text('ed'),
         onPressed: () async {
-          // await LogoutUsecase(sl()).call();
-         await LoginUsecase(sl()).call(email: 'amani@gmail.com', password: 'amaniamani');
+           await LogoutUsecase(sl()).call();
+           // await LoginUsecase(sl()).call(email: 'emafghil', password: '1234');
           final res = await AutoLoginUsecase(sl()).call();
           res.fold((l) {
             print(l.toString()+"error *********");
@@ -94,7 +95,7 @@ class MyWidget extends StatelessWidget {
                 .push(MaterialPageRoute(builder: (_) => SignIn()));
           }, (r) {
             Navigator.of(context)
-                .push(MaterialPageRoute(builder: (_) => ProductsScreen()));
+                .push(MaterialPageRoute(builder: (_) => MainPage()));
           });
         },
       ),

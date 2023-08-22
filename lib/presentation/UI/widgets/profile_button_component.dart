@@ -16,22 +16,25 @@ class ProfileButton extends StatelessWidget {
         width: 325.w,
         height: 60.h,
         decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(13.r)),
-        child: Row(
-          children: [
-            Container(
-              width: 40.h,
-              height: 40.h,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.r),
-                  border: Border.all(color: AppColors.primary)),
-              child: Center(child: Icon(icon, size: 15.sp,color: AppColors.primary,)),
-            ), 
-            SizedBox(
-              width: 20.w,
-            ),
-            Text(text, style: AppTextStyle.elementNameTextStyle,),
-            
-          ],
+        child: Padding(
+          padding:  EdgeInsets.all(8.0.r),
+          child: Row(
+            children: [
+              Container(
+                width: 40.h,
+                height: 40.h,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.r),
+                    border: Border.all(color: AppColors.primary)),
+                child: Center(child: Icon(icon, size: 15.sp,color: AppColors.primary,)),
+              ), 
+              SizedBox(
+                width: 20.w,
+              ),
+              Text(text, style: AppTextStyle.elementNameTextStyle,),
+              
+            ],
+          ),
         ),
       ),
     );

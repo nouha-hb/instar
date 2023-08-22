@@ -4,8 +4,10 @@ import 'package:get/get.dart';
 import 'package:instar/core/style/colors.dart';
 import 'package:instar/domain/entities/user.dart';
 import 'package:instar/domain/usecases/authentication_usecases/create_account_usecase.dart';
+import 'package:instar/domain/usecases/widhlist_usecases/create_wishlist_usecase.dart';
 import 'package:instar/presentation/UI/screens/sign_in/sign_in_screen.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
 import '../../../di.dart';
 
 class SignUpController extends GetxController {
@@ -109,18 +111,16 @@ class SignUpController extends GetxController {
           phone: phone,
           password: password);
       final res = await CreateAccountUsecase(sl()).call(user);
+      final wishlist = await CreateWishListUsecase(sl())
+          .call(userId: SplashScreen.userToken.userId);
 
       res.fold((l) {
         print("error");
       }, (r) {
-       
         print("succeded");
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SignIn(),
-            ));
       });
+      wishlist.fold((l) => print("wish list create left"),
+          (r) => print("wishlist created"));
     } finally {
       loading = false;
       update();

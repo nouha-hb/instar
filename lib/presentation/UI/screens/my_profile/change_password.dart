@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
 import 'package:instar/presentation/UI/screens/forget_password/passwordSMS.dart';
+import 'package:instar/presentation/UI/screens/my_profile/edit_profile.dart';
 import 'package:instar/presentation/UI/widgets/custom_button.dart';
 import 'package:instar/presentation/UI/widgets/custom_textform.dart';
 
@@ -26,7 +27,7 @@ class ChangePassword extends StatelessWidget {
         foregroundColor: AppColors.black,
         leading: IconButton(
             onPressed: () {
-              Get.back();
+              Navigator.pop(context);
             },
             icon: Icon(Icons.arrow_back_ios)),
       ),
@@ -36,7 +37,7 @@ class ChangePassword extends StatelessWidget {
           builder: (controller) {
             return SingleChildScrollView(
               child: Form(
-                key: controller.formKey,
+                key: controller.formKeypass,
                 child: Center(
                   child: Column(
                     children: [
@@ -110,13 +111,13 @@ class ChangePassword extends StatelessWidget {
                               hintText: "Confirmer le Mot de passe ",
                               hintStyle: AppTextStyle.lightLabelTextStyle,
                               suffixIcon: IconButton(
-                                  icon: Icon(controller.isPressed
+                                  icon: Icon(controller.isPressed_confirm
                                       ? Icons.visibility_off
                                       : Icons.visibility),
                                   color: AppColors.primary,
                                   onPressed: () {
-                                    controller.isPressed =
-                                        !controller.isPressed;
+                                    controller.isPressed_confirm =
+                                        !controller.isPressed_confirm;
                                     controller.update();
                                   }),
                               labelStyle: AppTextStyle.lightLabelTextStyle,
@@ -132,13 +133,23 @@ class ChangePassword extends StatelessWidget {
                       PrimaryButton(
                           text: "Confirmer",
                           onClick: () {
-                            if (controller.formKey.currentState != null &&
-                                controller.formKey.currentState!.validate()) {
+                            if (controller.formKeypass.currentState != null &&
+                                controller.formKeypass.currentState!.validate()) {
+                              controller.change_password(controller.passwordController.text);
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: Text("Passwords changed "),
+                                  actions: [
+                                    TextButton(
+                                            onPressed: () =>
+                                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => EditProfile(),)),
+                                            child: const Text('OK'),
+                                          ),
+                                  ],
+                                ),
+                              );
                               controller.resetPasswords();
-
-                              Get.dialog(AlertDialog(
-                                title: Text("Passwords changed "),
-                              ));
                             }
                           }),
                     ],

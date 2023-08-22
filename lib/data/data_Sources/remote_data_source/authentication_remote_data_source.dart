@@ -46,6 +46,7 @@ class AuthenticationRemoteDataSourceImpl
       final response = await dio.post(ApiConst.login, data: user);
       final data = response.data;
       msg = data['message'];
+      print(msg);
       final TokenModel token = TokenModel.fromJson(data);
       return token;
     } catch (e) {
@@ -92,8 +93,12 @@ class AuthenticationRemoteDataSourceImpl
   @override
   Future<User> getcurrentUser(String id) async {
     try {
-      final _response = await dio.post(ApiConst.getProfile);
-      return UserModel.fromJson(_response.data);
+      final _response = await dio.post(ApiConst.getProfile,data: {
+    "_id":id   
+}
+);
+      print("current userrrr" + _response.data.toString());
+      return UserModel.fromJson(_response.data['user']);
     } catch (e) {
       throw ServerException(message: 'User not Found');
     }
