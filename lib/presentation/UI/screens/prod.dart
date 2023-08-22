@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:instar/domain/usecases/product_usecases/get_all_products_usecase.dart';
+import 'package:instar/domain/usecases/product_usecases/get_products_by_subcategory_usecase.dart';
 
 import '../../../di.dart';
 
@@ -10,7 +11,7 @@ class ProductsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder(
-          future: GetAllProductsUsecase(sl()).call(),
+          future: GetProductsBySubCategoryUsecase(sl()).call('enfant','table'),
           builder: (_, snap) {
             if (snap.hasData) {
               final list = snap.data;

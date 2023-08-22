@@ -103,7 +103,6 @@ class SignUpController extends GetxController {
       User user = User(
           ban: false,
           role: "user",
-          number: 1,
           firstName: firstname,
           lastName: lastname,
           email: email,

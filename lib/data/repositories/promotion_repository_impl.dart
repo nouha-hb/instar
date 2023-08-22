@@ -1,0 +1,34 @@
+import 'package:dartz/dartz.dart';
+
+import 'package:instar/core/errors/failures/failures.dart';
+import 'package:instar/domain/entities/Promotion.dart';
+
+import '../../core/errors/exceptions/exceptions.dart';
+import '../../domain/repositories/promotion_repository.dart';
+import '../data_Sources/remote_data_source/promotion_remote_data_source.dart';
+
+class PromotionRepositoryImpl implements PromotionRepository {
+  PromotionRemoteDataSource promotionRemoteDataSource;
+  PromotionRepositoryImpl(
+     this.promotionRemoteDataSource,
+  );
+  @override
+  Future<Either<Failure, List<Promotion>>> getAllPromotions() async{
+       try {
+      final promotionModels = await promotionRemoteDataSource.getAllPromotions();
+      final promotions = promotionModels
+          .map((e) => Promotion(
+              id: e.id,
+              image: e.image,
+              discount: e.discount,
+              endDate: e.endDate,
+              startDate: e.startDate,
+              product: e.product
+              ))
+          .toList();
+      return right(promotions);
+    } on ServerException {
+      return left(ServerFailure());
+    } 
+  }
+}

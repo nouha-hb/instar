@@ -6,7 +6,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
+import 'package:instar/domain/usecases/authentication_usecases/facebook_login_usecase.dart';
 import 'package:instar/domain/usecases/authentication_usecases/google_login_usecase.dart';
+import 'package:instar/domain/usecases/authentication_usecases/login_usecase.dart';
 import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
 import 'package:instar/presentation/UI/screens/settings/language_settings.dart';
 
@@ -119,48 +121,52 @@ class SignIn extends StatelessWidget {
                         height: 100.h,
                       ),
                       PrimaryButton(
-                          text: "connexion",
+                          text: AppLocalizations.of(context)!.connect,
                           onClick: () async {
-                            if (controller.formKey.currentState != null &&
-                                controller.formKey.currentState!.validate()) {
-                              controller.inProgress = true;
-                              controller.update();
-                              try {
-                                // Sign in service
-                                var email = controller.usernameController.text;
-                                var password =
-                                    controller.passwordController.text;
-                                final res = await LoginUsecase(sl()).call(
-                                    email: email.trim(), password: password);
-
-                                res.fold((l) {
-                                  Fluttertoast.showToast(
-                                      msg: l.message.toString(),
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.CENTER,
-                                      timeInSecForIosWeb: 1,
-                                      backgroundColor: Colors.black,
-                                      textColor: Colors.white,
-                                      fontSize: 16.0);
-                                }, (r) {
-                                  
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => MainPage(),
-                                      ));
-                                });
-                              } finally {
-                                controller.inProgress = false;
-                                if (controller.resetControllers) {
-                                  // controller.usernameController.text = "";
-                                  // controller.passwordController.text = "";
-                                }
-
-                                controller.update();
-                              }
-                            }
+                            controller.signIn(context);
                           }),
+                      //   if (controller.formKey.currentState != null &&
+                      //       controller.formKey.currentState!.validate()) {
+                      //     controller.inProgress = true;
+                      //     controller.update();
+                      //     try {
+                      //       // Sign in service
+                      //       var email = controller.usernameController.text;
+                      //       var password =
+                      //           controller.passwordController.text;
+                      //       final res = await LoginUsecase(sl()).call(
+                      //           email: email.trim(), password: password);
+
+                      //       res.fold((l) {
+                      //         Fluttertoast.showToast(
+                      //             msg: l.message.toString(),
+                      //             toastLength: Toast.LENGTH_SHORT,
+                      //             gravity: ToastGravity.CENTER,
+                      //             timeInSecForIosWeb: 1,
+                      //             backgroundColor: Colors.black,
+                      //             textColor: Colors.white,
+                      //             fontSize: 16.0);
+                      //       }, (r) {
+                      //         Navigator.push(
+                      //             context,
+                      //             MaterialPageRoute(
+                      //               builder: (context) => MainPage(),
+                      //             ));
+                      //         print("sucrs");
+                      //       });
+                      //     } finally {
+                      //       controller.inProgress = false;
+                      //       if (controller.resetControllers) {
+                      //         // controller.usernameController.text = "";
+                      //         // controller.passwordController.text = "";
+                      //       }
+
+                      //       controller.update();
+                      //     }
+                      //   }
+                      // }
+                      // ),
+
                       SizedBox(
                         height: 24.h,
                       ),

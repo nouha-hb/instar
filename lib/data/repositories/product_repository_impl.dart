@@ -21,7 +21,11 @@ class ProductRepositoryImp implements ProductRepository {
               name: e.name,
               description: e.description,
               price: e.price,
-              quantity: e.quantity))
+              quantity: e.quantity,
+              subCategory: e.subCategory,
+              image: e.image,
+              image3D: e.image3D
+              ))
           .toList();
       return right(products);
     } on ServerException {
@@ -37,8 +41,10 @@ class ProductRepositoryImp implements ProductRepository {
       final product =
           await productRemoteDataSource.getOneProducts(id: productId);
       return right(product);
-    } on ProductNotFoundException {
-      return left(ProductNotFoundFailure());
+  } on ServerException {
+      return left(ServerFailure());
+    } on NotAuthorizedException {
+      return left(NotAuthorizedFailure());
     }
   }
 
@@ -55,18 +61,42 @@ class ProductRepositoryImp implements ProductRepository {
               name: e.name,
               description: e.description,
               price: e.price,
-              quantity: e.quantity))
+              quantity: e.quantity,
+               subCategory: e.subCategory,
+              image: e.image,
+              image3D: e.image3D))
           .toList();
       return right(products);
-    } on ServerException {
+  } on ServerException {
       return left(ServerFailure());
+    } on NotAuthorizedException {
+      return left(NotAuthorizedFailure());
     }
   }
 
   @override
-  Future<Either<Failure, List<Product>>> getProductsBySubCategory(
-      String subCategory) {
-    // TODO: implement getProductsBySubCategory
-    throw UnimplementedError();
+  Future<Either<Failure, List<Product>>> getProductsBySubCategory(String category,
+      String subCategory) async{
+     try {
+      final productModels = await productRemoteDataSource.getProductsBySubCategory(
+          category: category,subCategory: subCategory);
+      final products = productModels
+          .map((e) => Product(
+              id: e.id,
+              category: e.category,
+              name: e.name,
+              description: e.description,
+              price: e.price,
+              quantity: e.quantity,
+               subCategory: e.subCategory,
+              image: e.image,
+              image3D: e.image3D))
+          .toList();
+      return right(products);
+} on ServerException {
+      return left(ServerFailure());
+    } on NotAuthorizedException {
+      return left(NotAuthorizedFailure());
+    }
   }
 }

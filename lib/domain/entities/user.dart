@@ -9,13 +9,11 @@ class User extends Equatable {
   final String password;
   final bool ban;
   final String role;
-  final int number;
 
   const User(
       {
      this.id,
       required this.ban,
-      required this.number,
       required this.role,  
       required this.firstName,
       required this.lastName,
@@ -24,7 +22,7 @@ class User extends Equatable {
       required this.password});
 
   @override
-  List<Object?> get props => [firstName,lastName,email,phone,password,ban,id,number,role];
+  List<Object?> get props => [firstName,lastName,email,phone,password,ban,id,role];
 
 }
 

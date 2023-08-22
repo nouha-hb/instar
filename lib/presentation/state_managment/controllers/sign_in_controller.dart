@@ -6,6 +6,7 @@ import 'package:instar/core/errors/failures/failures.dart';
 import 'package:instar/domain/repositories/authentication_repository.dart';
 import 'package:instar/domain/usecases/authentication_usecases/facebook_login_usecase.dart';
 import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
+import 'package:instar/presentation/UI/screens/prod.dart';
 import 'package:instar/presentation/UI/screens/sign_up/sign_up_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../../core/errors/exceptions/exceptions.dart';
@@ -72,9 +73,9 @@ class SignInController extends GetxController {
     } finally {}
   }
 
-  Future<void> signIn() async {
+  Future<void> signIn(BuildContext context) async {
     inProgress = true;
-    update();
+    //update();
     try {
       // Sign in service
       var email = usernameController.text;
@@ -91,14 +92,13 @@ class SignInController extends GetxController {
             backgroundColor: Colors.black,
             textColor: Colors.white,
             fontSize: 16.0);
-        return false;
       }, (r) {
-        return true;
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (_) => MainPage()));
       });
     } finally {
       inProgress = false;
       if (resetControllers) {
-        print("error");
         // usernameController.text = "";
         // passwordController.text = "";
       }
