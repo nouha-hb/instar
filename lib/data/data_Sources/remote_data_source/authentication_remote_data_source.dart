@@ -9,7 +9,7 @@ import 'package:dio/dio.dart';
 import '../../../core/errors/exceptions/exceptions.dart';
 
 abstract class AuthenticationRemoteDataSource {
-  Future<void> createAccount(User user);
+  Future<String> createAccount(User user);
   Future<TokenModel> login(String email, String password);
   Future<TokenModel> googleLogin();
   Future<TokenModel> facebookLogin();
@@ -22,7 +22,7 @@ class AuthenticationRemoteDataSourceImpl
   final dio = Dio();
 
   @override
-  Future<void> createAccount(User user) async {
+  Future<String> createAccount(User user) async {
     try {
       UserModel userModel = UserModel(
           role: user.role,
@@ -32,7 +32,8 @@ class AuthenticationRemoteDataSourceImpl
           phone: user.phone,
           password: user.password,
           ban: user.ban);
-      await dio.post(ApiConst.register, data: userModel.toJson());
+      final res = await dio.post(ApiConst.register, data: userModel.toJson());
+      return res.data["uId"];
     } catch (e) {
       throw RegistrationException();
     }
@@ -93,10 +94,7 @@ class AuthenticationRemoteDataSourceImpl
   @override
   Future<User> getcurrentUser(String id) async {
     try {
-      final _response = await dio.post(ApiConst.getProfile,data: {
-    "_id":id   
-}
-);
+      final _response = await dio.post(ApiConst.getProfile, data: {"_id": id});
       print("current userrrr" + _response.data.toString());
       return UserModel.fromJson(_response.data['user']);
     } catch (e) {

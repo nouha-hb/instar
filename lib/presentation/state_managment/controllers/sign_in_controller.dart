@@ -9,6 +9,7 @@ import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
 import 'package:instar/presentation/UI/screens/prod.dart';
 import 'package:instar/presentation/UI/screens/sign_up/sign_up_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
 import '../../../core/errors/exceptions/exceptions.dart';
 import '../../../di.dart';
 import '../../../domain/usecases/authentication_usecases/login_usecase.dart';
@@ -74,8 +75,9 @@ class SignInController extends GetxController {
   }
 
   Future<void> signIn(BuildContext context) async {
+    print("sign in method");
     inProgress = true;
-    //update();
+    update();
     try {
       // Sign in service
       var email = usernameController.text;
@@ -92,13 +94,14 @@ class SignInController extends GetxController {
             backgroundColor: Colors.black,
             textColor: Colors.white,
             fontSize: 16.0);
-      }, (r) {
-        
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => MainPage()));
+        print("left");
+      }, (r) async{
+        await SplashScreen.init(context, 0);
+        print("right");
       });
     } finally {
       inProgress = false;
+      print("finally");
       if (resetControllers) {
         // usernameController.text = "";
         // passwordController.text = "";

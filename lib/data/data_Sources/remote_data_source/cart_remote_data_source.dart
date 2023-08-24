@@ -1,19 +1,19 @@
 import 'package:dio/dio.dart';
-import 'package:instar/data/models/wishlist_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/constant/api_const.dart';
 import '../../../core/errors/exceptions/exceptions.dart';
+import '../../models/cart_model.dart';
 import '../local_data_source/authentication_local_data_source.dart';
 
-abstract class WishlistRemoteDataSource {
-  Future<void> createWishlist({required String userId});
-  Future<void> updateWishlist(
-      {required WishListModel wishlist});
-  Future<WishListModel> getWishlist({required String userId});
+abstract class CartRemoteDataSource {
+  Future<void> createCart({required String userId});
+  Future<void> updateCart(
+      {required CartModel cart});
+  Future<CartModel> getCart({required String userId});
 }
 
-class WishlistRemoteDataSourceImpl implements WishlistRemoteDataSource {
+class CartRemoteDataSourceImpl implements CartRemoteDataSource {
   Dio dio = Dio();
 
   Future<String> get token async {
@@ -21,14 +21,18 @@ class WishlistRemoteDataSourceImpl implements WishlistRemoteDataSource {
     final _tk = await AuthenticationLocalDataSourceImpl().getUserInformations();
     return _tk.token;
   }
-
+  
   @override
-  Future<void> createWishlist({required String userId}) async {
-    try {
+  Future<void> createCart({required String userId}) async{
+     try {
        await dio.post(
-        ApiConst.wishlist,
+        ApiConst.cart,
         data: {"userId": userId},
-       
+        options: Options(
+          headers: {
+            "authorization": "Bearer ${await token}",
+          },
+        ),
       );
     } on DioException catch (e) {
       if (e.response!.statusCode == 401) {
@@ -38,12 +42,12 @@ class WishlistRemoteDataSourceImpl implements WishlistRemoteDataSource {
       }
     }
   }
-
+  
   @override
-  Future<WishListModel> getWishlist({required String userId}) async {
+  Future<CartModel> getCart({required String userId}) async{
     try {
       final response = await dio.get(
-        "${ApiConst.getWishlist}/$userId",
+        "${ApiConst.getCart}/$userId",
         options: Options(
           headers: {
             "authorization": "Bearer ${await token}",
@@ -51,8 +55,8 @@ class WishlistRemoteDataSourceImpl implements WishlistRemoteDataSource {
         ),
       );
       final data = response.data;
-      WishListModel wishlist = WishListModel.fromJson(data);
-      return wishlist;
+      CartModel cart = CartModel.fromJson(data);
+      return cart;
     } on DioException catch (e) {
       if (e.response!.statusCode == 401) {
         throw NotAuthorizedException();
@@ -61,15 +65,14 @@ class WishlistRemoteDataSourceImpl implements WishlistRemoteDataSource {
       }
     }
   }
-
+  
   @override
-  Future<void> updateWishlist(
-      {required WishListModel wishlist}) async{
-     try {
+  Future<void> updateCart({required CartModel cart}) async{
+   try {
        await dio.post(
-        "${ApiConst.getWishlist}/${wishlist.id}",
-        data: {"userId": wishlist.userId,
-              "products": wishlist.productsId.map((e) => {"productId":e})
+        "${ApiConst.getCart}/${cart.id}",
+        data: {"userId": cart.userId,
+              "products": cart.productsId.map((e) => {"productId":e})
               },
         options: Options(
           headers: {
@@ -85,4 +88,6 @@ class WishlistRemoteDataSourceImpl implements WishlistRemoteDataSource {
       }
     }
   }
+
+ 
 }

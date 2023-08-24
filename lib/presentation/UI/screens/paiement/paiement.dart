@@ -34,7 +34,7 @@ class Paiementt extends StatelessWidget {
                    
                       children: [
                         IconButton(
-                          onPressed: () => Get.back(),
+                          onPressed: () => Navigator.pop(context),
                           icon: Icon(
                             Icons.arrow_back_ios,
                             color: AppColors.black,

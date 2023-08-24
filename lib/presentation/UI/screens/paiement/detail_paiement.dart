@@ -12,8 +12,6 @@ import 'package:instar/presentation/UI/widgets/custom_button.dart';
 import '../../../state_managment/controllers/product_list_controller.dart';
 
 class PaiementDetail extends StatefulWidget {
-  
-
   const PaiementDetail({super.key});
 
   @override
@@ -21,13 +19,11 @@ class PaiementDetail extends StatefulWidget {
 }
 
 class _PaiementDetailState extends State<PaiementDetail> {
-  String info='';
+  String info = '';
 
   List<String> text = ["E-dianar", "Carte Bancaire ", "Konnect"];
 
-
-
-  GroupController controllerg = GroupController(isMultipleSelection:false);
+  GroupController controllerg = GroupController(isMultipleSelection: false);
 
   @override
   Widget build(BuildContext context) {
@@ -49,20 +45,20 @@ class _PaiementDetailState extends State<PaiementDetail> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IconButton(
-                        onPressed: () => Get.back(),
+                        onPressed: () => Navigator.pop(context),
                         icon: Icon(
                           Icons.arrow_back_ios,
                           color: AppColors.black,
                           size: 30.sp,
                         ),
                       ),
-                      Text("Détails de paiement",style: TextStyle(fontWeight: FontWeight.bold)),
+                      Text("Détails de paiement",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
                       IconButton(
-                        onPressed: () =>  Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ShoppingCart()
-                                  )),
+                        onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ShoppingCart())),
                         icon: Icon(
                           Icons.shopping_cart_checkout_rounded,
                           color: AppColors.black,
@@ -74,29 +70,25 @@ class _PaiementDetailState extends State<PaiementDetail> {
                   SizedBox(
                     height: 30.h,
                   ),
-                   Text("Payment",style: TextStyle(fontWeight: FontWeight.bold),),
-                      Container(
-            height: 230.0,
-            child:  SimpleGroupedCheckbox<String>(
-              controller: controllerg,
-              itemsTitle: text,
-              values: ["A","S","B"],
-              onItemSelected: (value){
-
-              info =value.join("").toString() ;
-              print(info);
-
-
-
-              },
-              groupStyle: GroupStyle(
-                activeColor: Colors.red,
-              
-              ),
-          
-            ),),
-                 
-                  
+                  Text(
+                    "Payment",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Container(
+                    height: 230.0,
+                    child: SimpleGroupedCheckbox<String>(
+                      controller: controllerg,
+                      itemsTitle: text,
+                      values: ["A", "S", "B"],
+                      onItemSelected: (value) {
+                        info = value.join("").toString();
+                        print(info);
+                      },
+                      groupStyle: GroupStyle(
+                        activeColor: Colors.red,
+                      ),
+                    ),
+                  ),
                   Container(
                     height: 100.h,
                     decoration: BoxDecoration(
@@ -105,41 +97,53 @@ class _PaiementDetailState extends State<PaiementDetail> {
                     ),
                   ),
                   Row(
-                    mainAxisAlignment:MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       ElevatedButton(
-                           child: Text("Annuler"), 
-      onPressed: () {
-        // Fonction à exécuter lorsque le bouton est pressé
-      },
-      style: ElevatedButton.styleFrom(
-        primary: Colors.white, // Couleur de l'arrière-plan
-        onPrimary: Color(0Xff93B6F9), 
-        
-      // Couleur du texte
-      fixedSize: Size(140, 50),
-        side: BorderSide(color: Color(0Xff93B6F9)), // Couleur de la bordure
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0), // Bordure arrondie
-        ),
-      ),),
-       ElevatedButton(
-                           child: Text("Confirmer"), 
-      onPressed: () {
-        Get.to(Paiementt());
-      },
-      style: ElevatedButton.styleFrom(
-        fixedSize: Size(140, 50),
-        primary: Color(0Xff93B6F9), // Couleur de l'arrière-plan
-        onPrimary: Colors.white, // Couleur du texte
-        side: BorderSide(color: Color(0Xff93B6F9)), // Couleur de la bordure
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0), // Bordure arrondie
-        ),
-      ),),
+                        child: Text("Annuler"),
+                        onPressed: () {
+                          // Fonction à exécuter lorsque le bouton est pressé
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.white, // Couleur de l'arrière-plan
+                          onPrimary: Color(0Xff93B6F9),
+
+                          // Couleur du texte
+                          fixedSize: Size(140, 50),
+                          side: BorderSide(
+                              color:
+                                  Color(0Xff93B6F9)), // Couleur de la bordure
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(8.0), // Bordure arrondie
+                          ),
+                        ),
+                      ),
+                      ElevatedButton(
+                        child: Text("Confirmer"),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Paiementt(),
+                              ));
+                        },
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: Size(140, 50),
+                          primary:
+                              Color(0Xff93B6F9), // Couleur de l'arrière-plan
+                          onPrimary: Colors.white, // Couleur du texte
+                          side: BorderSide(
+                              color:
+                                  Color(0Xff93B6F9)), // Couleur de la bordure
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(8.0), // Bordure arrondie
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                  
                 ],
               ),
             );

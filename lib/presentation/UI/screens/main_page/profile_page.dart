@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:instar/di.dart';
+import 'package:instar/domain/entities/paiement.dart';
 import 'package:instar/domain/usecases/authentication_usecases/logout_usecase.dart';
 import 'package:instar/presentation/UI/screens/main_page/shopping_cart.dart';
+import 'package:instar/presentation/UI/screens/paiement/detail_paiement.dart';
+import 'package:instar/presentation/UI/screens/settings/settings.dart';
 import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
 import 'package:instar/presentation/UI/widgets/profile_button_component.dart';
 
@@ -40,12 +43,16 @@ class Profile extends StatelessWidget {
         height: 10.h,
       ),
 
-      ProfileButton(icon: Icons.payment, text: "Mode de paiement"),
+      InkWell(
+        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PaiementDetail())),
+        child: ProfileButton(icon: Icons.payment, text: "Mode de paiement")),
       SizedBox(
         height: 10.h,
       ),
 
-      ProfileButton(icon: Icons.settings, text: "Paramétres"),
+      InkWell(
+        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Settings(),)),
+        child: ProfileButton(icon: Icons.settings, text: "Paramétres", )),
       SizedBox(
         height: 10.h,
       ),

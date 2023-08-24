@@ -5,6 +5,7 @@ import 'package:instar/core/style/text_style.dart';
 import 'package:instar/presentation/UI/screens/main_page/profile_page.dart';
 import 'package:instar/presentation/UI/screens/my_profile/my_profile.dart';
 import 'package:instar/presentation/UI/screens/paiement/detail_paiement.dart';
+import 'package:instar/presentation/UI/screens/paiement/paiement.dart';
 import 'package:instar/presentation/UI/screens/settings/language_settings.dart';
 import 'package:instar/presentation/UI/screens/settings/settings.dart';
 import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
@@ -127,7 +128,7 @@ class MainPage extends StatelessWidget {
                             title: Text('Paramétres',
                                 style: AppTextStyle.elementNameTextStyle),
                             onTap: () {
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => Settings(),

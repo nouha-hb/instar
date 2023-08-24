@@ -21,21 +21,7 @@ class SplashScreen extends StatefulWidget {
   static late Token userToken;
   static late User currentUser;
   static late WishList wishList;
-
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  //bool signedIn = false;
-  @override
-  void initState() {
-    init();
-    super.initState();
-  }
-
-  @override
-  Future<void> init() async {
+static Future<void> init(BuildContext context,int duration) async {
     bool res = true;
     final autologiVarReturn = await AutoLoginUsecase(sl()).call();
     print(' autologin');
@@ -44,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
       return res = false;
     }, (r) async {
-      print(' autologin right');
+      print(' autologin right $r');
       SplashScreen.userToken = r;
       final user = await GetUserUsecase(sl()).call(SplashScreen.userToken.userId);
       print(' getuser');
@@ -72,14 +58,28 @@ class _SplashScreenState extends State<SplashScreen> {
       });
     });
     print(res.toString()+"res");
-    Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(
+    Future.delayed( Duration(seconds: duration), () {
+      Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => res ? const MainPage() : const SignIn()));
     });
   }
 
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  //bool signedIn = false;
+  @override
+  void initState() {
+    SplashScreen.init(context,3);
+    super.initState();
+  }
+
+  @override
+ 
   Widget build(BuildContext context) {
     return Container(
       width: 375.w,

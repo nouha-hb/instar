@@ -2,13 +2,13 @@ import 'package:dartz/dartz.dart';
 import 'package:instar/core/errors/exceptions/exceptions.dart';
 
 import 'package:instar/core/errors/failures/failures.dart';
-import 'package:instar/data/data_Sources/remote_data_source/authentication_remote_data_source.dart';
 import 'package:instar/data/models/token_model.dart';
 import 'package:instar/domain/entities/token.dart';
 import 'package:instar/domain/entities/user.dart';
 import 'package:instar/domain/repositories/authentication_repository.dart';
 
 import '../data_Sources/local_data_source/authentication_local_data_source.dart';
+import '../data_Sources/remote_data_source/authentication_remote_data_source.dart';
 
 class AuthenticationRepositoryImpl implements AuthenticationRepository {
   final AuthenticationRemoteDataSource authRemoteDataSource;
@@ -18,10 +18,10 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
       {required this.authRemoteDataSource, required this.authLocalDataSource});
 
   @override
-  Future<Either<Failure, Unit>> createAccount(User user) async {
+  Future<Either<Failure, String>> createAccount(User user) async {
     try {
-      await authRemoteDataSource.createAccount(user);
-      return const Right(unit);
+      final res = await authRemoteDataSource.createAccount(user);
+      return Right(res);
     } on RegistrationException {
       return Left(RegistrationFailure());
     }

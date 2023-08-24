@@ -111,16 +111,30 @@ class SignUpController extends GetxController {
           phone: phone,
           password: password);
       final res = await CreateAccountUsecase(sl()).call(user);
-      final wishlist = await CreateWishListUsecase(sl())
-          .call(userId: SplashScreen.userToken.userId);
-
-      res.fold((l) {
-        print("error");
-      }, (r) {
-        print("succeded");
+      res.fold(
+          (l) => Fluttertoast.showToast(
+              msg: l.message.toString(),
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.black,
+              textColor: Colors.white,
+              fontSize: 16.0), 
+              (r) async {
+        print("\n$r");
+        final wishlist = await CreateWishListUsecase(sl()).call(userId: r);
+        wishlist.fold(
+          (l) => print("left wishlist"),
+          (r) => Fluttertoast.showToast(
+              msg: "wishlist created",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.black,
+              textColor: Colors.white,
+              fontSize: 16.0),
+        );
       });
-      wishlist.fold((l) => print("wish list create left"),
-          (r) => print("wishlist created"));
     } finally {
       loading = false;
       update();

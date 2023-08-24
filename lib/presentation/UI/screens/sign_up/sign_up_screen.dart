@@ -111,7 +111,8 @@ class SignUp extends StatelessWidget {
                                   controller: controller.passwordController,
                                   obscureText:
                                       controller.isPressed ? false : true,
-                                  validator: controller.requiredConfiemPasswordValidator,
+                                  validator: controller
+                                      .requiredConfiemPasswordValidator,
                                   keyboardType: TextInputType.visiblePassword,
                                   cursorColor: Colors.black,
                                   style: TextStyle(
@@ -232,6 +233,7 @@ class SignUp extends StatelessWidget {
                                   if (controller.formKey.currentState != null &&
                                       controller.formKey.currentState!
                                           .validate()) {
+                                    controller.SignUp();
                                     showDialog<String>(
                                       context: context,
                                       builder: (BuildContext context) =>
@@ -240,16 +242,18 @@ class SignUp extends StatelessWidget {
                                         content: const Text(
                                             'Your account is created :'),
                                         actions: <Widget>[
-                                         
                                           TextButton(
-                                            onPressed: () =>
-                                                Navigator.push(context, MaterialPageRoute(builder: (context) => SignIn(),)),
+                                            onPressed: () => Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      SignIn(),
+                                                )),
                                             child: const Text('OK'),
                                           ),
                                         ],
                                       ),
                                     );
-                                    controller.SignUp();
                                   }
                                 }),
                             SizedBox(

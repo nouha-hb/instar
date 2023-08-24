@@ -8,6 +8,6 @@ class CreateAccountUsecase {
   final AuthenticationRepository repository;
 
   CreateAccountUsecase(this.repository);
-  Future<Either<Failure, Unit>> call(User user) async =>
+  Future<Either<Failure, String>> call(User user) async =>
       await repository.createAccount(user);
 }

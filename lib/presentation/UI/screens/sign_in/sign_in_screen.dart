@@ -123,9 +123,16 @@ class SignIn extends StatelessWidget {
                       PrimaryButton(
                           text: AppLocalizations.of(context)!.connect,
                           onClick: () async {
-                            controller.signIn(context);
+                            if (controller.formKey.currentState != null &&
+                                controller.formKey.currentState!.validate()) {
+                              controller.signIn(context);
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //       builder: (context) => MainPage(),
+                              //     ));
+                            }
                           }),
-                      
 
                       SizedBox(
                         height: 24.h,
@@ -195,14 +202,11 @@ class SignIn extends StatelessWidget {
                         softWrap: true,
                         textAlign: TextAlign.center,
                         text: TextSpan(children: [
-                          TextSpan(
+                         TextSpan(
                               text:
                                   "${AppLocalizations.of(context)!.dont_have_account}\n",
                               style: AppTextStyle.darkLabelTextStyle,
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () => Navigator.of(context)
-                                    .pushReplacement(MaterialPageRoute(
-                                        builder: (_) => ForgetPassword()))),
+                              ),
                           TextSpan(
                             text: AppLocalizations.of(context)!.register,
                             style: AppTextStyle.blueLabelTextStyle,
