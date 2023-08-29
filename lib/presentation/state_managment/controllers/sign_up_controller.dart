@@ -113,7 +113,7 @@ class SignUpController extends GetxController {
       final res = await CreateAccountUsecase(sl()).call(user);
       res.fold(
           (l) => Fluttertoast.showToast(
-              msg: l.message.toString(),
+              msg: 'l.message.toString()',
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.CENTER,
               timeInSecForIosWeb: 1,

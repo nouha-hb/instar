@@ -11,6 +11,7 @@ import 'package:instar/presentation/UI/screens/landing_screen/landing_screen.dar
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:instar/presentation/UI/screens/main_page/profile_page.dart';
+import 'package:instar/presentation/UI/screens/order_tracking/order_tracking.dart';
 import 'package:instar/presentation/UI/screens/profil.dart';
 import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
 import 'package:instar/presentation/UI/screens/prod.dart';
@@ -64,8 +65,7 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         home: SplashScreen(),
         supportedLocales: L10n.all,
-        locale: Provider.of<SettingsController>(context).locale ??
-            const Locale('fr'),
+        locale: Locale('fr'),
         localizationsDelegates: const [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
@@ -86,11 +86,11 @@ class MyWidget extends StatelessWidget {
       body: ElevatedButton(
         child: Text('ed'),
         onPressed: () async {
-           await LogoutUsecase(sl()).call();
-           // await LoginUsecase(sl()).call(email: 'emafghil', password: '1234');
+          await LogoutUsecase(sl()).call();
+          // await LoginUsecase(sl()).call(email: 'emafghil', password: '1234');
           final res = await AutoLoginUsecase(sl()).call();
           res.fold((l) {
-            print(l.toString()+"error *********");
+            print(l.toString() + "error *********");
             return Navigator.of(context)
                 .push(MaterialPageRoute(builder: (_) => SignIn()));
           }, (r) {

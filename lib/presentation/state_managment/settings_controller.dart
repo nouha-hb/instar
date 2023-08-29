@@ -15,7 +15,6 @@ class SettingsController extends ChangeNotifier {
 
     _locale = locale;
     language = lang;
-    print(_locale.toString());
     notifyListeners();
   }
 
@@ -28,17 +27,13 @@ class SettingsController extends ChangeNotifier {
     final sp = await SharedPreferences.getInstance();
     sp.setInt(StringConst.SP_LANGUAGE_KEY, language);
     print('saved');
-    // language = lang;
-    //print(lang);
   }
 
   void loadLanguage() async {
     final sp = await SharedPreferences.getInstance();
     final lang = sp.getInt(StringConst.SP_LANGUAGE_KEY) ?? 0;
-    print(lang.toString() + "aaaa");
     language = lang;
     notifyListeners();
     _locale = L10n.all[lang];
-    //  return lang;
   }
 }

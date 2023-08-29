@@ -1,5 +1,6 @@
 class ApiConst {
-  static const String baseUrl = "http://10.10.23.13:3000/api"; //ip Address
+  static const String ipAddress = "192.168.1.17";
+  static const String baseUrl = "http://$ipAddress:3000/api"; //ip Address
   static const String register = "$baseUrl/register";
   static const String login = "$baseUrl/login";
   static const String getProfile = "$baseUrl/profilgetById";
@@ -24,4 +25,6 @@ class ApiConst {
   static const String cart = "$baseUrl/carts";
   static const String getCart = "$baseUrl/carts/find";
 
+  //assets apis
+  static const String files = "http://$ipAddress:3000/public/images";
 }

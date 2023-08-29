@@ -7,6 +7,7 @@ import 'package:instar/domain/entities/wishlist.dart';
 import 'package:instar/domain/usecases/authentication_usecases/auto_login_usecase.dart';
 import 'package:instar/domain/usecases/authentication_usecases/get_user_usecase.dart';
 import 'package:instar/domain/usecases/widhlist_usecases/get_wishlist_usecase.dart';
+import 'package:instar/presentation/UI/screens/landing_screen/landing_screen.dart';
 import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
 import 'package:instar/presentation/UI/screens/settings/language_settings.dart';
 import 'package:instar/presentation/UI/screens/sign_in/sign_in_screen.dart';
@@ -62,7 +63,7 @@ static Future<void> init(BuildContext context,int duration) async {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => res ? const MainPage() : const SignIn()));
+              builder: (context) => res ? const MainPage() : const LandingPage()));
     });
   }
 

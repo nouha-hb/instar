@@ -202,11 +202,11 @@ class SignIn extends StatelessWidget {
                         softWrap: true,
                         textAlign: TextAlign.center,
                         text: TextSpan(children: [
-                         TextSpan(
-                              text:
-                                  "${AppLocalizations.of(context)!.dont_have_account}\n",
-                              style: AppTextStyle.darkLabelTextStyle,
-                              ),
+                          TextSpan(
+                            text:
+                                "${AppLocalizations.of(context)!.dont_have_account}\n",
+                            style: AppTextStyle.darkLabelTextStyle,
+                          ),
                           TextSpan(
                             text: AppLocalizations.of(context)!.register,
                             style: AppTextStyle.blueLabelTextStyle,

@@ -1,3 +1,5 @@
+import 'package:instar/data/models/product3D_model.dart';
+
 import '../../domain/entities/product.dart';
 
 class ProductModel extends Product {
@@ -16,7 +18,7 @@ class ProductModel extends Product {
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(id: json['_id'],category: json['category'],
       name: json['name'], description: json['description'], price: double.parse(json['price'].toString()) , quantity: json['quantity'],subCategory: json['subCategory'],
-      image: json['image'],image3D: json['image3D']
+      image: json['image'],image3D: (json['image3DInfo'] as List).map((e) => Product3DModel.fromJson(e)).toList()
        );
 
   Map<String, dynamic> toJson() => {

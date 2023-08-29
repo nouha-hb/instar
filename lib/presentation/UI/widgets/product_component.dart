@@ -4,19 +4,18 @@ import 'package:get/get.dart';
 import 'package:instar/core/style/assets.dart';
 import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
+import 'package:instar/domain/entities/product.dart';
 import 'package:instar/presentation/UI/screens/products/product_description.dart';
 
+import '../../../core/constant/api_const.dart';
+
 class ProductComponent extends StatefulWidget {
-  final String product_name;
-  final String product_ref;
-  final String brand_product;
-  final String product_price;
+  final Product product;
+ 
   const ProductComponent(
       {super.key,
-      required this.product_name,
-      required this.product_ref,
-      required this.brand_product,
-      required this.product_price});
+      required this.product,
+ });
 
   @override
   State<ProductComponent> createState() => _ProductComponentState();
@@ -29,11 +28,8 @@ class _ProductComponentState extends State<ProductComponent> {
     return Padding(
       padding: EdgeInsets.all(6.0.r),
       child: InkWell(
-        onTap: () =>  Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ProductDesc()
-                                  )),
+        onTap: () => Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ProductDesc(product:widget.product))),
         child: Container(
           width: 155.w,
           height: 220.h,
@@ -50,20 +46,21 @@ class _ProductComponentState extends State<ProductComponent> {
                   left: 125.w,
                   top: 10.h,
                   child: IconButton(
-                   // constraints: BoxConstraints(maxWidth: 10.w),
-                     onPressed: () {
-                    setState(() {
-                      favorite = !favorite;
-                    });
-                  },
-                    icon:favorite? Icon(
-                      Icons.favorite,
-                      color: AppColors.primary,
-                    ):
-                    Icon(
-                      Icons.favorite_outline,
-                      color: AppColors.primary,
-                    ),
+                    // constraints: BoxConstraints(maxWidth: 10.w),
+                    onPressed: () {
+                      setState(() {
+                        favorite = !favorite;
+                      });
+                    },
+                    icon: favorite
+                        ? Icon(
+                            Icons.favorite,
+                            color: AppColors.primary,
+                          )
+                        : Icon(
+                            Icons.favorite_outline,
+                            color: AppColors.primary,
+                          ),
                   )),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -71,21 +68,22 @@ class _ProductComponentState extends State<ProductComponent> {
                   SizedBox(
                     width: 130.w,
                     height: 130.h,
-                    child: Image.asset(Assets.product),
+                    child: Image.network(
+                        "${ApiConst.files}/${widget.product.image}"),
                   ),
                   Text(
-                    widget.product_name,
+                    widget.product.name,
                     style: AppTextStyle.elementNameTextStyle,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(
-                        widget.product_ref,
+                        'ref',
                         style: AppTextStyle.lightLabelTextStyle,
                       ),
                       Text(
-                        widget.product_price,
+                        widget.product.price.toString()+"TND",
                         style: AppTextStyle.blueLabelTextStyle,
                       )
                     ],

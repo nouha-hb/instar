@@ -25,6 +25,7 @@ class AuthenticationRemoteDataSourceImpl
   Future<String> createAccount(User user) async {
     try {
       UserModel userModel = UserModel(
+        id: '',
           role: user.role,
           firstName: user.firstName,
           lastName: user.lastName,
