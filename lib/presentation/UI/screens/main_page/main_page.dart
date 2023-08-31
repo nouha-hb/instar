@@ -187,7 +187,7 @@ class MainPage extends StatelessWidget {
                               label: 'Panier'),
                           BottomNavigationBarItem(
                               icon: Icon(
-                                Icons.favorite,
+                                Icons.favorite_border,
                                 size: 30.sp,
                               ),
                               label: 'favorite'),
