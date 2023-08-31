@@ -129,7 +129,7 @@ class Settings extends StatelessWidget {
               onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SelectLanguageScreent(),
+                    builder: (context) => SelectLanguageScreen(),
                   )),
               child: SettingComponent(
                   text: "Languages",

@@ -28,11 +28,6 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
        await dio.post(
         ApiConst.cart,
         data: {"userId": userId},
-        options: Options(
-          headers: {
-            "authorization": "Bearer ${await token}",
-          },
-        ),
       );
     } on DioException catch (e) {
       if (e.response!.statusCode == 401) {

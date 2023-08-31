@@ -4,19 +4,34 @@ import 'package:get/get.dart';
 import 'package:instar/core/style/assets.dart';
 import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
+import 'package:instar/domain/entities/Product3D.dart';
+import 'package:instar/domain/entities/product.dart';
 import 'package:instar/presentation/UI/screens/main_page/shopping_cart.dart';
 import 'package:instar/presentation/UI/widgets/custom_button.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:model_viewer_plus/model_viewer_plus.dart';
+import '../../../../core/constant/api_const.dart';
 import '../../../state_managment/controllers/product_list_controller.dart';
 
 class ProductDesc extends StatefulWidget {
-  const ProductDesc({super.key});
+  //late Product3D currentTexture;
+  final Product product;
+  ProductDesc({super.key, required this.product});
 
   @override
   State<ProductDesc> createState() => _ProductDescState();
 }
 
 class _ProductDescState extends State<ProductDesc> {
+  @override
+  void initState() {
+    currentTexture = widget.product.image3D[0];
+    super.initState();
+  }
+
+  late Product3D currentTexture;
+  Key _refreshKey = UniqueKey();
+
   int quantity = 1;
   int addToCartItems = 0;
   @override
@@ -95,16 +110,31 @@ class _ProductDescState extends State<ProductDesc> {
                       SizedBox(
                         height: 10.h,
                       ),
-                      Container(
+                      SizedBox(
+                        height: 300,
+                        child: ModelViewer(
+                          key: _refreshKey,
+                          backgroundColor:
+                              const Color.fromARGB(0xFF, 0xEE, 0xEE, 0xEE),
+                          src: 'assets/images/${currentTexture.model3D}',
+                          alt: 'A 3D model of an astronaut',
+                          ar: true,
+                          autoRotate: true,
+                          // iosSrc: 'https://modelviewer.dev/shared-assets/models/Astronaut.usdz',
+                          disableZoom: true,
+                        ),
+                      ),
+                      /* Container(
                         height: 330.h,
                         decoration: BoxDecoration(
-                            color: AppColors.lightgrey,
-                            borderRadius: BorderRadius.circular(16),
-                            image: DecorationImage(
-                                image: AssetImage(
-                                  Assets.product,
-                                ),
-                                fit: BoxFit.fill)),
+                          color: AppColors.lightgrey,
+                          borderRadius: BorderRadius.circular(16),
+                          image: DecorationImage(
+                            fit: BoxFit.fill,
+                            image: NetworkImage(
+                                "${ApiConst.files}/${widget.product.image}"),
+                          ),
+                        ),
                         child: Align(
                           alignment: Alignment.bottomCenter,
                           child: Container(
@@ -170,18 +200,16 @@ class _ProductDescState extends State<ProductDesc> {
                             ),
                           ),
                         ),
-                      ),
+                      ),*/
                       SizedBox(
                         height: 20.h,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(controller.products[0].name.toString(),
+                          Text(widget.product.name.toString(),
                               style: AppTextStyle.producDescTitiletTextStyle),
-                          Text(
-                              (controller.products[0].price * quantity)
-                                  .toString(),
+                          Text((widget.product.price * quantity).toString(),
                               style: AppTextStyle.blueLabelTextStyle),
                         ],
                       ),
@@ -242,42 +270,30 @@ class _ProductDescState extends State<ProductDesc> {
                         style: AppTextStyle.producDescTitiletTextStyle,
                       ),
                       Row(
-                        children: [
-                          Container(
-                            width: 20.w,
-                            height: 20.h,
-                            decoration: BoxDecoration(
-                                color: Colors.pink[200],
-                                shape: BoxShape.circle),
-                          ),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          Container(
-                            width: 20.w,
-                            height: 20.h,
-                            decoration: BoxDecoration(
-                                color: Colors.orange[200],
-                                shape: BoxShape.circle),
-                          ),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          Container(
-                            width: 20.w,
-                            height: 20.h,
-                            decoration: BoxDecoration(
-                                color: Colors.blue[200],
-                                shape: BoxShape.circle),
-                          )
-                        ],
+                        children: widget.product.image3D.map((e) {
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                currentTexture = e;
+                                _refreshKey = UniqueKey();
+                              });
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: CircleAvatar(
+                                  radius: e.id == currentTexture.id ? 15 : 12,
+                                  backgroundImage: NetworkImage(
+                                      '${ApiConst.files}/${e.texture}')),
+                            ),
+                          );
+                        }).toList(),
                       ),
 
                       Text(
                         "Description",
                         style: AppTextStyle.producDescTitiletTextStyle,
                       ),
-                      Text(controller.products[0].description.toString(),
+                      Text(widget.product.description,
                           style: AppTextStyle.darkLabelTextStyle),
                       // Text(controller.products[0].fournisseur.toString(),
                       //   style: AppTextStyle.darkLabelTextStyle),

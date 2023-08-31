@@ -12,8 +12,8 @@ import 'package:provider/provider.dart';
 
 import '../main_page/main_page.dart';
 
-class SelectLanguageScreent extends StatelessWidget {
-  const SelectLanguageScreent({super.key});
+class SelectLanguageScreen extends StatelessWidget {
+  const SelectLanguageScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

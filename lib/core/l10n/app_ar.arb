@@ -13,5 +13,15 @@
     "continue_with_facebook" :"تسجيل الدخول عبر فيسبوك",
     "continue_with_google" :"تسجيل الدخول عبر جوجل",
     "dont_have_account":"ليس لديك حساب بالفعل؟",
-    "register":"إنشاء حساب"
+    "register":"إنشاء حساب",
+    "order_items":"عناصر الطلب",
+    "order_tracking":"تتبع الطلبات",
+    "track_package":"تتبع الطرد الخاص بك",
+    "order_confirmation":"تأكيد الطلب",
+    "ongoing_treatment":"في طور المعالجة",
+    "in_preparation":"في طور التحضير",
+    "shipping":"شحن",
+    "delivery":"توصيل",
+    "item":"عنصر واحد",
+    "items":"عناصر"
 }

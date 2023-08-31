@@ -58,6 +58,8 @@ dependencies:
   provider: ^6.0.5
   flutter_slidable: ^3.0.0
   badges: ^3.1.1
+  model_viewer_plus: ^1.6.0
+  intl_utils: ^2.8.4
 
 
 dev_dependencies:
@@ -95,6 +97,10 @@ flutter:
     - assets/images/salon.svg
     - assets/images/paymentinfo.png
 
+    - assets/images/TeaTable01.glb
+    - assets/images/black.glb
+    - assets/images/white.glb
+    - assets/images/blue.glb
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
