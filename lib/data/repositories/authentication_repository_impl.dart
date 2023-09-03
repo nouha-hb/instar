@@ -4,7 +4,7 @@ import 'package:instar/core/errors/exceptions/exceptions.dart';
 import 'package:instar/core/errors/failures/failures.dart';
 import 'package:instar/data/data_Sources/remote_data_source/authentication_remote_data_source.dart';
 import 'package:instar/data/models/token_model.dart';
-import 'package:instar/data/models/user_model.dart';
+
 import 'package:instar/domain/entities/token.dart';
 import 'package:instar/domain/entities/user.dart';
 import 'package:instar/domain/repositories/authentication_repository.dart';
@@ -83,5 +83,38 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   Future<Either<Failure, Unit>> updateProfil(User user) {
     // TODO: implement updateProfil
     throw UnimplementedError();
+  }
+  
+  @override
+  Future<Either<Failure, Unit>> ForgetPassword(User user) async {
+    // TODO: implement ForgetPassword
+  try {
+      await authRemoteDataSource.ForgetPassword(user);
+      return const Right(unit);
+    } on RegistrationException {
+      return Left(RegistrationFailure());
+    }
+  }
+  
+  @override
+  Future<Either<Failure, Unit>> Resetpassword(User user) async {
+    // TODO: implement Resetpassword
+  try {
+      await authRemoteDataSource.Resetpassword(user);
+      return const Right(unit);
+    } on RegistrationException {
+      return Left(RegistrationFailure());
+    }
+  }
+  
+  @override
+  Future<Either<Failure, Unit>> VerifCode(User user) async {
+    // TODO: implement VerifCode
+   try {
+      await authRemoteDataSource.VerifCode(user);
+      return const Right(unit);
+    } on RegistrationException {
+      return Left(RegistrationFailure());
+    }
   }
 }

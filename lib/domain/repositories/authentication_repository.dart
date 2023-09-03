@@ -12,7 +12,9 @@ abstract class AuthenticationRepository {
   Future<Either<Failure,Unit>> logout();
   Future<Either<Failure,User>> facebookLogin();
   Future<Either<Failure,User>> googleLogin();
-  Future<Either<Failure,Unit>> resetPassword();
+  Future<Either<Failure,Unit>> ForgetPassword(User user);
+    Future<Either<Failure,Unit>> VerifCode(User user);
+        Future<Either<Failure,Unit>> Resetpassword(User user);
   Future<Either<Failure,Unit>> emailVerification();
 
 }

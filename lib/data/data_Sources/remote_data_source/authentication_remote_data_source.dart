@@ -12,6 +12,9 @@ import '../../../core/errors/exceptions/exceptions.dart';
 abstract class AuthenticationRemoteDataSource {
   Future<void> createAccount(User user);
   Future<TokenModel> login(String email, String password);
+    Future<void> ForgetPassword(User user);
+     Future<void> VerifCode(User user);
+      Future<void> Resetpassword(User user);
 }
 
 class AuthenticationRemoteDataSourceImpl
@@ -49,6 +52,53 @@ class AuthenticationRemoteDataSourceImpl
     } catch (e) {
       print(msg);
       throw LoginException(msg);
+    }
+  }
+  
+  @override
+  Future<void> ForgetPassword(User user) async {
+     try {
+      UserModel userModel = UserModel(
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          phone: user.phone,
+          password: user.password);
+      await dio.post(ApiConst.register, data: userModel.toJson());
+    } catch (e) {
+      throw ForgetPasswordException();
+    }
+  }
+  
+  @override
+  Future<void> Resetpassword(User user) async {
+    // TODO: implement Resetpassword
+    try {
+      UserModel userModel = UserModel(
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          phone: user.phone,
+          password: user.password);
+      await dio.post(ApiConst.register, data: userModel.toJson());
+    } catch (e) {
+      throw RegistrationException();
+    }
+  }
+  
+  @override
+  Future<void> VerifCode(User user) async {
+    // TODO: implement VerifCode
+      try {
+      UserModel userModel = UserModel(
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          phone: user.phone,
+          password: user.password);
+      await dio.post(ApiConst.register, data: userModel.toJson());
+    } catch (e) {
+      throw RegistrationException();
     }
   }
 }

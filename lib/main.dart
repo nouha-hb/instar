@@ -8,12 +8,16 @@ import 'package:instar/presentation/UI/screens/main_page/home_page.dart';
 import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
 import 'package:instar/presentation/UI/screens/paiement/detail_paiement.dart';
 import 'package:instar/presentation/UI/screens/paiement/paiement.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import 'di.dart' as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
+ OneSignal.initialize("a3169b3f-c11f-44a6-9ccb-91db64a6020d");
+  
+    
   // final res = await CreateAccountUsecase(di.sl()).call(const User(firstName: "yassine", lastName: "ajroud", email: "email@gmail.com", phone: "123", password: "1234"));
   // res.fold((l) => {print('left data')}, (r) => print('right data'));
 
@@ -28,6 +32,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   // This widget is the root of your application.
+  
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -37,6 +42,9 @@ class MyApp extends StatelessWidget {
         home: PaiementDetail(),
       ),
     );
+  }
+  Future<void>initPlatform()async{ 
+ OneSignal.initialize("a3169b3f-c11f-44a6-9ccb-91db64a6020d");
   }
 }
 

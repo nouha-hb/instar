@@ -8,5 +8,5 @@ class ResetPasswordUsecase {
   final AuthenticationRepository repository;
 
   const ResetPasswordUsecase(this.repository);
-  Future<Either<Failure, Unit>> call() async => await repository.resetPassword();
+  Future<Either<Failure, Unit>> call() async => await repository.Resetpassword(user);
 }
