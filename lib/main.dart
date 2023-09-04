@@ -65,7 +65,8 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         home: SplashScreen(),
         supportedLocales: L10n.all,
-        locale: Locale('fr'),
+        locale:  Provider.of<SettingsController>(context).locale ??
+            const Locale('fr'),
         localizationsDelegates: const [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
