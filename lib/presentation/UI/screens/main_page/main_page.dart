@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:instar/core/style/assets.dart';
 import 'package:instar/core/style/text_style.dart';
 import 'package:instar/presentation/UI/screens/main_page/profile_page.dart';
 import 'package:instar/presentation/UI/screens/my_profile/my_profile.dart';
+import 'package:instar/presentation/UI/screens/order_tracking/order_tracking.dart';
 import 'package:instar/presentation/UI/screens/paiement/detail_paiement.dart';
 import 'package:instar/presentation/UI/screens/paiement/paiement.dart';
 import 'package:instar/presentation/UI/screens/settings/language_settings.dart';
@@ -78,63 +80,95 @@ class MainPage extends StatelessWidget {
                               style: AppTextStyle.elementNameTextStyle,
                             ),
                           ),
-                          ListTile(
-                            leading: Container(
-                              width: 30.w,
-                              height: 30.h,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5.r),
-                                  border: Border.all(color: AppColors.primary)),
-                              child: Icon(Icons.home, color: AppColors.primary),
-                            ),
-                            title: Text(
-                              'Acceuil',
-                              style: AppTextStyle.elementNameTextStyle,
-                            ),
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                          ListTile(
-                            leading: Container(
-                              width: 30.w,
-                              height: 30.h,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5.r),
-                                  border: Border.all(color: AppColors.primary)),
-                              child: Icon(Icons.home, color: AppColors.primary),
-                            ),
-                            title: Text(
-                              'Paiement',
-                              style: AppTextStyle.elementNameTextStyle,
-                            ),
-                            onTap: () {
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (_) => PaiementDetail()));
-                            },
-                          ),
-                         
-                          ListTile(
-                            leading: Container(
-                              width: 30.w,
-                              height: 30.h,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5.r),
-                                  border: Border.all(color: AppColors.primary)),
-                              child: Icon(Icons.settings,
-                                  color: AppColors.primary),
-                            ),
-                            title: Text('Paramétres',
-                                style: AppTextStyle.elementNameTextStyle),
-                            onTap: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Settings(),
-                                  ));
-                            },
-                          ),
+                         ListTile(
+                    leading: Container(
+                      width: 30.w,
+                      height: 30.h,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.r),
+                          border: Border.all(color: AppColors.primary)),
+                      child: Image.asset(Assets.home),
+                    ),
+                    title: Text(
+                      'Acceuil',
+                      style: AppTextStyle.elementNameTextStyle16,
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    leading: Container(
+                      width: 30.w,
+                      height: 30.h,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.r),
+                          border: Border.all(color: AppColors.primary)),
+                      child: Image.asset(Assets.marques),
+                    ),
+                    title: Text(
+                      'Nos marques',
+                      style: AppTextStyle.elementNameTextStyle16,
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => OrderTrackingScreen(),
+                          ));
+                    },
+                  ),
+                  ListTile(
+                    leading: Container(
+                      width: 30.w,
+                      height: 30.h,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.r),
+                          border: Border.all(color: AppColors.primary)),
+                      child: Image.asset(
+                        Assets.nvlarrivage,
+                      ),
+                    ),
+                    title: Text('Nouvel arrivage',
+                        style: AppTextStyle.elementNameTextStyle16),
+                    onTap: () {
+                     
+                    },
+                  ),
+                  ListTile(
+                    leading: Container(
+                      width: 30.w,
+                      height: 30.h,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.r),
+                          border: Border.all(color: AppColors.primary)),
+                      child: Image.asset(Assets.promotion),
+                    ),
+                    title: Text('Promotion',
+                        style: AppTextStyle.elementNameTextStyle16),
+                    onTap: () {
+                     
+                    },
+                  ),
+                  ListTile(
+                    leading: Container(
+                      width: 30.w,
+                      height: 30.h,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.r),
+                          border: Border.all(color: AppColors.primary)),
+                      child: Image.asset(Assets.settings),
+                    ),
+                    title: Text('Paramétres',
+                        style: AppTextStyle.elementNameTextStyle16),
+                    onTap: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Settings(),
+                          ));
+                    },
+                  ),
                           
                         ],
                       );

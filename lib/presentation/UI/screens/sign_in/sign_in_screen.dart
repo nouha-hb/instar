@@ -16,6 +16,7 @@ import 'package:instar/presentation/UI/screens/sign_up/sign_up_screen.dart';
 import 'package:instar/presentation/UI/widgets/custom_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../core/style/assets.dart';
 import '../../../../di.dart';
 import '../../../../domain/usecases/authentication_usecases/login_usecase.dart';
 import '../../../state_managment/controllers/sign_in_controller.dart';
@@ -157,31 +158,9 @@ class SignIn extends StatelessWidget {
                       SizedBox(
                         height: 60.h,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          FlutterSocialButton(
-                            onTap: () {},
-                            mini: true,
-                            buttonType: ButtonType.facebook,
-                          ),
-                          SizedBox(
-                            width: 20.w,
-                          ),
-                          FlutterSocialButton(
-                            onTap: () async {
-                              final res = await GoogleLoginUsecase(sl()).call();
-                              res.fold(
-                                  (l) => print('google left'),
-                                  (r) => Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(
-                                          builder: (_) => MainPage())));
-                            },
-                            mini: true,
-                            buttonType: ButtonType.google,
-                          ),
-                        ],
-                      ),
+                      SocialSecondaryButton(text: AppLocalizations.of(context)!.continue_with_google, onClick: () {}, asset: Assets.google),
+                                SizedBox(height: 20.h,),
+                                SocialSecondaryButton(text: AppLocalizations.of(context)!.continue_with_facebook, onClick: () {}, asset: Assets.facebook),
                       //SecondaryButton(
                       //     text: AppLocalizations.of(context)!
                       //         .continue_with_facebook

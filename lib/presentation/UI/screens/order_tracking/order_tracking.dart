@@ -5,8 +5,8 @@ import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
 import 'package:instar/domain/entities/Product3D.dart';
 import 'package:instar/domain/entities/product.dart';
-import 'package:instar/presentation/UI/screens/shopping_cart/shopping_cart_list.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:instar/presentation/UI/screens/main_page/shopping_cart.dart';
 import 'package:instar/presentation/UI/widgets/product_component.dart';
 import 'package:instar/presentation/UI/widgets/step_item.dart';
 
@@ -35,9 +35,9 @@ class OrderTrackingScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => ShoppingCart())),
+                MaterialPageRoute(builder: (context) => ShoppingList())),
             icon: Icon(
-              Icons.shopping_cart_checkout_rounded,
+              Icons.shopping_cart_outlined,
               color: AppColors.black,
               size: 30.sp,
             ),

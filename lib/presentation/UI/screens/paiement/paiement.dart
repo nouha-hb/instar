@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
-import 'package:instar/presentation/UI/screens/shopping_cart/shopping_cart_list.dart';
 import 'package:instar/presentation/UI/widgets/custom_button.dart';
+import 'package:instar/presentation/state_managment/controllers/product_desc_controller.dart';
 
 import '../../../state_managment/controllers/paiement_controller.dart';
 
@@ -102,8 +102,27 @@ class Paiementt extends StatelessWidget {
                       height: 40.h,
                     ),
                            
-                 
-                    Image.asset("assets/images/paymentinfo.png"),
+Center(
+  child:   Stack(
+  
+    children: [
+  
+    Image.asset("assets/images/elment.png"),
+  
+    Positioned(
+  
+      top: 110.h,
+  
+      left: 10.w,
+  
+      child: Text("Totale : "+ ProductDescController.total.toString(), 
+  
+      style: AppTextStyle.darkLabelTextStyle,),
+  
+    )
+  
+  ],),
+),
                           SizedBox(
                       height: 20.h,
                     ),

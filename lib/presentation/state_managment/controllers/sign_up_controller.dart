@@ -9,6 +9,7 @@ import 'package:instar/presentation/UI/screens/sign_in/sign_in_screen.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
 import '../../../di.dart';
+import '../../../domain/usecases/cart_usecases/create_cart_usecase.dart';
 
 class SignUpController extends GetxController {
   static bool isPasswordType = false;
@@ -127,6 +128,18 @@ class SignUpController extends GetxController {
           (l) => print("left wishlist"),
           (r) => Fluttertoast.showToast(
               msg: "wishlist created",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.black,
+              textColor: Colors.white,
+              fontSize: 16.0),
+        );
+         final cart = await CreateCartUsecase(sl()).call(userId: r);
+        cart.fold(
+          (l) => print("left cart"),
+          (r) => Fluttertoast.showToast(
+              msg: "cart created",
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.CENTER,
               timeInSecForIosWeb: 1,

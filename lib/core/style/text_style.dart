@@ -35,4 +35,12 @@ class AppTextStyle {
     fontSize: 13.sp,
     color: AppColors.grey,
   );
+
+  static TextStyle smallprimaryButtonTextStyle = GoogleFonts.alata(
+      fontWeight: FontWeight.w400, fontSize: 9.sp, color: AppColors.white);
+
+  static TextStyle elementNameTextStyle16 = GoogleFonts.alata(
+      fontWeight: FontWeight.w400, fontSize: 16.sp, color: AppColors.black);
+  static TextStyle elementNameTextStyle13 = GoogleFonts.alata(
+      fontWeight: FontWeight.w400, fontSize: 13.sp, color: AppColors.black);
 }

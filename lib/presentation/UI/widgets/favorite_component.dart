@@ -6,21 +6,20 @@ import 'package:instar/core/style/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instar/core/style/text_style.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:instar/domain/entities/cart.dart';
+import 'package:instar/di.dart';
 import 'package:instar/domain/entities/product.dart';
+import 'package:instar/domain/usecases/widhlist_usecases/update_wishlist_usecase.dart';
 import 'package:instar/presentation/UI/screens/products/product_description.dart';
 import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
 
 import '../../../core/constant/api_const.dart';
-import '../../../di.dart';
-import '../../../domain/usecases/cart_usecases/update_cart_usecase.dart';
+import '../../../domain/entities/wishlist.dart';
 import '../../state_managment/controllers/main_page_controller.dart';
-import '../../state_managment/controllers/product_desc_controller.dart';
 
-class ShoppingComponent extends StatelessWidget {
+class FavoriteComponent extends StatelessWidget {
   final Product product;
 
-  const ShoppingComponent({super.key, required this.product});
+  const FavoriteComponent({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -59,18 +58,19 @@ class ShoppingComponent extends StatelessWidget {
                           backgroundColor: AppColors.primary,
                           icon: Icons.delete,
                           label: "Delete",
-                          onPressed: (context) async {
-                            SplashScreen.cart.productsId
+                          onPressed: (context) async{
+                            SplashScreen.wishList.productsId
                                 .remove(this.product.id);
-                            controller.shoppingproductsId
+
+                            controller.favoriteproductsId
                                 .remove(this.product.id);
-                            ProductDescController.total -= this.product.price;
-                            ProductDescController.addToCartItems--;
-                            Cart cart = Cart(
+                            WishList wishlist = WishList(
                                 id: SplashScreen.wishList.id,
                                 userId: SplashScreen.wishList.userId,
                                 productsId: SplashScreen.wishList.productsId);
-                            await UpdateCartUsecase(sl()).call(cart: cart);
+                           await  UpdateWishListUsecase(sl())
+                                .call(wishlist: wishlist);
+
                             controller.update();
                           }),
                     ],
@@ -114,65 +114,13 @@ class ShoppingComponent extends StatelessWidget {
                                         AppTextStyle.smallLightLabelTextStyle,
                                   ),
                                   Text(
-                                    ((this.product.price) * controller.quantity)
-                                        .toString(),
+                                    ((this.product.price)).toString(),
                                     style: AppTextStyle.blueLabelTextStyle,
                                   ),
                                 ],
                               )
                             ],
                           )),
-                      Container(
-                        width: 60.w,
-                        height: 25.h,
-                        decoration: BoxDecoration(
-                            color: AppColors.primary,
-                            borderRadius: BorderRadius.circular(5.r)),
-                        child: Row(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                controller.quantity++;
-                              },
-                              child: SizedBox(
-                                height: 25.h,
-                                width: 20.w,
-                                child: Center(
-                                    child: Icon(
-                                  Icons.add,
-                                  size: 16.sp,
-                                  color: AppColors.white,
-                                )),
-                              ),
-                            ),
-                            InkWell(
-                              child: SizedBox(
-                                height: 25.h,
-                                width: 20.w,
-                                child: Center(
-                                    child: Text(
-                                  controller.quantity.toString(),
-                                  style: TextStyle(color: AppColors.white),
-                                )),
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                if (controller.quantity > 1) {
-                                  controller.quantity--;
-                                }
-                              },
-                              child: SizedBox(
-                                height: 25.h,
-                                width: 20.w,
-                                child: Center(
-                                    child: Icon(Icons.remove,
-                                        size: 16.sp, color: AppColors.white)),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
                     ],
                   ),
                 ),

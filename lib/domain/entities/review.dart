@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:instar/domain/entities/user.dart';
 
-import '../../presentation/UI/screens/products/product_static_list.dart';
+import '../../presentation/UI/screens/products/product_shopping_list.dart';
 
 class Review extends Equatable {
   final String? id;

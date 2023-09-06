@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:instar/core/style/assets.dart';
+import 'package:instar/core/style/colors.dart';
 import 'package:instar/presentation/UI/screens/settings/language_settings.dart';
 import 'package:instar/presentation/UI/screens/sign_in/sign_in_screen.dart';
 import 'package:instar/presentation/UI/screens/sign_up/sign_up_screen.dart';
@@ -18,10 +19,7 @@ class LandingPage extends StatelessWidget {
     return Container(
       width: 375.w,
       height: 812.h,
-      decoration: const BoxDecoration(
-        image:
-            DecorationImage(image: AssetImage(Assets.home), fit: BoxFit.cover),
-      ),
+     color: AppColors.white,
       child: Center(
         child: Column(
           children: [
@@ -33,7 +31,7 @@ class LandingPage extends StatelessWidget {
               height: 198.h,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage(Assets.logo), fit: BoxFit.cover),
+                    image: AssetImage(Assets.indar), fit: BoxFit.fill),
               ),
             ),
             SizedBox(

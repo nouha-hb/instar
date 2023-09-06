@@ -4,7 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
+import 'package:instar/domain/entities/Promotion.dart';
 import 'package:instar/domain/entities/product.dart';
+import 'package:instar/domain/usecases/promotion_usecases/get_all_promotions_usecase.dart';
 
 import '../../../../di.dart';
 import '../../../../domain/usecases/product_usecases/get_all_products_usecase.dart';
@@ -24,11 +26,31 @@ class Home extends StatelessWidget {
               color: AppColors.lightgrey,
               borderRadius: BorderRadius.circular(15.r)),
           child: Center(
-            child: Text(
-              "Promotions",
-              style: AppTextStyle.titleTextStyle,
-            ),
-          ),
+              child: FutureBuilder(
+            future: GetAllPromotionsUsecase(sl()).call(),
+            builder: (context, snapshot) {
+              List<Promotion> promotionList = [];
+              if (snapshot.hasData) {
+                final res = snapshot.data;
+                print('data = $res');
+                res!.fold((l) {
+                  return null;
+                }, (r) {
+                  promotionList = r;
+                  print('rightttttttt ' + promotionList.toString());
+                });
+              } else if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              return promotionList.isEmpty
+                  ? Container()
+                  : ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: promotionList.length,
+                      itemBuilder: (_, index) =>
+                          Text(promotionList[index].discount.toString()));
+            },
+          )),
         ),
         Padding(
           padding: EdgeInsets.all(10.0.r),
@@ -56,13 +78,17 @@ class Home extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
-                    width: 326.w,
-                    height: 200.h,
+                Container(
+                    constraints: BoxConstraints(
+                        //below mentioned sizes for reference only
+                        minWidth: 100.0.w,
+                        maxWidth: 325.0.w,
+                        minHeight: 200.0.h,
+                        maxHeight: 300.0.h),
                     child: FutureBuilder(
                       future: GetAllProductsUsecase(sl()).call(),
                       builder: (context, snapshot) {
-                       List <Product>productList = [];
+                        List<Product> productList = [];
                         if (snapshot.hasData) {
                           final res = snapshot.data;
                           print('data = $res');
@@ -70,15 +96,20 @@ class Home extends StatelessWidget {
                             return null;
                           }, (r) {
                             productList = r;
-                            
                           });
-                        } else if (snapshot.connectionState==ConnectionState.waiting) {
-                          return const Center(child: CircularProgressIndicator());
+                        } else if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                              child: CircularProgressIndicator());
                         }
-                      return productList.isEmpty ?  Container() :  ListView.builder(
-                        itemCount: productList.length,
+                        return productList.isEmpty
+                            ? Container()
+                            : ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: productList.length,
                                 itemBuilder: (_, index) => ProductComponent(
-                                   product: productList[index],));
+                                      product: productList[index],
+                                    ));
                       },
                     )),
                 Row(
@@ -102,46 +133,40 @@ class Home extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
-                  width: 326.w,
-                  height: 200.h,
-                  child: ListView(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      /*ProductComponent(
-                        brand_product: 'Sm&B',
-                        product_name: 'Armoire de toilette',
-                        product_price: '200 dt',
-                        product_ref: 'ef321',
-                      ),
-                      ProductComponent(
-                        brand_product: 'Sm&B',
-                        product_name: 'Armoire de toilette',
-                        product_price: '200 dt',
-                        product_ref: 'ef321',
-                      ),
-                      ProductComponent(
-                        brand_product: 'Sm&B',
-                        product_name: 'Armoire de toilette',
-                        product_price: '200 dt',
-                        product_ref: 'ef321',
-                      ),
-                      ProductComponent(
-                        brand_product: 'Sm&B',
-                        product_name: 'Armoire de toilette',
-                        product_price: '200 dt',
-                        product_ref: 'ef321',
-                      ),
-                      ProductComponent(
-                        brand_product: 'Sm&B',
-                        product_name: 'Armoire de toilette',
-                        product_price: '200 dt',
-                        product_ref: 'ef321',
-                      ),
-                    */],
-                  ),
-                ),
+                Container(
+                    constraints: BoxConstraints(
+                        //below mentioned sizes for reference only
+                        minWidth: 100.0.w,
+                        maxWidth: 325.0.w,
+                        minHeight: 200.0.h,
+                        maxHeight: 300.0.h),
+                    child: FutureBuilder(
+                      future: GetAllProductsUsecase(sl()).call(),
+                      builder: (context, snapshot) {
+                        List<Product> productList = [];
+                        if (snapshot.hasData) {
+                          final res = snapshot.data;
+                          print('data = $res');
+                          res!.fold((l) {
+                            return null;
+                          }, (r) {
+                            productList = r;
+                          });
+                        } else if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+                        return productList.isEmpty
+                            ? Container()
+                            : ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: productList.length,
+                                itemBuilder: (_, index) => ProductComponent(
+                                      product: productList[index],
+                                    ));
+                      },
+                    )),
               ],
             ),
           ),

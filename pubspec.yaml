@@ -88,7 +88,7 @@ flutter:
   assets:
     - assets/images/background_home_page.png
     - assets/images/logo.png
-    - assets/images/product.png
+    - assets/images/elment.png
     - assets/images/cuisine.svg
     - assets/images/decoration.svg
     - assets/images/enfants.svg
@@ -96,7 +96,14 @@ flutter:
     - assets/images/salle_de_bain.svg
     - assets/images/salon.svg
     - assets/images/paymentinfo.png
-
+    - assets/images/facebook.png
+    - assets/images/google.png
+    - assets/images/home.png
+    - assets/images/marques.png
+    - assets/images/parametre.png
+    - assets/images/indar.png
+    - assets/images/promo.png
+    - assets/images/nvlarrivage.png
     - assets/images/TeaTable01.glb
     - assets/images/black.glb
     - assets/images/white.glb

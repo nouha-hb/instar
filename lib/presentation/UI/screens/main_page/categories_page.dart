@@ -26,21 +26,30 @@ class Categories extends StatelessWidget {
     ];
 
     return Center(
-      child: SizedBox
-      (width: MediaQuery.sizeOf(context).width*0.9,
-      height: 550.h,
-        child: GridView.builder(
-        gridDelegate:   SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, 
-          mainAxisSpacing: 20.0.w,
-                crossAxisSpacing: 20.0.h,
-                ),
-           
-        itemCount: category_names.length,
-        itemBuilder: (BuildContext ctx, index) {
-          return CategoryComponeny(
-              image_path: image_svg_names[index],
-              category_name: category_names[index]);
-        }),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+         
+            SizedBox(height: 20.h,),
+          SizedBox
+          (width: MediaQuery.sizeOf(context).width*0.9,
+          height: 600.h,
+            child: Center(
+              child: GridView.builder(
+              gridDelegate:   SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, 
+                mainAxisSpacing: 20.0.w,
+                      crossAxisSpacing: 20.0.h,
+                      ),
+                 
+              itemCount: category_names.length,
+              itemBuilder: (BuildContext ctx, index) {
+                return CategoryComponeny(
+                    image_path: image_svg_names[index],
+                    category_name: category_names[index]);
+              }),
+            ),
+          ),
+        ],
       ),
     );
   }
