@@ -1,4 +1,7 @@
 import 'dart:io';
+import 'package:instar/di.dart';
+import 'package:instar/domain/entities/review.dart';
+import 'package:instar/domain/usecases/review_usecases/get_all_reviews_usecase.dart';
 import 'package:path/path.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,8 +15,9 @@ class ProductDetailsController extends GetxController {
   File? f;
   final ImagePicker _picker = ImagePicker();
   String fileName = '';
-
   String comment = '';
+  List<Review> comments = [];
+  bool loadingError = false;
 
   void typeComment(String s) {
     comment = s;
@@ -86,5 +90,12 @@ class ProductDetailsController extends GetxController {
         );
       },
     );
+  }
+
+//get comments
+  Future<void> getComments({required String productId}) async {
+    final res = await GetAllReviewsUsecase(sl()).call(productId);
+    res.fold((l) => loadingError = true, (r) => comments = r);
+    update();
   }
 }

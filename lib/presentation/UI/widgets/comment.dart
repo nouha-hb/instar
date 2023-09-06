@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
+import 'package:instar/core/constant/api_const.dart';
 import 'package:instar/core/style/text_style.dart';
 import 'package:instar/di.dart';
 import 'package:instar/domain/entities/review.dart';
@@ -30,6 +31,7 @@ class _CommentWidgetState extends State<CommentWidget> {
   void initState() {
     controller = Get.find();
     editingController = TextEditingController();
+    controller.getComments(productId: widget.productId);
     super.initState();
   }
 
@@ -47,14 +49,29 @@ class _CommentWidgetState extends State<CommentWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-              height: 150,
+              height: 250,
               child: ListView.builder(
-                itemCount: 5,
+                itemCount: controller.comments.length,
                 itemBuilder: (_, index) => ListTile(
-                  leading: CircleAvatar(backgroundColor: Colors.blue),
-                  title: Text('title'),
-                  subtitle: Text(
-                      'subtitlesubtitlesubtitlesubtitlesubtitlesubtitlesubtitle'),
+                  leading: CircleAvatar(
+                      backgroundImage: NetworkImage(
+                          '${ApiConst.files}/${controller.comments[index].userImage!}')),
+                  title: Text(controller.comments[index].userName!),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(controller.comments[index].comment),
+                      const SizedBox(
+                        height: 2,
+                      ),
+                      controller.comments[index].image == ''
+                          ? Container()
+                          : Image.network(
+                              '${ApiConst.files}/${controller.comments[index].image!}',
+                              height: 150,
+                            )
+                    ],
+                  ),
                   trailing: Text('03-09-2023',
                       style: AppTextStyle.smallLightLabelTextStyle),
                 ),
@@ -106,7 +123,8 @@ class _CommentWidgetState extends State<CommentWidget> {
                                     .then((value) {
                                   controller
                                     ..clearComment()
-                                    ..clearImage();
+                                    ..clearImage()
+                                    ..getComments(productId: widget.productId);
                                   editingController.clear();
                                 });
                               },

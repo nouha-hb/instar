@@ -65,7 +65,7 @@ class _ProductDescState extends State<ProductDesc> {
             ),
           ),
           title: Text(
-            "Détails produit",
+            "Product details",
             style: AppTextStyle.elementNameTextStyle,
           ),
           centerTitle: true,
@@ -84,14 +84,14 @@ class _ProductDescState extends State<ProductDesc> {
                   curve: Curves.fastOutSlowIn,
                   colorChangeAnimationCurve: Curves.easeInCubic,
                 ),
-                badgeStyle:const badges.BadgeStyle(
+                badgeStyle: const badges.BadgeStyle(
                   shape: badges.BadgeShape.circle,
                   badgeColor: AppColors.primary,
                 ),
                 child: IconButton(
                   onPressed: () => Navigator.push(context,
                       MaterialPageRoute(builder: (context) => ShoppingList())),
-                  icon:const Icon(
+                  icon: const Icon(
                     Icons.shopping_cart_outlined,
                     color: AppColors.black,
                     //size: 30.sp,
@@ -212,9 +212,7 @@ class _ProductDescState extends State<ProductDesc> {
                         children: [
                           Text(widget.product.name.toString(),
                               style: AppTextStyle.producDescTitiletTextStyle),
-                          Text(
-                              (widget.product.price * quantity).toString() +
-                                  ' DT',
+                          Text('${widget.product.price * quantity} DT',
                               style: AppTextStyle.blueLabelTextStyle),
                         ],
                       ),
