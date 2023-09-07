@@ -31,6 +31,7 @@ class MainPage extends StatelessWidget {
         initState: (_) {},
         builder: (controller) {
           return Scaffold(
+            backgroundColor: AppColors.bgColor,
               appBar: AppBar(
                 elevation: 0,
                 backgroundColor: AppColors.white,

@@ -60,16 +60,20 @@ class ShoppingComponent extends StatelessWidget {
                           icon: Icons.delete,
                           label: "Delete",
                           onPressed: (context) async {
-                            SplashScreen.cart.productsId
+                           controller.update();
+
+                            SplashScreen.cart!.productsId
                                 .remove(this.product.id);
                             controller.shoppingproductsId
                                 .remove(this.product.id);
                             ProductDescController.total -= this.product.price;
                             ProductDescController.addToCartItems--;
+                           controller.update();
+
                             Cart cart = Cart(
-                                id: SplashScreen.wishList.id,
-                                userId: SplashScreen.wishList.userId,
-                                productsId: SplashScreen.wishList.productsId);
+                                id: SplashScreen.wishList!.id,
+                                userId: SplashScreen.wishList!.userId,
+                                productsId: SplashScreen.wishList!.productsId);
                             await UpdateCartUsecase(sl()).call(cart: cart);
                             controller.update();
                           }),

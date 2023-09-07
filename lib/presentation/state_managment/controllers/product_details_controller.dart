@@ -1,24 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '../../../core/style/colors.dart';
-
 import 'dart:io';
 import 'package:path/path.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
-class ProductDescController extends GetxController {
-  bool isPressed1 = false;
-  bool isPressed2 = false;
-  bool isPressed3 = false;
-  int stars = 0;
-  bool expanded = false;
-   int quantity = 1;
-  
-  static int addToCartItems = 0;
-  static double total = 0;
+
+class ProductDetailsController extends GetxController {
   XFile? img;
   File? f;
   final ImagePicker _picker = ImagePicker();
@@ -99,5 +88,4 @@ class ProductDescController extends GetxController {
       },
     );
   }
-
 }

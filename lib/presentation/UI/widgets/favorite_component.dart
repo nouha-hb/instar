@@ -59,15 +59,16 @@ class FavoriteComponent extends StatelessWidget {
                           icon: Icons.delete,
                           label: "Delete",
                           onPressed: (context) async{
-                            SplashScreen.wishList.productsId
+                            SplashScreen.wishList!.productsId
                                 .remove(this.product.id);
+                           controller.update();
 
                             controller.favoriteproductsId
                                 .remove(this.product.id);
                             WishList wishlist = WishList(
-                                id: SplashScreen.wishList.id,
-                                userId: SplashScreen.wishList.userId,
-                                productsId: SplashScreen.wishList.productsId);
+                                id: SplashScreen.wishList!.id,
+                                userId: SplashScreen.wishList!.userId,
+                                productsId: SplashScreen.wishList!.productsId);
                            await  UpdateWishListUsecase(sl())
                                 .call(wishlist: wishlist);
 

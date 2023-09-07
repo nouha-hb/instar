@@ -40,7 +40,7 @@ class FavoriteList extends StatelessWidget {
         late Product product;
 
                         print("productss wishListtt " +
-                            SplashScreen.wishList.productsId.toString());
+                            SplashScreen.wishList!.productsId.toString());
 
                         return FutureBuilder(
                           future: GetOneProductsUsecase(sl())

@@ -21,71 +21,73 @@ class ShoppingList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     late Product product;
-   return GetBuilder<MainController>(
+    return GetBuilder<MainController>(
         init: MainController(),
         initState: (_) {},
         builder: (controller) {
-          return  Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                SizedBox(
-                    height: 560.h,
-                    width: 300.w,
-                    child: ListView.builder(
-                      itemCount: controller.shoppingproductsId.length,
-                      itemBuilder: (context, index) {
-                        print("productss carttt " +
-                            SplashScreen.cart.productsId.toString());
+          controller.update();
+          return Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  SizedBox(
+                      height: 560.h,
+                      width: 300.w,
+                      child: ListView.builder(
+                        itemCount: controller.shoppingproductsId.length,
+                        itemBuilder: (context, index) {
+                          print("productss carttt " +
+                              SplashScreen.cart.productsId.toString());
 
-                        return FutureBuilder(
-                          future: GetOneProductsUsecase(sl())
-                              .call(controller.shoppingproductsId[index]),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              final res = snapshot.data;
-                              print('data = $res');
-                              res!.fold((l) {
-                                return null;
-                              }, (r) {
-                                product = r;
-                              });
-                            } else if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return const Center(
-                                  child: CircularProgressIndicator());
-                            }
-                            return ShoppingComponent(product: product);
-                          },
-                        );
+                          return FutureBuilder(
+                            future: GetOneProductsUsecase(sl())
+                                .call(controller.shoppingproductsId[index]),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                final res = snapshot.data;
+                                print('data = $res');
+                                res!.fold((l) {
+                                  return null;
+                                }, (r) {
+                                  product = r;
+                                });
+                              } else if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              }
+                              return ShoppingComponent(product: product);
+                            },
+                          );
 
-                        // Center(child: Text(SplashScreen.cart.productsId[index].toString())
-                      },
-                    )),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Text("Totale : "+ProductDescController.total.toString() + "DT", style: AppTextStyle.darkLabelTextStyle,),
-                 SizedBox(
-                  height: 10.h,
-                ),
-
-                PrimaryButton(
-                  text: "Acheter",
-                  onClick: () {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PaiementDetail(),
-                        ));
-                  },
-                )
-              ],
+                          // Center(child: Text(SplashScreen.cart.productsId[index].toString())
+                        },
+                      )),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Text(
+                    "Totale : " + ProductDescController.total.toString() + "DT",
+                    style: AppTextStyle.darkLabelTextStyle,
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  PrimaryButton(
+                    text: "Acheter",
+                    onClick: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PaiementDetail(),
+                          ));
+                    },
+                  )
+                ],
+              ),
             ),
-          ),
-        );
-      }
-    );
+          );
+        });
   }
 }

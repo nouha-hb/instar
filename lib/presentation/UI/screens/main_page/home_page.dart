@@ -7,7 +7,10 @@ import 'package:instar/core/style/text_style.dart';
 import 'package:instar/domain/entities/Promotion.dart';
 import 'package:instar/domain/entities/product.dart';
 import 'package:instar/domain/usecases/promotion_usecases/get_all_promotions_usecase.dart';
+import 'package:instar/presentation/UI/screens/main_page/categories_page.dart';
+import 'package:instar/presentation/UI/widgets/categroy_component.dart';
 
+import '../../../../core/style/assets.dart';
 import '../../../../di.dart';
 import '../../../../domain/usecases/product_usecases/get_all_products_usecase.dart';
 import '../../widgets/product_component.dart';
@@ -17,40 +20,114 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List brand_names = [
+      "Meublatex",
+      "S&B",
+      "xxxx",
+       "Meublatex",
+    ];
+    List image_svg_names = [
+      Assets.categorie_literie,
+      Assets.categorie_enfants,
+      Assets.categorie_cuisine,
+      Assets.categorie_literie,
+
+    ];
+    List<Promotion> promotionList = [];
+
     return Column(
       children: [
+          SizedBox(
+          height: 20.h,
+        ),
+        FutureBuilder(
+          future: GetAllPromotionsUsecase(sl()).call(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              final res = snapshot.data;
+              print('data = $res');
+              res!.fold((l) {
+                print("left promotionsssssssssssssssssssssssss");
+                return null;
+              }, (r) {
+                promotionList = r;
+                print('rightttttttt ' + promotionList.toString());
+              });
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            return promotionList.isEmpty
+                ? Text("no promotion")
+                : Container(
+                    width: 326.w,
+                    height: 210.h,
+                    decoration: BoxDecoration(
+                        color: AppColors.white,
+                        borderRadius: BorderRadius.circular(15.r)),
+                    child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: promotionList.length,
+                        itemBuilder: (_, index) =>
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 40.w,
+                                ),
+                                Text(promotionList[index].discount.toString()+"%", style: AppTextStyle.titleTextStyle,textAlign: TextAlign.center,),
+                               Image.asset(promotionList[index].image),
+                            
+
+
+                              ],
+                            )),
+                  );
+          },
+        ),
+        SizedBox(
+          height: 20.h,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: 10.r,
+            ),
+            RichText(
+              textAlign: TextAlign.start,
+              text: TextSpan(style: AppTextStyle.darkLabelTextStyle, children: [
+                TextSpan(
+                    text: 'Nos marques',
+                    style: AppTextStyle.blueLabelTextStyle,
+                    recognizer: TapGestureRecognizer()
+                    //..onTap = () => Get.to(ForgetPassword()),
+                    )
+              ]),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 20.h,
+        ),
         Container(
-          width: 326.w,
-          height: 210.h,
+          //width: MediaQuery.sizeOf(context).width,
+          height: 120.h,
+        
           decoration: BoxDecoration(
-              color: AppColors.lightgrey,
+              color: AppColors.bgColor,
               borderRadius: BorderRadius.circular(15.r)),
-          child: Center(
-              child: FutureBuilder(
-            future: GetAllPromotionsUsecase(sl()).call(),
-            builder: (context, snapshot) {
-              List<Promotion> promotionList = [];
-              if (snapshot.hasData) {
-                final res = snapshot.data;
-                print('data = $res');
-                res!.fold((l) {
-                  return null;
-                }, (r) {
-                  promotionList = r;
-                  print('rightttttttt ' + promotionList.toString());
-                });
-              } else if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              return promotionList.isEmpty
-                  ? Container()
-                  : ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: promotionList.length,
-                      itemBuilder: (_, index) =>
-                          Text(promotionList[index].discount.toString()));
-            },
-          )),
+          child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: brand_names.length,
+              itemBuilder: (_, index) => Padding(
+                padding:  EdgeInsets.all(8.0.r),
+                child: CategoryComponeny(
+                  width: 100.w,
+                  height: 90.h,
+                    image_path: image_svg_names[index],
+                    category_name: brand_names[index]),
+              )),
         ),
         Padding(
           padding: EdgeInsets.all(10.0.r),
@@ -104,12 +181,14 @@ class Home extends StatelessWidget {
                         }
                         return productList.isEmpty
                             ? Container()
-                            : ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: productList.length,
-                                itemBuilder: (_, index) => ProductComponent(
-                                      product: productList[index],
-                                    ));
+                            : Center(
+                              child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: productList.length,
+                                  itemBuilder: (_, index) => ProductComponent(
+                                        product: productList[index],
+                                      )),
+                            );
                       },
                     )),
                 Row(

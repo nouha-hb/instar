@@ -23,6 +23,6 @@ class ReviewModel extends Review {
         'product':productID,
         'rating':rating,
         'comment':comment,
-        '_id':image
+        'image':image
       };
 }

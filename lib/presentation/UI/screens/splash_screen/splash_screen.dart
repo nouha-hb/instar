@@ -22,8 +22,8 @@ import '../../../../domain/usecases/cart_usecases/get_cart_usecase.dart';
 class SplashScreen extends StatefulWidget {
   static late Token userToken;
   static late User currentUser;
-  static late WishList wishList;
-  static late Cart cart;
+  static  late  WishList wishList;
+  static  late Cart cart;
 
   static Future<void> init(BuildContext context, int duration) async {
     bool res = true;
@@ -61,7 +61,7 @@ class SplashScreen extends StatefulWidget {
 
         SplashScreen.wishList = r;
       });
-        final cart = await GetCartUsecase(sl())
+      final cart = await GetCartUsecase(sl())
           .call(userId: SplashScreen.userToken.userId);
       print(' get cart ');
 
@@ -99,6 +99,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(SplashScreen.userToken.token.toString());
     return Container(
       width: 375.w,
       height: 812.h,

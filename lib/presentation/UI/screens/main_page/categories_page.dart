@@ -44,6 +44,8 @@ class Categories extends StatelessWidget {
               itemCount: category_names.length,
               itemBuilder: (BuildContext ctx, index) {
                 return CategoryComponeny(
+                  width: 155.w,
+                  height: 180.h,
                     image_path: image_svg_names[index],
                     category_name: category_names[index]);
               }),

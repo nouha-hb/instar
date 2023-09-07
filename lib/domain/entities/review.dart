@@ -9,7 +9,7 @@ class Review extends Equatable {
   final String productID;
   final int rating;
   final String comment;
-  final String image;
+  final String? image;
 
   const Review(
       {required this.id,
