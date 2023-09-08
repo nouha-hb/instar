@@ -73,7 +73,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   Future<Either<Failure, Token>> facebookLogin() async {
     try {
       TokenModel _tm = await authRemoteDataSource.facebookLogin();
-      // await authLocalDataSource.saveUserInformations(_tm);
+      await authLocalDataSource.saveUserInformations(_tm);
       Token t = Token(
           token: _tm.token,
           refreshToken: _tm.refreshToken,

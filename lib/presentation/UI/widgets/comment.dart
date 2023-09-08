@@ -26,11 +26,13 @@ class CommentWidget extends StatefulWidget {
 class _CommentWidgetState extends State<CommentWidget> {
   late final ProductDetailsController controller;
   late final TextEditingController editingController;
+  late final ScrollController scrollController;
 
   @override
   void initState() {
     controller = Get.find();
     editingController = TextEditingController();
+    scrollController = ScrollController();
     controller.getComments(productId: widget.productId);
     super.initState();
   }
@@ -38,6 +40,7 @@ class _CommentWidgetState extends State<CommentWidget> {
   @override
   void dispose() {
     editingController.dispose();
+    scrollController.dispose();
     super.dispose();
   }
 
@@ -51,8 +54,11 @@ class _CommentWidgetState extends State<CommentWidget> {
           SizedBox(
               height: 250,
               child: ListView.builder(
+                controller: scrollController,
                 itemCount: controller.comments.length,
-                itemBuilder: (_, index) => ListTile(
+                itemBuilder: (_, index) {
+                   scrollController.jumpTo(scrollController.position.maxScrollExtent);
+                  return ListTile(
                   leading: CircleAvatar(
                       backgroundImage: NetworkImage(
                           '${ApiConst.files}/${controller.comments[index].userImage!}')),
@@ -74,7 +80,8 @@ class _CommentWidgetState extends State<CommentWidget> {
                   ),
                   trailing: Text('03-09-2023',
                       style: AppTextStyle.smallLightLabelTextStyle),
-                ),
+                );
+                },
               )),
           controller.f != null
               ? Stack(children: [
@@ -118,7 +125,7 @@ class _CommentWidgetState extends State<CommentWidget> {
                                         userID: SplashScreen.userToken.userId,
                                         productID: widget.productId,
                                         rating: 1,
-                                        comment: controller.comment,
+                                        comment: controller.comment.trim(),
                                         image: controller.fileName ?? ''))
                                     .then((value) {
                                   controller

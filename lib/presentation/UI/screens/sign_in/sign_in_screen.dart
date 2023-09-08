@@ -9,10 +9,12 @@ import 'package:instar/core/style/text_style.dart';
 import 'package:instar/domain/usecases/authentication_usecases/facebook_login_usecase.dart';
 import 'package:instar/domain/usecases/authentication_usecases/google_login_usecase.dart';
 import 'package:instar/domain/usecases/authentication_usecases/login_usecase.dart';
+import 'package:instar/domain/usecases/widhlist_usecases/create_wishlist_usecase.dart';
 import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
 import 'package:instar/presentation/UI/screens/settings/language_settings.dart';
 
 import 'package:instar/presentation/UI/screens/sign_up/sign_up_screen.dart';
+import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
 import 'package:instar/presentation/UI/widgets/custom_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -161,7 +163,22 @@ class SignIn extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           FlutterSocialButton(
-                            onTap: () {},
+                            onTap: () async {
+                              final res =
+                                  await FacebookLoginUsecase(sl()).call();
+                              res.fold((l) {
+                                print('facebook left');
+                              }, (r) async {
+                                print('fb right');
+                                SplashScreen.userToken = r;
+                                await CreateWishListUsecase(sl())
+                                    .call(userId: r.userId);
+                                
+                                return Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (_) => const MainPage()));
+                              });
+                            },
                             mini: true,
                             buttonType: ButtonType.facebook,
                           ),
@@ -171,11 +188,14 @@ class SignIn extends StatelessWidget {
                           FlutterSocialButton(
                             onTap: () async {
                               final res = await GoogleLoginUsecase(sl()).call();
-                              res.fold(
-                                  (l) => print('google left'),
-                                  (r) => Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(
-                                          builder: (_) => MainPage())));
+                              res.fold((l) {
+                                print('google left');
+                              }, (r) {
+                                SplashScreen.userToken = r;
+                                return Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (_) => const MainPage()));
+                              });
                             },
                             mini: true,
                             buttonType: ButtonType.google,
