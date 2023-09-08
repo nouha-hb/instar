@@ -1,0 +1,28 @@
+{
+    "ar":"Arabic",
+    "fr":"French",
+    "en":"English",
+    "lang":"language",
+    "language":"English",
+    "login": "Login",
+    "signUp":"Sign Up",
+    "email":"E-mail",
+    "password":"Password",
+    "connect":"connect",
+    "forgot_password": "Forgot your password?",
+    "continue_with_facebook" :"Continue with Facebook",
+    "continue_with_google" :"Continue with Google",
+    "dont_have_account":"you don't already have an account?",
+    "register":"register",
+    "order_items":"Order items",
+    "order_tracking":"Order tracking",
+    "track_package":"track your package",
+    "order_confirmation":"Order confirmation",
+    "ongoing_treatment":"ongoing treatment",
+    "in_preparation":"In preparation",
+    "shipping":"Shipping",
+    "delivery":"Delivery",
+    "item":"one item",
+    "items":"items"
+
+}

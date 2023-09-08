@@ -1,5 +1,18 @@
+import 'package:dartz/dartz.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:instar/core/errors/failures/failures.dart';
+import 'package:instar/domain/repositories/authentication_repository.dart';
+import 'package:instar/domain/usecases/authentication_usecases/facebook_login_usecase.dart';
+import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
+import 'package:instar/presentation/UI/screens/prod.dart';
+import 'package:instar/presentation/UI/screens/sign_up/sign_up_screen.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
+import '../../../core/errors/exceptions/exceptions.dart';
+import '../../../di.dart';
+import '../../../domain/usecases/authentication_usecases/login_usecase.dart';
 
 class SignInController extends GetxController {
   bool isPressed = false;
@@ -10,6 +23,31 @@ class SignInController extends GetxController {
   bool inProgress = false;
   bool resetControllers = true;
   final formKey = GlobalKey<FormState>();
+  late BuildContext context;
+  String? requiredEmailValidator(String? text) {
+    if (text == null || text.trim().isEmpty) {
+      return ("this field is required");
+    }
+    bool isvalid = EmailValidator.validate(text);
+    if (isvalid.toString() == 'false') {
+      return ("Invalid email form");
+    }
+    return null;
+  }
+
+  String? requiredPasswordValidator(String? confirmPasswordText) {
+    if (confirmPasswordText == null || confirmPasswordText.trim().isEmpty) {
+      return ("this field is required");
+    }
+    if (confirmPasswordText.length < 6) {
+      return ("Password should be atleast 6 characters");
+    }
+    if (confirmPasswordText.length > 15) {
+      return ("Password should be atleast 6 characters");
+    }
+
+    return null;
+  }
 
   String? requiredValidator(String? text) {
     if (text == null || text.trim().isEmpty) {
@@ -18,38 +56,67 @@ class SignInController extends GetxController {
     return null;
   }
 
-  // void signIn() async {
-  //   inProgress = true;
-  //   update();
-  //   try {
-  //     //Sign in service
-  //     // var email = emailController.text;
-  //     // var password = passwordController.text;
+  Future<void> FacebookLogin() async {
+    try {
+      final res = await FacebookLoginUsecase(sl()).call();
+      res.fold((l) {
+        Fluttertoast.showToast(
+            msg: l.message.toString(),
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.black,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }, (r) {
+        print("success");
+      });
+    } finally {}
+  }
 
-  //     // UserCredential userCredential = await FirebaseAuth.instance
-  //     //     .signInWithEmailAndPassword(email: email.trim(), password: password);
+  Future<void> signIn(BuildContext context) async {
+    print("sign in method");
+    inProgress = true;
+    update();
+    try {
+      // Sign in service
+      var email = usernameController.text;
+      var password = passwordController.text;
+      final res = await LoginUsecase(sl())
+          .call(email: email.trim(), password: password);
 
-  //     Get.to(const Welcome());
-  //   } on FirebaseAuthException catch (e) {
-  //       handleSignInError(e);
+      res.fold((l) {
+        Fluttertoast.showToast(
+            msg: l.message.toString(),
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.black,
+            textColor: Colors.white,
+            fontSize: 16.0);
+        print("left");
+      }, (r) async{
+        await SplashScreen.init(context, 0);
+        print("right");
+      });
+    } finally {
+      inProgress = false;
+      print("finally");
+      if (resetControllers) {
+        // usernameController.text = "";
+        // passwordController.text = "";
+      }
 
-  //   } finally {
-  //     inProgress = false;
-  //     if(resetControllers){
-  //       emailController.text = "";
-  //     passwordController.text = "";
-  //     }
+      update();
+    }
+  }
 
-  //     update();
-  //   }
-  // }
-
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  //   resetControllers=true;
-  //   update();
-  // }
+  @override
+  void onInit() {
+    super.onInit();
+    resetControllers = true;
+    update();
+  }
 
   // void handleSignInError(FirebaseAuthException e) {
   //   String messageToDisplay = "";

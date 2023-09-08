@@ -41,7 +41,27 @@ dependencies:
   equatable: ^2.0.5
   get_it: ^7.6.0
   dio: ^5.3.0
+  google_sign_in: ^6.1.4
   dartz: ^0.10.1
+  shared_preferences: ^2.2.0
+  flutter_facebook_auth: ^6.0.0
+  flutter_social_button: ^1.1.4+1
+  flutter_localizations:
+    sdk: flutter
+  flutter_svg: ^2.0.7
+  fluttertoast: ^8.2.2
+  anim_search_bar: ^2.0.3
+  checkbox_grouped: ^2.0.0
+  email_validator: ^2.1.17
+  flutter_localization: ^0.1.13
+  intl: ^0.18.0
+  provider: ^6.0.5
+  flutter_slidable: ^3.0.0
+  badges: ^3.1.1
+  model_viewer_plus: ^1.6.0
+  intl_utils: ^2.8.4
+  expandable: ^5.0.1
+  image_picker: ^1.0.4
 
 dev_dependencies:
   flutter_test:
@@ -59,15 +79,30 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
+  generate: true
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/images/background_home_page.png
+    - assets/images/logo.png
+    - assets/images/product.png
+    - assets/images/cuisine.svg
+    - assets/images/decoration.svg
+    - assets/images/enfants.svg
+    - assets/images/literie.svg
+    - assets/images/salle_de_bain.svg
+    - assets/images/salon.svg
+    - assets/images/paymentinfo.png
+
+    - assets/images/TeaTable01.glb
+    - assets/images/black.glb
+    - assets/images/white.glb
+    - assets/images/blue.glb
+    - assets/images/tapisbleu.glb
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,0 +1,29 @@
+{
+
+    "ar":"Arabe",
+    "fr":"Français",
+    "en":"Anglais",
+    "lang":"langue",
+    "language":"Français",
+    "login": "se connecter",
+    "signUp":"s'inscrire",
+    "email":"E-mail",
+    "password":"Mot de passe",
+    "connect":"connexion",
+    "forgot_password": "Mot de passe oublié?",
+    "continue_with_facebook" :"Continuer avec Facebook",
+    "continue_with_google" :"Continuer avec Google",
+    "dont_have_account":"vous n'avez pas déja un compte?",
+    "register":"inscrivez vous",
+    "order_items":"Articles de commande",
+    "order_tracking":"Suivi de commande",
+    "track_package":"Suivre votre colis",
+    "order_confirmation":"Confirmation de commande",
+    "ongoing_treatment":"Traitement en cours",
+    "in_preparation":"En cours de préparation",
+    "shipping":"Expédition",
+    "delivery":"Livraison",
+    "item":"un seul article",
+    "items":"articles"
+
+}
