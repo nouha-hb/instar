@@ -57,30 +57,42 @@ class _CommentWidgetState extends State<CommentWidget> {
                 controller: scrollController,
                 itemCount: controller.comments.length,
                 itemBuilder: (_, index) {
-                   scrollController.jumpTo(scrollController.position.maxScrollExtent);
-                  return ListTile(
-                  leading: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          '${ApiConst.files}/${controller.comments[index].userImage!}')),
-                  title: Text(controller.comments[index].userName!),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(controller.comments[index].comment),
-                      const SizedBox(
-                        height: 2,
+                  print("from review usecase ${controller.comments[index]}");
+                  scrollController
+                      .jumpTo(scrollController.position.maxScrollExtent);
+                  return PopupMenuButton(
+                    enableFeedback: true,
+                    enabled:controller.comments[index].userID ==
+                          SplashScreen.userToken.userId ,
+                    itemBuilder: ((context) => [PopupMenuItem(child: Text('update')),PopupMenuItem(child: Text('delete'))]
+                    ),
+                    child: ListTile(
+                      leading: CircleAvatar(
+                          backgroundImage: NetworkImage(
+                              '${ApiConst.files}/${controller.comments[index].userImage!}')),
+                      title: Text(controller.comments[index].userName!),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(controller.comments[index].comment),
+                          const SizedBox(
+                            height: 2,
+                          ),
+                          controller.comments[index].image == ''
+                              ? Container()
+                              : Image.network(
+                                  '${ApiConst.files}/${controller.comments[index].image!}',
+                                  height: 150,
+                                )
+                        ],
                       ),
-                      controller.comments[index].image == ''
-                          ? Container()
-                          : Image.network(
-                              '${ApiConst.files}/${controller.comments[index].image!}',
-                              height: 150,
-                            )
-                    ],
-                  ),
-                  trailing: Text('03-09-2023',
-                      style: AppTextStyle.smallLightLabelTextStyle),
-                );
+                      trailing: Text(
+                          DateFormat('yyyy-MM-dd')
+                              .format(controller.comments[index].date!)
+                              .toString(),
+                          style: AppTextStyle.smallLightLabelTextStyle),
+                    ),
+                  );
                 },
               )),
           controller.f != null
@@ -124,7 +136,6 @@ class _CommentWidgetState extends State<CommentWidget> {
                                         id: null,
                                         userID: SplashScreen.userToken.userId,
                                         productID: widget.productId,
-                                        rating: 1,
                                         comment: controller.comment.trim(),
                                         image: controller.fileName ?? ''))
                                     .then((value) {

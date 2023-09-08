@@ -27,7 +27,7 @@ class ReviewRepositoryImpl implements ReviewRepository {
         try {
       final reviewModels = await reviewRemoteDataSource.getAllReviews(prodId);
       final reviews = reviewModels
-          .map((e) => Review(id: e.id, userID: e.userID, productID: e.productID, rating: e.rating, comment: e.comment, image: e.image,userImage: e.userImage,userName: e.userName))
+          .map((e) => Review(id: e.id, userID: e.userID, productID: e.productID,date:e.date, comment: e.comment, image: e.image,userImage: e.userImage,userName: e.userName))
           .toList();
       return right(reviews);
     } on NotAuthorizedException {

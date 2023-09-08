@@ -9,20 +9,21 @@ class Review extends Equatable {
   final String? userName;
   final String? userImage;
   final String productID;
-  final int rating;
   final String comment;
   final String? image;
+  final DateTime? date;
 
   const Review(
       {required this.id,
-       this.userName,
-       this.userImage,
+      this.userName,
+      this.userImage,
+      this.date,
       required this.userID,
       required this.productID,
-      required this.rating,
       required this.comment,
       required this.image});
 
   @override
-  List<Object?> get props => [userID, productID, rating, comment, image, id,userImage,userName];
+  List<Object?> get props =>
+      [userID, productID, comment, image, id, userImage, userName, date];
 }

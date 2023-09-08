@@ -6,7 +6,7 @@ class ReviewModel extends Review {
       required super.userName,
       required super.userImage,
       required super.productID,
-      required super.rating,
+      super.date,
       required super.comment,
       required super.image,
       required super.id});
@@ -16,8 +16,8 @@ class ReviewModel extends Review {
       userName:json['user']['Firstname']+' '+json['user']['Lastname'],
       userImage: "userImage.png",
       productID: json['product'],
-      rating: json['rating'],
       comment: json['comment'],
+      date:  DateTime.parse(json['updatedAt'].toString()),
       image: json['image']??'',
       id: json['_id']);
 
@@ -25,7 +25,6 @@ class ReviewModel extends Review {
         '_id': id,
         'user': userID,
         'product':productID,
-        'rating':rating,
         'comment':comment,
         'image':image
       };
