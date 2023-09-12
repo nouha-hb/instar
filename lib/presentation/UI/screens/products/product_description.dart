@@ -288,7 +288,7 @@ class _ProductDescState extends State<ProductDesc> {
                           IconButton(
                               onPressed: () {
                                 setState(() {
-                                  stars = 1;
+                                 stars==0? stars = 1:stars=0;
                                 });
                               },
                               icon: stars > 0

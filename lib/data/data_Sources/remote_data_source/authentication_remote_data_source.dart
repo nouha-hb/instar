@@ -48,8 +48,8 @@ class AuthenticationRemoteDataSourceImpl
       final response = await dio.post(ApiConst.login, data: user);
       final data = response.data;
       msg = data['message'];
-      print(msg);
       final TokenModel token = TokenModel.fromJson(data);
+      print(data);
       return token;
     } catch (e) {
       print('server error');
