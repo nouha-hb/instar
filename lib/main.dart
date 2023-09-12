@@ -19,7 +19,7 @@ import 'package:instar/presentation/UI/screens/settings/language_settings.dart';
 import 'package:instar/presentation/UI/screens/settings/settings.dart';
 import 'package:instar/presentation/UI/screens/sign_in/sign_in_screen.dart';
 import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
-import 'package:instar/presentation/state_managment/settings_controller.dart';
+import 'package:instar/presentation/state_managment/controllers/settings_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:instar/presentation/UI/screens/landing_screen/landing_screen.dart';
 import 'package:instar/presentation/UI/screens/main_page/home_page.dart';

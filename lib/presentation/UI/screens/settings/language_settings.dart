@@ -7,7 +7,7 @@ import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
 import 'package:instar/presentation/UI/widgets/custom_button.dart';
 import 'package:instar/presentation/UI/widgets/language_item.dart';
-import 'package:instar/presentation/state_managment/settings_controller.dart';
+import 'package:instar/presentation/state_managment/controllers/settings_controller.dart';
 import 'package:provider/provider.dart';
 
 import '../main_page/main_page.dart';

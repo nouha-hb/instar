@@ -11,6 +11,8 @@ import 'package:instar/domain/entities/review.dart';
 import 'package:instar/domain/usecases/review_usecases/add_review_usecase.dart';
 import 'package:instar/presentation/UI/screens/products/product_description.dart';
 import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
+import 'package:instar/presentation/UI/widgets/update_comment_dialog.dart';
+import 'package:instar/presentation/state_managment/controllers/comment_controller.dart';
 import 'package:instar/presentation/state_managment/controllers/product_details_controller.dart';
 import 'package:intl/intl.dart';
 
@@ -24,13 +26,13 @@ class CommentWidget extends StatefulWidget {
 }
 
 class _CommentWidgetState extends State<CommentWidget> {
-  late final ProductDetailsController controller;
+  late final CommentController controller;
   late final TextEditingController editingController;
   late final ScrollController scrollController;
 
   @override
   void initState() {
-    controller = Get.find();
+    controller = CommentController();
     editingController = TextEditingController();
     scrollController = ScrollController();
     controller.getComments(productId: widget.productId);
@@ -46,7 +48,7 @@ class _CommentWidgetState extends State<CommentWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ProductDetailsController>(
+    return GetBuilder<CommentController>(
       init: controller,
       builder: (_) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,15 +59,23 @@ class _CommentWidgetState extends State<CommentWidget> {
                 controller: scrollController,
                 itemCount: controller.comments.length,
                 itemBuilder: (_, index) {
-                  print("from review usecase ${controller.comments[index]}");
                   scrollController
                       .jumpTo(scrollController.position.maxScrollExtent);
                   return PopupMenuButton(
+                    onSelected: (value) async{
+                      switch (value) {
+                        case action.update :await showDialog(context: context, builder: (ctx)=> UpdateCommentDialog(review: controller.comments[index],)); break;
+                        case action.delete : await controller.deletComment(controller.comments[index].id!);break;
+                      }
+                      
+                    },
                     enableFeedback: true,
-                    enabled:controller.comments[index].userID ==
-                          SplashScreen.userToken.userId ,
-                    itemBuilder: ((context) => [PopupMenuItem(child: Text('update')),PopupMenuItem(child: Text('delete'))]
-                    ),
+                    enabled: controller.comments[index].userID ==
+                        SplashScreen.userToken.userId,
+                    itemBuilder: ((context) =>const [
+                          PopupMenuItem(value: action.update,child: Text('update'),),
+                          PopupMenuItem(value: action.delete,child: Text('delete'))
+                        ]),
                     child: ListTile(
                       leading: CircleAvatar(
                           backgroundImage: NetworkImage(
@@ -105,7 +115,7 @@ class _CommentWidgetState extends State<CommentWidget> {
                           onPressed: () {
                             controller.clearImage();
                           },
-                          icon: Icon(Icons.clear)))
+                          icon:const Icon(Icons.clear)))
                 ])
               : Container(),
           Padding(
@@ -123,21 +133,16 @@ class _CommentWidgetState extends State<CommentWidget> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     IconButton(
-                        onPressed: controller.comment.isEmpty
+                        onPressed: controller.comment == ''
                             ? null
                             : () async {
-                                // final DateTime now = DateTime.now();
-                                // final DateFormat formatter =
-                                //     DateFormat('yyyy-MM-dd');
-                                // final String formatted =
-                                //     formatter.format(now);
-                                await AddReviewUsecase(sl())
+                                final res = await AddReviewUsecase(sl())
                                     .call(Review(
                                         id: null,
                                         userID: SplashScreen.userToken.userId,
                                         productID: widget.productId,
                                         comment: controller.comment.trim(),
-                                        image: controller.fileName ?? ''))
+                                        image: controller.fileName))
                                     .then((value) {
                                   controller
                                     ..clearComment()
@@ -145,6 +150,7 @@ class _CommentWidgetState extends State<CommentWidget> {
                                     ..getComments(productId: widget.productId);
                                   editingController.clear();
                                 });
+                            
                               },
                         icon: const Icon(Icons.send)),
                     IconButton(

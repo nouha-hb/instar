@@ -97,6 +97,7 @@ flutter:
     - assets/images/salle_de_bain.svg
     - assets/images/salon.svg
     - assets/images/paymentinfo.png
+    - assets/images/add_image.png
 
     - assets/images/TeaTable01.glb
     - assets/images/black.glb

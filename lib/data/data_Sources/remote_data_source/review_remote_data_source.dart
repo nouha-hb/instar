@@ -68,7 +68,7 @@ class ReviewRemoteDataSourceImpl implements ReviewRemoteDataSource {
           image: review.image,
           id: review.id);
 
-      await dio.put("${ApiConst.reviews}/${reviewModel.productID}",
+      await dio.put("${ApiConst.reviews}/${reviewModel.id}",
           data: reviewModel.toJson());
     } catch (e) {
       throw ServerException();
