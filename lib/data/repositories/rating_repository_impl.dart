@@ -12,15 +12,20 @@ class RatingRepositoryImpl implements RatingRepository {
   RatingRepositoryImpl(this.ratingRemoteDataSource);
 
   @override
-  Future<Either<Failure, Unit>> addRating(Rating rating) async {
+  Future<Either<Failure, Rating>> addRating(Rating rating) async {
     try {
       final RatingModel rm = RatingModel(
           id: rating.id,
           userId: rating.userId,
           productId: rating.productId,
           rating: rating.rating);
-      await ratingRemoteDataSource.addRating(rm);
-      return right(unit);
+      final res = await ratingRemoteDataSource.addRating(rm);
+      final rate = Rating(
+          userId: res.userId,
+          productId: res.productId,
+          rating: res.rating,
+          id: res.id);
+      return right(rate);
     } on ServerException {
       return left(ServerFailure());
     }

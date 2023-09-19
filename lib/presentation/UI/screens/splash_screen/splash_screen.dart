@@ -40,7 +40,7 @@ static Future<void> init(BuildContext context,int duration) async {
 
         return res = false;
       }, (r) {
-        print(' getuser  right');
+        print(' getuser  right $r');
 
         SplashScreen.currentUser = r;
       });

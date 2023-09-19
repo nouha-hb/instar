@@ -14,7 +14,6 @@ class RatingModel extends Rating {
       rating: json['rating']);
 
   Map<String, dynamic> toJson() => {
-    '_id':id,
     'user':userId,
     'product':productId,
     'rating':rating

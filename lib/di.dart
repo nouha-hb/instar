@@ -1,14 +1,17 @@
 import 'package:get_it/get_it.dart';
 import 'package:instar/data/data_Sources/remote_data_source/product_remote_data_source.dart';
+import 'package:instar/data/data_Sources/remote_data_source/rating_remote_data_source.dart';
 import 'package:instar/data/data_Sources/remote_data_source/review_remote_data_source.dart';
 import 'package:instar/data/data_Sources/remote_data_source/wishlist_remote_data_source.dart';
 import 'package:instar/data/repositories/authentication_repository_impl.dart';
 import 'package:instar/data/repositories/product_repository_impl.dart';
+import 'package:instar/data/repositories/rating_repository_impl.dart';
 import 'package:instar/data/repositories/review_repository_impl.dart';
 import 'package:instar/data/repositories/wishlist_repository_impl.dart';
 import 'package:instar/domain/repositories/authentication_repository.dart';
 import 'package:instar/domain/repositories/cart_repository.dart';
 import 'package:instar/domain/repositories/product_repository.dart';
+import 'package:instar/domain/repositories/rating_repository.dart';
 import 'package:instar/domain/repositories/review_repository.dart';
 import 'package:instar/domain/repositories/wishlist_repository.dart';
 import 'package:instar/domain/usecases/authentication_usecases/auto_login_usecase.dart';
@@ -22,6 +25,11 @@ import 'package:instar/domain/usecases/product_usecases/get_one_product_usecase.
 import 'package:instar/domain/usecases/product_usecases/get_products_by_category_usecase.dart';
 import 'package:instar/domain/usecases/product_usecases/get_products_by_subcategory_usecase.dart';
 import 'package:instar/domain/usecases/promotion_usecases/get_all_promotions_usecase.dart';
+import 'package:instar/domain/usecases/rating_usecases/add_rating_usecase.dart';
+import 'package:instar/domain/usecases/rating_usecases/delete_rating_usecase.dart';
+import 'package:instar/domain/usecases/rating_usecases/get_ratings_usecase.dart';
+import 'package:instar/domain/usecases/rating_usecases/get_single_rating_usecase.dart';
+import 'package:instar/domain/usecases/rating_usecases/update_rating_usecase.dart';
 import 'package:instar/domain/usecases/review_usecases/add_review_usecase.dart';
 import 'package:instar/domain/usecases/review_usecases/get_all_reviews_usecase.dart';
 import 'package:instar/domain/usecases/review_usecases/remove_review.dart';
@@ -54,7 +62,7 @@ Future<void> init() async {
   sl.registerLazySingleton<PromotionRepository>(() => PromotionRepositoryImpl(sl()));
   sl.registerLazySingleton<WishListRepository>(() => WishListRepositoryImpl(sl()));
   sl.registerLazySingleton<CartRepository>(() =>CartRepositoryImpl(sl()));
-
+  sl.registerLazySingleton<RatingRepository>(() =>RatingRepositoryImpl(sl()));
 
 
   // data sources
@@ -72,6 +80,8 @@ Future<void> init() async {
       () => WishlistRemoteDataSourceImpl());
   sl.registerLazySingleton<CartRemoteDataSource>(
       () => CartRemoteDataSourceImpl());
+  sl.registerLazySingleton<RatingRemoteDataSource>(
+      () => RatingRemoteDataSourceImpl());    
 
   // usecases
   /*---Auth usecases---*/
@@ -108,4 +118,13 @@ Future<void> init() async {
   sl.registerLazySingleton(() => CreateCartUsecase(sl()));
   sl.registerLazySingleton(() => GetCartUsecase(sl()));
   sl.registerLazySingleton(() => UpdateCartUsecase(sl()));
+
+  /*---rating usecases---*/
+  sl.registerLazySingleton(() => AddRatingUsecase(sl()));
+  sl.registerLazySingleton(() => GetRatingsUsecase(sl()));
+  sl.registerLazySingleton(() => GetSingleRatingUsecase(sl()));
+  sl.registerLazySingleton(() => UpdateRatingUsecase(sl()));
+  sl.registerLazySingleton(() => DeleteRatingUsecase(sl()));
+
+
 }

@@ -49,10 +49,9 @@ class AuthenticationRemoteDataSourceImpl
       final data = response.data;
       msg = data['message'];
       final TokenModel token = TokenModel.fromJson(data);
-      print(data);
       return token;
     } catch (e) {
-      print('server error');
+      print(e);
       throw LoginException(msg);
     }
   }

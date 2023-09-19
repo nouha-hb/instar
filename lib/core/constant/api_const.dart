@@ -1,5 +1,5 @@
 class ApiConst {
-  static const String ipAddress = "192.168.1.20";//ip Address
+  static const String ipAddress = "192.168.1.19";//ip Address
   static const String baseUrl = "http://$ipAddress:9000/api"; 
   static const String register = "$baseUrl/register";
   static const String login = "$baseUrl/login";

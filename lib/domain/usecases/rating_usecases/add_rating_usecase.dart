@@ -8,5 +8,5 @@ class AddRatingUsecase {
 
   AddRatingUsecase(this._repository);
 
-  Future<Either<Failure, Unit>> call(Rating rating) async => await _repository.addRating(rating);
+  Future<Either<Failure, Rating>> call(Rating rating) async => await _repository.addRating(rating);
 }

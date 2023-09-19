@@ -3,7 +3,7 @@ import 'package:instar/core/errors/failures/failures.dart';
 import 'package:instar/domain/entities/rating.dart';
 
 abstract class RatingRepository {
-  Future<Either<Failure, Unit>> addRating(Rating rating);
+  Future<Either<Failure, Rating>> addRating(Rating rating);
   Future<Either<Failure, List<Rating>>> getRatings(String productID);
   Future<Either<Failure, Rating>> getSingleRating(String ratingID);
   Future<Either<Failure, Rating>> updateRating(Rating newRating);
