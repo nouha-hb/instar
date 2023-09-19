@@ -108,7 +108,7 @@ class MainPage extends StatelessWidget {
                       child: Image.asset(Assets.marques),
                     ),
                     title: Text(
-                      'Nos marques',
+                      'mes commandes',
                       style: AppTextStyle.elementNameTextStyle16,
                     ),
                     onTap: () {

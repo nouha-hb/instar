@@ -21,54 +21,49 @@ class FavoriteList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     return GetBuilder<MainController>(
+    return GetBuilder<MainController>(
         init: MainController(),
         initState: (_) {},
         builder: (controller) {
-          return Center (
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                SizedBox(
-                    height: 600.h,
-                    width: 300.w,
-                    child: ListView.builder(
-
-                      itemCount: controller.favoriteproductsId.length,
-                      itemBuilder: (context, index) {
-        late Product product;
-
-                        print("productss wishListtt " +
-                            SplashScreen.wishList!.productsId.toString());
-
-                        return FutureBuilder(
-                          future: GetOneProductsUsecase(sl())
-                              .call(SplashScreen.wishList.productsId[index]),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              final res = snapshot.data;
-                              print('data = $res');
-                              res!.fold((l) {
-                                return null;
-                              }, (r) {
-                                product = r;
-                              });
-                            } else if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return const Center(
-                                  child: CircularProgressIndicator());
-                            }
-                            return FavoriteComponent(product: product);
-                          },
-                        );
-                      },
-                    )),
-              ],
+          return Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  SizedBox(
+                      height: 600.h,
+                      width: 300.w,
+                      child: ListView.builder(
+                        itemCount: controller.favoriteproductsId.length,
+                        itemBuilder: (context, index) {
+                          print("productss wishListtt " +
+                              SplashScreen.wishList!.productsId.toString());
+                          return FutureBuilder(
+                            future: GetOneProductsUsecase(sl())
+                                .call(SplashScreen.wishList.productsId[index]),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                final res = snapshot.data;
+                                print('data = $res');
+                                res!.fold((l) {
+                                  return null;
+                                }, (r) {
+                                  return FavoriteComponent(product: r);
+                                });
+                              } else if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              }
+                              return Container();
+                            },
+                          );
+                        },
+                      )),
+                ],
+              ),
             ),
-          ),
-        );
-      }
-    );
+          );
+        });
   }
 }

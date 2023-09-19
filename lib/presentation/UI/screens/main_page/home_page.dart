@@ -5,13 +5,18 @@ import 'package:get/get.dart';
 import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
 import 'package:instar/domain/entities/Promotion.dart';
+import 'package:instar/domain/entities/fournisseur.dart';
 import 'package:instar/domain/entities/product.dart';
 import 'package:instar/domain/usecases/promotion_usecases/get_all_promotions_usecase.dart';
 import 'package:instar/presentation/UI/screens/main_page/categories_page.dart';
+import 'package:instar/presentation/UI/screens/products/product_tendance_page.dart';
+import 'package:instar/presentation/UI/screens/products/product_vente_page.dart';
 import 'package:instar/presentation/UI/widgets/categroy_component.dart';
+import 'package:instar/presentation/brands_screens/Meublatex.dart';
 
 import '../../../../core/style/assets.dart';
 import '../../../../di.dart';
+import '../../../../domain/usecases/fournisseur_usecases/get_fournisseurs_usecase.dart';
 import '../../../../domain/usecases/product_usecases/get_all_products_usecase.dart';
 import '../../widgets/product_component.dart';
 
@@ -20,24 +25,19 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List brand_names = [
-      "Meublatex",
-      "S&B",
-      "xxxx",
-       "Meublatex",
-    ];
     List image_svg_names = [
       Assets.categorie_literie,
       Assets.categorie_enfants,
       Assets.categorie_cuisine,
-      Assets.categorie_literie,
-
     ];
     List<Promotion> promotionList = [];
+    //List<Fournisseur> fournisseurList = [];
+     List fournisseurList = ["Meublatex" , "S&B" , "xxx",];
+
 
     return Column(
       children: [
-          SizedBox(
+        SizedBox(
           height: 20.h,
         ),
         FutureBuilder(
@@ -67,19 +67,20 @@ class Home extends StatelessWidget {
                     child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: promotionList.length,
-                        itemBuilder: (_, index) =>
-                            Row(
+                        itemBuilder: (_, index) => Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 SizedBox(
                                   width: 40.w,
                                 ),
-                                Text(promotionList[index].discount.toString()+"%", style: AppTextStyle.titleTextStyle,textAlign: TextAlign.center,),
-                               Image.asset(promotionList[index].image),
-                            
-
-
+                                Text(
+                                  promotionList[index].discount.toString() +
+                                      "%",
+                                  style: AppTextStyle.titleTextStyle,
+                                  textAlign: TextAlign.center,
+                                ),
+                                Image.asset(promotionList[index].image),
                               ],
                             )),
                   );
@@ -110,25 +111,67 @@ class Home extends StatelessWidget {
         SizedBox(
           height: 20.h,
         ),
-        Container(
-          //width: MediaQuery.sizeOf(context).width,
-          height: 120.h,
-        
-          decoration: BoxDecoration(
-              color: AppColors.bgColor,
-              borderRadius: BorderRadius.circular(15.r)),
-          child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: brand_names.length,
-              itemBuilder: (_, index) => Padding(
-                padding:  EdgeInsets.all(8.0.r),
-                child: CategoryComponeny(
-                  width: 100.w,
-                  height: 90.h,
-                    image_path: image_svg_names[index],
-                    category_name: brand_names[index]),
-              )),
+        FutureBuilder(
+          future: GetAllFournisseursUsecase(sl()).call(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              final res = snapshot.data;
+
+              print('data  fournisseurs r= $res');
+              res!.fold((l) {
+                print("left fournisseursssss");
+                return null;
+              }, (r) {
+                fournisseurList = r;
+                print('rightttttttt ' + fournisseurList.toString());
+              });
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            return fournisseurList.isEmpty
+                ? Text("no fournisseur")
+                : Container(
+                    //width: MediaQuery.sizeOf(context).width,
+                    height: 120.h,
+
+                    decoration: BoxDecoration(
+                        color: AppColors.bgColor,
+                        borderRadius: BorderRadius.circular(15.r)),
+                    child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: fournisseurList.length,
+                        itemBuilder: (_, index) => Padding(
+                              padding: EdgeInsets.all(8.0.r),
+                              child: CategoryComponeny(
+                                  width: 100.w,
+                                  height: 90.h,
+                                  image_path: image_svg_names[index],
+                                  category_name: fournisseurList[index].name),
+                            )),
+                  );
+          },
         ),
+        // Container(
+        //   width: MediaQuery.sizeOf(context).width,
+        //   height: 120.h,
+        //   decoration: BoxDecoration(
+        //       color: AppColors.bgColor,
+        //       borderRadius: BorderRadius.circular(15.r)),
+        //   child: ListView.builder(
+        //       scrollDirection: Axis.horizontal,
+        //       itemCount: fournisseurList.length,
+        //       itemBuilder: (_, index) => Padding(
+        //             padding: EdgeInsets.all(8.0.r),
+        //             child: GestureDetector(
+        //               onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) =>Meublatex() ,)),
+        //               child: CategoryComponeny(
+        //                   width: 100.w,
+        //                   height: 90.h,
+        //                   image_path: image_svg_names[index],
+        //                   category_name: fournisseurList[index]),
+        //             ),
+        //           )),
+        // ),
         Padding(
           padding: EdgeInsets.all(10.0.r),
           child: SingleChildScrollView(
@@ -149,8 +192,11 @@ class Home extends StatelessWidget {
                                 text: 'Voir tout',
                                 style: AppTextStyle.blueLabelTextStyle,
                                 recognizer: TapGestureRecognizer()
-                                //..onTap = () => Get.to(ForgetPassword()),
-                                )
+                                  ..onTap = () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => VenteProduct(),
+                                      )))
                           ]),
                     ),
                   ],
@@ -182,13 +228,13 @@ class Home extends StatelessWidget {
                         return productList.isEmpty
                             ? Container()
                             : Center(
-                              child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: productList.length,
-                                  itemBuilder: (_, index) => ProductComponent(
-                                        product: productList[index],
-                                      )),
-                            );
+                                child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: productList.length,
+                                    itemBuilder: (_, index) => ProductComponent(
+                                          product: productList[index],
+                                        )),
+                              );
                       },
                     )),
                 Row(
@@ -206,8 +252,11 @@ class Home extends StatelessWidget {
                                 text: 'Voir tout',
                                 style: AppTextStyle.blueLabelTextStyle,
                                 recognizer: TapGestureRecognizer()
-                                //..onTap = () => Get.to(ForgetPassword()),
-                                )
+                                  ..onTap = () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Tendance(),
+                                      )))
                           ]),
                     ),
                   ],

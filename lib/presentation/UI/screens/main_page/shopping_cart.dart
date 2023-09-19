@@ -25,7 +25,6 @@ class ShoppingList extends StatelessWidget {
         init: MainController(),
         initState: (_) {},
         builder: (controller) {
-          controller.update();
           return Center(
             child: SingleChildScrollView(
               child: Column(

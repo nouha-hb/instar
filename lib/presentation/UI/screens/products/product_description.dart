@@ -307,12 +307,15 @@ class _ProductDescState extends State<ProductDesc> {
                     ),
                   ],
                 ),
-                Text(
-                  "Rate product :",
-                  style: AppTextStyle.elementNameTextStyle16,
-                ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Rate product :",
+                      style: AppTextStyle.elementNameTextStyle16,
+                    ),
+                     Row(
+                 // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     IconButton(
                         onPressed: () {
@@ -371,6 +374,9 @@ class _ProductDescState extends State<ProductDesc> {
                             : Icon(Icons.star_border))
                   ],
                 ),
+                  ],
+                ),
+               
 
                 SizedBox(
                   height: 10.h,
