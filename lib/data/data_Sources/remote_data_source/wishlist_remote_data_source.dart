@@ -8,8 +8,7 @@ import '../local_data_source/authentication_local_data_source.dart';
 
 abstract class WishlistRemoteDataSource {
   Future<void> createWishlist({required String userId});
-  Future<void> updateWishlist(
-      {required WishListModel wishlist});
+  Future<void> updateWishlist({required WishListModel wishlist});
   Future<WishListModel> getWishlist({required String userId});
 }
 
@@ -25,10 +24,9 @@ class WishlistRemoteDataSourceImpl implements WishlistRemoteDataSource {
   @override
   Future<void> createWishlist({required String userId}) async {
     try {
-       await dio.post(
+      await dio.post(
         ApiConst.wishlist,
         data: {"userId": userId},
-       
       );
     } on DioException catch (e) {
       if (e.response!.statusCode == 401) {
@@ -57,20 +55,21 @@ class WishlistRemoteDataSourceImpl implements WishlistRemoteDataSource {
       if (e.response!.statusCode == 401) {
         throw NotAuthorizedException();
       } else {
+        print(e);
         throw ServerException();
       }
     }
   }
 
   @override
-  Future<void> updateWishlist(
-      {required WishListModel wishlist}) async{
-     try {
-       await dio.post(
+  Future<void> updateWishlist({required WishListModel wishlist}) async {
+    try {
+      await dio.post(
         "${ApiConst.getWishlist}/${wishlist.id}",
-        data: {"userId": wishlist.userId,
-              "products": wishlist.productsId.map((e) => {"productId":e})
-              },
+        data: {
+          "userId": wishlist.userId,
+          "products": wishlist.productsId.map((e) => {"productId": e})
+        },
         options: Options(
           headers: {
             "authorization": "Bearer ${await token}",

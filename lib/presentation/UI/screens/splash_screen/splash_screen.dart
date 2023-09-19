@@ -47,7 +47,7 @@ class SplashScreen extends StatefulWidget {
 
         return res = false;
       }, (r) {
-        print(' getuser  right');
+        print(' getuser  right $r');
 
         SplashScreen.currentUser = r;
       });

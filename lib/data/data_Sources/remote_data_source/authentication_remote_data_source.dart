@@ -25,7 +25,7 @@ class AuthenticationRemoteDataSourceImpl
   Future<String> createAccount(User user) async {
     try {
       UserModel userModel = UserModel(
-        id: '',
+          id: '',
           role: user.role,
           firstName: user.firstName,
           lastName: user.lastName,
@@ -48,11 +48,10 @@ class AuthenticationRemoteDataSourceImpl
       final response = await dio.post(ApiConst.login, data: user);
       final data = response.data;
       msg = data['message'];
-      print(msg);
       final TokenModel token = TokenModel.fromJson(data);
       return token;
     } catch (e) {
-      print('server error');
+      print(e);
       throw LoginException(msg);
     }
   }
@@ -60,6 +59,7 @@ class AuthenticationRemoteDataSourceImpl
 //not completed
   @override
   Future<TokenModel> googleLogin() async {
+    TokenModel token;
     try {
       final googleSignIN = GoogleSignIn();
       final user = await googleSignIN.signIn();
@@ -76,9 +76,13 @@ class AuthenticationRemoteDataSourceImpl
             ban: false,
             role: 'user',
             id: _id);
-        await createAccount(usr);
-        final token = await login(_email, '123');
-        await googleSignIN.signOut;
+        try {
+          token = await login(_email, '123');
+        } catch (e) {
+          await createAccount(usr);
+          token = await login(_email, '123');
+        }
+        googleSignIN.signOut;
         await googleSignIN.disconnect();
         return token;
       } else {
@@ -122,24 +126,39 @@ class AuthenticationRemoteDataSourceImpl
 
   @override
   Future<TokenModel> facebookLogin() async {
+    TokenModel token;
     try {
       final LoginResult result = await FacebookAuth.instance.login();
-      print(result.accessToken!.token.toString());
-    } catch (e) {}
-    final LoginResult result = await FacebookAuth.instance.login();
-
-    if (result.status == LoginStatus.success) {
-      final _accessToken = result.accessToken;
-      final userData = await FacebookAuth.instance.getUserData();
-      print('user data ${userData.toString()}');
-      // } else {
-      //   print(result.status);
-      //   print(result.message);
+      if (result.status == LoginStatus.success) {
+        final _accessToken = result.accessToken;
+        final userData = await FacebookAuth.instance.getUserData();
+        print('user data ${userData.toString()}');
+        final _name = userData['name'].split(' ');
+        final _id = userData['id'];
+        final usr = UserModel(
+            firstName: _name[0],
+            lastName: _name[1],
+            email: _id.toString(),
+            phone: '',
+            password: '123',
+            ban: false,
+            role: 'user',
+            id: _id);
+        try {
+          token = await login(_id, '123');
+        } catch (e) {
+          await createAccount(usr);
+          token = await login(_id, '123');
+        }
+        await FacebookAuth.instance.logOut();
+        return token;
+      } else {
+        throw LoginException("Login failure");
+      }
+    } on LocalStorageException {
+      rethrow;
+    } catch (e) {
+      throw ServerException();
     }
-    return TokenModel(
-        token: 'token',
-        refreshToken: 'refreshToken',
-        expiryDate: DateTime.now().add(Duration(hours: 1)),
-        userId: 'a');
   }
 }

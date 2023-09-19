@@ -9,10 +9,12 @@ import 'package:instar/core/style/text_style.dart';
 import 'package:instar/domain/usecases/authentication_usecases/facebook_login_usecase.dart';
 import 'package:instar/domain/usecases/authentication_usecases/google_login_usecase.dart';
 import 'package:instar/domain/usecases/authentication_usecases/login_usecase.dart';
+import 'package:instar/domain/usecases/widhlist_usecases/create_wishlist_usecase.dart';
 import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
 import 'package:instar/presentation/UI/screens/settings/language_settings.dart';
 
 import 'package:instar/presentation/UI/screens/sign_up/sign_up_screen.dart';
+import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
 import 'package:instar/presentation/UI/widgets/custom_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

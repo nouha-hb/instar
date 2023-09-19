@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:instar/core/l10n/l10n.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../core/constant/string_const.dart';
+import '../../../core/constant/string_const.dart';
 
 class SettingsController extends ChangeNotifier {
   Locale? _locale;

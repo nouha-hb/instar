@@ -8,7 +8,7 @@ class WishListModel extends WishList {
       id: json['_id'],
       userId: json['userId'],
       productsId:
-          (json['products'] as List).map((e) => e['_id'].toString()).toList());
+          (json['products'] as List).map((e) => e['_id'].toString()).toList()??[]);
 
   Map<String, dynamic> toJson() => {
     "_id":id,

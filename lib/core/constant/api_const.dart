@@ -14,6 +14,9 @@ class ApiConst {
   //review apis
   static const String reviews = "$baseUrl/reviews";
 
+  //rating apis
+  static const String ratings = "$baseUrl/ratings";
+
   //promotions apis
   static const String getPromotions = "$baseUrl/";
 
