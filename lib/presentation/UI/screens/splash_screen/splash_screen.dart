@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:instar/core/style/assets.dart';
 import 'package:instar/core/style/colors.dart';
-import 'package:instar/domain/entities/fournisseur.dart';
 import 'package:instar/domain/entities/user.dart';
 import 'package:instar/domain/entities/wishlist.dart';
 import 'package:instar/domain/entities/cart.dart';
 
 import 'package:instar/domain/usecases/authentication_usecases/auto_login_usecase.dart';
 import 'package:instar/domain/usecases/authentication_usecases/get_user_usecase.dart';
-import 'package:instar/domain/usecases/fournisseur_usecases/get_fournisseurs_usecase.dart';
 import 'package:instar/domain/usecases/widhlist_usecases/get_wishlist_usecase.dart';
 import 'package:instar/presentation/UI/screens/landing_screen/landing_screen.dart';
 import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+//import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../di.dart';
 import '../../../../domain/entities/token.dart';
@@ -24,7 +21,7 @@ import '../../../../domain/usecases/cart_usecases/get_cart_usecase.dart';
 class SplashScreen extends StatefulWidget {
   static late Token userToken;
   static late User currentUser;
-  static  late  WishList wishList;
+  static    WishList? wishList;
   static  late Cart cart;
 
 
@@ -80,31 +77,14 @@ class SplashScreen extends StatefulWidget {
         SplashScreen.cart = r;
       });
     });
-//         final fournisseur = await GetAllFournisseursUsecase(sl())
-//           .call();
-//       print(' get fournisseurs');
-
-//  fournisseur.fold((l) {
-//         print(' fournisseur  left');
-
-//         return res = false;
-//       }, (r) {
-//         print(' fournisseur  right');
-
-//         SplashScreen.fournisseur = r;
-//       });
-//     print(res.toString() + "res");
-
-    
-    Future.delayed(Duration(seconds: duration), () {
+    print(res.toString()+"res");
+    Future.delayed( Duration(seconds: duration), () {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) =>
-                  res ? const MainPage() : const LandingPage()));
+              builder: (context) => res ? const MainPage() : const LandingPage()));
     });
   }
-
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
@@ -119,7 +99,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(SplashScreen.userToken.token.toString());
+   // print(SplashScreen.userToken.token.toString());
     return Container(
       width: 375.w,
       height: 812.h,

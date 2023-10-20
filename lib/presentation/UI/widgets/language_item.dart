@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:instar/core/style/colors.dart';
-import 'package:instar/presentation/state_managment/controllers/settings_controller.dart';
 
 import '../../../core/style/text_style.dart';
 
+// ignore: must_be_immutable
 class LanguageItem extends StatelessWidget {
   final String language;
   final int value;

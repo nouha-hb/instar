@@ -1,5 +1,6 @@
 import 'package:instar/domain/entities/review.dart';
 
+// ignore: must_be_immutable
 class ReviewModel extends Review {
    ReviewModel(
       {required super.userID,
@@ -24,7 +25,6 @@ class ReviewModel extends Review {
   Map<String, dynamic> toJson() => {
         '_id': id,
         'user': userID,
-        'rating':0,
         'product':productID,
         'comment':comment,
         'image':image

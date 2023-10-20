@@ -78,6 +78,8 @@ class OrderTrackingScreen extends StatelessWidget {
                                   product: Product(
                                       category: 'category',
                                       id: 'id',
+                                      provider: 'ee',
+                                      dimensions:'12X12',
                                       name: 'name',
                                       description: 'description',
                                       price: 12,

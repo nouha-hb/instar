@@ -1,5 +1,6 @@
 import 'package:instar/domain/entities/rating.dart';
 
+// ignore: must_be_immutable
 class RatingModel extends Rating {
   RatingModel(
       {required super.id,

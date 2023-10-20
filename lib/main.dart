@@ -17,10 +17,9 @@ import 'di.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
-  print(DateTime.parse("2023-08-16 17:29:21").isAfter(DateTime.now()));
   runApp(ChangeNotifierProvider(
     create: (_) => SettingsController(),
-    child: MyApp(),
+    child:const MyApp(),
   ));
 }
 
@@ -69,7 +68,7 @@ class MyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ElevatedButton(
-        child: Text('ed'),
+        child:const Text('ed'),
         onPressed: () async {
           await LogoutUsecase(sl()).call();
           // await LoginUsecase(sl()).call(email: 'emafghil', password: '1234');
@@ -77,10 +76,10 @@ class MyWidget extends StatelessWidget {
           res.fold((l) {
             print(l.toString() + "error *********");
             return Navigator.of(context)
-                .push(MaterialPageRoute(builder: (_) => SignIn()));
+                .push(MaterialPageRoute(builder: (_) =>const SignIn()));
           }, (r) {
             Navigator.of(context)
-                .push(MaterialPageRoute(builder: (_) => MainPage()));
+                .push(MaterialPageRoute(builder: (_) =>const MainPage()));
           });
         },
       ),

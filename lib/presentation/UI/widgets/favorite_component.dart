@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
-import 'package:instar/core/style/assets.dart';
 import 'package:instar/core/style/colors.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instar/core/style/text_style.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:instar/di.dart';

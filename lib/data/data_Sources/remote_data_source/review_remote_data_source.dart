@@ -39,10 +39,13 @@ class ReviewRemoteDataSourceImpl implements ReviewRemoteDataSource {
     try {
       final response = await dio.get("${ApiConst.products}/$prodId/reviews");
       List<dynamic> data = response.data;
+      print('reviews $data');
       List<ReviewModel> reviews =
-      data.map((e) => ReviewModel.fromJson(e)).toList();
+          data.map((e) => ReviewModel.fromJson(e)).toList();
+      print('reviewssss $reviews');
       return reviews;
     } catch (e) {
+      print(e);
       throw ServerException();
     }
   }
@@ -70,7 +73,9 @@ class ReviewRemoteDataSourceImpl implements ReviewRemoteDataSource {
 
       await dio.put("${ApiConst.reviews}/${reviewModel.id}",
           data: reviewModel.toJson());
+              print('update comment success');
     } catch (e) {
+      print('update error $e');
       throw ServerException();
     }
   }

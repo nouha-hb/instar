@@ -9,6 +9,7 @@ abstract class RatingRemoteDataSource {
   Future<RatingModel> getSingleRating(String ratingID);
   Future<RatingModel> updateRating(RatingModel newRating);
   Future<void> deleteRating(String ratingID);
+  Future<double> getRatingAverage(String productID);
 }
 
 class RatingRemoteDataSourceImpl implements RatingRemoteDataSource {
@@ -37,9 +38,7 @@ class RatingRemoteDataSourceImpl implements RatingRemoteDataSource {
   @override
   Future<List<RatingModel>> getRatings(String productID) async {
     try {
-      final response = await dio.get(
-        ApiConst.ratings,
-      );
+      final response = await dio.get("${ApiConst.products}/$productID/ratings");
       List<dynamic> data = response.data;
       List<RatingModel> ratings =
           data.map((e) => RatingModel.fromJson(e)).toList();
@@ -70,6 +69,17 @@ class RatingRemoteDataSourceImpl implements RatingRemoteDataSource {
       return RatingModel.fromJson(data);
     } catch (e) {
       print(e);
+      throw ServerException();
+    }
+  }
+  
+  @override
+  Future<double> getRatingAverage(String productID) async{
+    try {
+      final response = await dio.get('${ApiConst.ratings}/$productID/average');
+      final data = response.data;
+      return double.parse(data);
+    } catch (e) {
       throw ServerException();
     }
   }

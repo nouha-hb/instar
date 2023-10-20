@@ -1,5 +1,3 @@
-import 'package:equatable/equatable.dart';
-
 import '../../domain/entities/token.dart';
 
 class TokenModel extends Token {

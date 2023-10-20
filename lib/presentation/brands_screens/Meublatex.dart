@@ -1,8 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:instar/core/style/assets.dart';
-import 'package:instar/domain/entities/Product3D.dart';
 import 'package:instar/domain/entities/product.dart';
 import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
 import 'package:instar/presentation/UI/widgets/product_component.dart';

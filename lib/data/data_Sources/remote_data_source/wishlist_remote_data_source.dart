@@ -1,7 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:instar/data/models/wishlist_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../core/constant/api_const.dart';
 import '../../../core/errors/exceptions/exceptions.dart';
 import '../local_data_source/authentication_local_data_source.dart';
@@ -16,7 +14,6 @@ class WishlistRemoteDataSourceImpl implements WishlistRemoteDataSource {
   Dio dio = Dio();
 
   Future<String> get token async {
-    final _sp = await SharedPreferences.getInstance();
     final _tk = await AuthenticationLocalDataSourceImpl().getUserInformations();
     return _tk.token;
   }

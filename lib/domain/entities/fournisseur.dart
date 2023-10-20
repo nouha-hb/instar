@@ -2,10 +2,10 @@ import 'package:equatable/equatable.dart';
 
 class Fournisseur extends Equatable {
   final String name;
-  String address;
+  final String address;
   final num phone;
 
-  Fournisseur({
+  const Fournisseur({
     required this.name,
     required this.address,
     required this.phone,

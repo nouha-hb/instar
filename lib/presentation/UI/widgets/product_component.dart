@@ -63,19 +63,19 @@ class _ProductComponentState extends State<ProductComponent> {
                           });
                           if (favorite) {
                             WishList wishlist = WishList(
-                                id: SplashScreen.wishList.id,
-                                userId: SplashScreen.wishList.userId,
-                                productsId: SplashScreen.wishList.productsId);
+                                id: SplashScreen.wishList!.id,
+                                userId: SplashScreen.wishList!.userId,
+                                productsId: SplashScreen.wishList!.productsId);
 
                             setState(() {
-                              SplashScreen.wishList.productsId
+                              SplashScreen.wishList!.productsId
                                   .add(widget.product.id);
                               UpdateWishListUsecase(sl())
                                   .call(wishlist: wishlist);
                             });
                           } else {
                             setState(() {
-                              SplashScreen.wishList.productsId
+                              SplashScreen.wishList!.productsId
                                   .remove(widget.product.id);
                             });
                           }

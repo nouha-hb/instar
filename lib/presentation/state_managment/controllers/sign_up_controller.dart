@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:instar/core/style/colors.dart';
 import 'package:instar/domain/entities/user.dart';
 import 'package:instar/domain/usecases/authentication_usecases/create_account_usecase.dart';
 import 'package:instar/domain/usecases/widhlist_usecases/create_wishlist_usecase.dart';
 import 'package:instar/presentation/UI/screens/sign_in/sign_in_screen.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
 import '../../../di.dart';
 import '../../../domain/usecases/cart_usecases/create_cart_usecase.dart';
 

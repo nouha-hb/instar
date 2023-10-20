@@ -3,7 +3,6 @@ import 'package:instar/domain/repositories/authentication_repository.dart';
 
 import '../../../core/errors/failures/failures.dart';
 import '../../entities/token.dart';
-import '../../entities/user.dart';
 
 
 class FacebookLoginUsecase {

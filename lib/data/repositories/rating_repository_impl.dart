@@ -94,4 +94,15 @@ class RatingRepositoryImpl implements RatingRepository {
       return left(ServerFailure());
     }
   }
+  
+  @override
+  Future<Either<Failure, double>> getRatingAverage(String productID) async {
+     try {
+      final ratingAverage =
+          await ratingRemoteDataSource.getRatingAverage(productID);
+      return right(ratingAverage);
+    } on ServerException {
+      return left(ServerFailure());
+    }
+  }
 }
