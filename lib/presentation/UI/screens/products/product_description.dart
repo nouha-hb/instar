@@ -51,7 +51,7 @@ class _ProductDescState extends State<ProductDesc> {
   Widget build(BuildContext context) {
     return GetBuilder<ProductDetailsController>(
       init: productDetailsController,
-      initState: (state) async{
+      initState: (state) async {
         await productDetailsController.getExistingRate(widget.product.id);
       },
       builder: (controller) {
@@ -82,6 +82,21 @@ class _ProductDescState extends State<ProductDesc> {
                         ),
                         centerTitle: true,
                         actions: [
+                          IconButton(
+                            onPressed: () async {
+                               productDetailsController
+                                  .favouriteToggle(widget.product.id);
+                            },
+                            icon: productDetailsController.isLiked
+                                ? const Icon(
+                                    Icons.favorite,
+                                    color: AppColors.primary,
+                                  )
+                                : const Icon(
+                                    Icons.favorite_border,
+                                    color: Colors.black,
+                                  ),
+                          ),
                           Padding(
                             padding: EdgeInsets.only(right: 12.0.w, top: 4),
                             child: badges.Badge(
@@ -165,7 +180,8 @@ class _ProductDescState extends State<ProductDesc> {
                                       "${controller.provider.name}",
                                       style: AppTextStyle.lightLabelTextStyle,
                                     ),
-                                    PluralStrings.onOrder(currentTexture.quantity, context),
+                                    PluralStrings.onOrder(
+                                        currentTexture.quantity, context),
                                   ],
                                 ),
 

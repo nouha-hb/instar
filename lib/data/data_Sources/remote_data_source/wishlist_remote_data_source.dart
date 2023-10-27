@@ -61,11 +61,11 @@ class WishlistRemoteDataSourceImpl implements WishlistRemoteDataSource {
   @override
   Future<void> updateWishlist({required WishListModel wishlist}) async {
     try {
-      await dio.post(
-        "${ApiConst.getWishlist}/${wishlist.id}",
+      await dio.put(
+        "${ApiConst.wishlist}/${wishlist.id}",
         data: {
           "userId": wishlist.userId,
-          "products": wishlist.productsId.map((e) => {"productId": e})
+          "products": wishlist.productsId
         },
         options: Options(
           headers: {
@@ -74,6 +74,7 @@ class WishlistRemoteDataSourceImpl implements WishlistRemoteDataSource {
         ),
       );
     } on DioException catch (e) {
+      print('fav error $e');
       if (e.response!.statusCode == 401) {
         throw NotAuthorizedException();
       } else {
