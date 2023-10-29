@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:instar/core/style/assets.dart';
 import 'package:instar/domain/entities/category.dart';
 import 'package:instar/domain/usecases/category_usecases/get_categories_usecase.dart';
+import 'package:instar/presentation/UI/screens/products_by_category/products_by_category.dart';
 import 'package:instar/presentation/UI/widgets/categroy_component.dart';
 
 import '../../../../core/style/colors.dart';
@@ -13,14 +15,6 @@ class Categories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // List category_names = [
-    //   "Literie",
-    //   "Enfant",
-    //   "Cuisine",
-    //   "Salon",
-    //   "Salle de bain",
-    //   "Décoration"
-    // ];
     List image_svg_names = [
       Assets.categorie_literie,
       Assets.categorie_enfants,
@@ -29,7 +23,7 @@ class Categories extends StatelessWidget {
       Assets.categorie_salle_de_bain,
       Assets.categorie_decoration
     ];
-    List <Category> categoryList = [];
+    List<Category> categoryList = [];
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -60,24 +54,49 @@ class Categories extends StatelessWidget {
                     ? Text("no category")
                     : Container(
                         //width: MediaQuery.sizeOf(context).width,
-                        height: 120.h,
-
+                        height: 500.h,
                         decoration: BoxDecoration(
                             color: AppColors.bgColor,
                             borderRadius: BorderRadius.circular(15.r)),
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: categoryList.length,
-                            itemBuilder: (_, index) => Padding(
-                                  padding: EdgeInsets.all(8.0.r),
+                        child: GridView.count(
+                            crossAxisCount: 2,
+                            children:
+                                List.generate(categoryList.length, (index) {
+                              return Container(
+                                margin: EdgeInsets.all(12.r),
+                                child: InkWell(
+                                  onTap: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            ProductsByCategory(
+                                                category:
+                                                    categoryList[index].name),
+                                      )),
                                   child: CategoryComponeny(
                                       width: 100.w,
                                       height: 90.h,
                                       image_path: image_svg_names[index],
-                                      category_name:
-                                          categoryList[index].name),
-                                )),
-                      );
+                                      category_name: categoryList[index].name),
+                                ),
+                              );
+                            }))
+
+                        // ListView.builder(
+                        //   shrinkWrap: true,
+                        //   semanticChildCount: 2,
+                        //     scrollDirection: Axis.horizontal,
+                        //     itemCount: categoryList.length,
+                        //     itemBuilder: (_, index) => Padding(
+                        //           padding: EdgeInsets.all(8.0.r),
+                        //           child: CategoryComponeny(
+                        //               width: 100.w,
+                        //               height: 90.h,
+                        //               image_path: image_svg_names[index],
+                        //               category_name:
+                        //                   categoryList[index].name),
+                        //         )),
+                        );
               },
             ),
 

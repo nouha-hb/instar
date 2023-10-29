@@ -8,11 +8,11 @@ import 'package:instar/domain/entities/Promotion.dart';
 import 'package:instar/domain/entities/fournisseur.dart';
 import 'package:instar/domain/entities/product.dart';
 import 'package:instar/domain/usecases/promotion_usecases/get_all_promotions_usecase.dart';
+import 'package:instar/presentation/UI/screens/fournisseur/fournisseur.dart';
 import 'package:instar/presentation/UI/screens/main_page/categories_page.dart';
 import 'package:instar/presentation/UI/screens/products/product_tendance_page.dart';
 import 'package:instar/presentation/UI/screens/products/product_vente_page.dart';
 import 'package:instar/presentation/UI/widgets/categroy_component.dart';
-import 'package:instar/presentation/brands_screens/Meublatex.dart';
 
 import '../../../../core/style/assets.dart';
 import '../../../../di.dart';
@@ -25,15 +25,10 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List image_svg_names = [
-      Assets.categorie_literie,
-      Assets.categorie_enfants,
-      Assets.categorie_cuisine,
-    ];
+ 
     List<Promotion> promotionList = [];
-    //List<Fournisseur> fournisseurList = [];
-     List fournisseurList = ["Meublatex" , "S&B" , "xxx",];
-
+    List<Fournisseur> fournisseurList = [];
+  
 
     return Column(
       children: [
@@ -142,11 +137,19 @@ class Home extends StatelessWidget {
                         itemCount: fournisseurList.length,
                         itemBuilder: (_, index) => Padding(
                               padding: EdgeInsets.all(8.0.r),
-                              child: CategoryComponeny(
-                                  width: 100.w,
-                                  height: 90.h,
-                                  image_path: image_svg_names[index],
-                                  category_name: fournisseurList[index].name),
+                              child: InkWell(
+                                onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => FournisseurPage(
+                                          fournisseur: fournisseurList[index]),
+                                    )),
+                                child: CategoryComponeny(
+                                    width: 100.w,
+                                    height: 90.h,
+                                    image_path: fournisseurList[index].image,
+                                    category_name: fournisseurList[index].name),
+                              ),
                             )),
                   );
           },

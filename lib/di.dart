@@ -43,13 +43,16 @@ import 'data/data_Sources/local_data_source/authentication_local_data_source.dar
 import 'data/data_Sources/remote_data_source/authentication_remote_data_source.dart';
 import 'data/data_Sources/remote_data_source/cart_remote_data_source.dart';
 import 'data/data_Sources/remote_data_source/promotion_remote_data_source.dart';
+import 'data/data_sources/remote_data_source/subcategory_remote_data_source.dart';
 import 'data/repositories/cart_repository_impl.dart';
 import 'data/repositories/category_reopsitory.dart';
 import 'data/repositories/fournisseur_repository.dart';
 import 'data/repositories/promotion_repository_impl.dart';
+import 'data/repositories/subcategory_repository.dart';
 import 'domain/repositories/category_repository.dart';
 import 'domain/repositories/fournisseur_repository.dart';
 import 'domain/repositories/promotion_repository.dart';
+import 'domain/repositories/subcategory_repository.dart';
 import 'domain/usecases/authentication_usecases/create_account_usecase.dart';
 import 'domain/usecases/authentication_usecases/login_usecase.dart';
 import 'domain/usecases/cart_usecases/create_cart_usecase.dart';
@@ -57,6 +60,7 @@ import 'domain/usecases/cart_usecases/get_cart_usecase.dart';
 import 'domain/usecases/cart_usecases/update_cart_usecase.dart';
 import 'domain/usecases/category_usecases/get_categories_usecase.dart';
 import 'domain/usecases/fournisseur_usecases/get_fournisseurs_usecase.dart';
+import 'domain/usecases/subcategories_usecases/get_subcategory_usecase.dart';
 
 final sl = GetIt.instance;
 
@@ -65,17 +69,25 @@ Future<void> init() async {
   sl.registerLazySingleton<AuthenticationRepository>(() =>
       AuthenticationRepositoryImpl(
           authRemoteDataSource: sl(), authLocalDataSource: sl()));
+
   sl.registerLazySingleton<ProductRepository>(() => ProductRepositoryImp(sl()));
+
   sl.registerLazySingleton<ReviewRepository>(() => ReviewRepositoryImpl(sl()));
-  sl.registerLazySingleton<PromotionRepository>(() => PromotionRepositoryImpl(sl()));
-  sl.registerLazySingleton<WishListRepository>(() => WishListRepositoryImpl(sl()));
-  sl.registerLazySingleton<CartRepository>(() =>CartRepositoryImpl(sl()));
-  sl.registerLazySingleton<CategoryRepository>(() =>CategoryRepositoryImpl(sl()));
-  sl.registerLazySingleton<FournisseurRepository>(() =>FournisseurRepositoryImpl(sl()));
+  sl.registerLazySingleton<PromotionRepository>(
+      () => PromotionRepositoryImpl(sl()));
+  sl.registerLazySingleton<WishListRepository>(
+      () => WishListRepositoryImpl(sl()));
+  sl.registerLazySingleton<CartRepository>(() => CartRepositoryImpl(sl()));
+  sl.registerLazySingleton<CategoryRepository>(
+      () => CategoryRepositoryImpl(sl()));
 
+        sl.registerLazySingleton<SubCategoryRepository>(
+      () => SubCategoryRepositoryImpl(sl()));
+      
+  sl.registerLazySingleton<FournisseurRepository>(
+      () => FournisseurRepositoryImpl(sl()));
 
-  sl.registerLazySingleton<RatingRepository>(() =>RatingRepositoryImpl(sl()));
-
+  sl.registerLazySingleton<RatingRepository>(() => RatingRepositoryImpl(sl()));
 
   // data sources
   sl.registerLazySingleton<AuthenticationRemoteDataSource>(
@@ -94,10 +106,12 @@ Future<void> init() async {
       () => CartRemoteDataSourceImpl());
   sl.registerLazySingleton<CategoryRemoteDataSource>(
       () => CategoryRemoteDataSourceImpl());
+  sl.registerLazySingleton<SubCategoryRemoteDataSource>(
+      () => SubCategoryRemoteDataSourceImpl());
   sl.registerLazySingleton<FournisseurRemoteDataSource>(
       () => FournisseurRemoteDataSourceImpl());
   sl.registerLazySingleton<RatingRemoteDataSource>(
-      () => RatingRemoteDataSourceImpl());    
+      () => RatingRemoteDataSourceImpl());
 
   // usecases
   /*---Auth usecases---*/
@@ -135,10 +149,13 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetCartUsecase(sl()));
   sl.registerLazySingleton(() => UpdateCartUsecase(sl()));
 
-    /*---category usecases---*/
+  /*---category usecases---*/
   sl.registerLazySingleton(() => GetAllCategoriesUsecase(sl()));
 
-   /*---fournisseur usecases---*/
+  /*---subcategory usecases---*/
+  sl.registerLazySingleton(() => GetAllSubCategoriesUsecase(sl()));
+
+  /*---fournisseur usecases---*/
   sl.registerLazySingleton(() => GetAllFournisseursUsecase(sl()));
   /*---rating usecases---*/
   sl.registerLazySingleton(() => AddRatingUsecase(sl()));
@@ -146,9 +163,4 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetSingleRatingUsecase(sl()));
   sl.registerLazySingleton(() => UpdateRatingUsecase(sl()));
   sl.registerLazySingleton(() => DeleteRatingUsecase(sl()));
-
-
 }
-
-
-

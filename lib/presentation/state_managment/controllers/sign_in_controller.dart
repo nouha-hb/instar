@@ -6,7 +6,6 @@ import 'package:instar/core/errors/failures/failures.dart';
 import 'package:instar/domain/repositories/authentication_repository.dart';
 import 'package:instar/domain/usecases/authentication_usecases/facebook_login_usecase.dart';
 import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
-import 'package:instar/presentation/UI/screens/prod.dart';
 import 'package:instar/presentation/UI/screens/sign_up/sign_up_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';

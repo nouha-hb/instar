@@ -48,7 +48,6 @@ class _ProductDescState extends State<ProductDesc> {
     super.dispose();
   }
 
-
   bool expanded = false;
   int quantity = 1;
   int addToCartItems = 0;
@@ -101,10 +100,10 @@ class _ProductDescState extends State<ProductDesc> {
                     badgeColor: AppColors.primary,
                   ),
                   child: IconButton(
-                    onPressed: () => Navigator.push(
+                    onPressed: () => Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ShoppingList())),
+                            builder: (context) => ShoppingListPage())),
                     icon: const Icon(
                       Icons.shopping_cart_outlined,
                       color: AppColors.black,
@@ -306,12 +305,12 @@ class _ProductDescState extends State<ProductDesc> {
                                   if (productDetailsController.localRate == 0) {
                                     await productDetailsController.addRating(1);
                                     productDetailsController.setRate(1);
-                                  }
-                                  else if(productDetailsController.localRate >1){
-                                      await productDetailsController
-                                      .updateRating(1);
-                                  }
-                                   else {
+                                  } else if (productDetailsController
+                                          .localRate >
+                                      1) {
+                                    await productDetailsController
+                                        .updateRating(1);
+                                  } else {
                                     await productDetailsController.deleteRating(
                                         productDetailsController.userRate!.id!);
                                   }
@@ -329,9 +328,8 @@ class _ProductDescState extends State<ProductDesc> {
                                     productDetailsController.setRate(2);
                                   } else {
                                     await productDetailsController
-                                      .updateRating(2);
+                                        .updateRating(2);
                                   }
-                                  
                                 },
                                 icon: productDetailsController.localRate >= 2
                                     ? const Icon(
@@ -341,12 +339,12 @@ class _ProductDescState extends State<ProductDesc> {
                                     : const Icon(Icons.star_border)),
                             IconButton(
                                 onPressed: () async {
-                                    if (productDetailsController.localRate == 0) {
+                                  if (productDetailsController.localRate == 0) {
                                     await productDetailsController.addRating(3);
                                     productDetailsController.setRate(3);
                                   } else {
                                     await productDetailsController
-                                      .updateRating(3);
+                                        .updateRating(3);
                                   }
                                 },
                                 icon: productDetailsController.localRate > 2

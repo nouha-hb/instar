@@ -41,7 +41,7 @@ class WishlistRemoteDataSourceImpl implements WishlistRemoteDataSource {
   Future<WishListModel> getWishlist({required String userId}) async {
     try {
       final response = await dio.get(
-        "${ApiConst.getWishlist}/$userId",
+        "${ApiConst.wishlist}/$userId",
         options: Options(
           headers: {
             "authorization": "Bearer ${await token}",
@@ -65,7 +65,7 @@ class WishlistRemoteDataSourceImpl implements WishlistRemoteDataSource {
   Future<void> updateWishlist({required WishListModel wishlist}) async {
     try {
       await dio.post(
-        "${ApiConst.getWishlist}/${wishlist.id}",
+        "${ApiConst.wishlist}/${wishlist.id}",
         data: {
           "userId": wishlist.userId,
           "products": wishlist.productsId.map((e) => {"productId": e})

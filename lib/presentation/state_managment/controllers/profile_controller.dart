@@ -22,6 +22,13 @@ class ProfileController extends GetxController {
   late TextEditingController confirmPasswordController =
       TextEditingController();
   TextEditingController phoneController = TextEditingController();
+     TextEditingController adrresseController =  TextEditingController();
+    TextEditingController gouvernoratController =  TextEditingController();
+    TextEditingController villeController =  TextEditingController();
+    TextEditingController codePostalController =  TextEditingController();
+    TextEditingController numTelController =  TextEditingController();
+
+    final _formKey = GlobalKey<FormState>();
 
   bool isPressed = false;
   bool isPressed_confirm = false;

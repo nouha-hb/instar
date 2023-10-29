@@ -23,8 +23,15 @@ class ShoppingListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     late Product product;
     return Scaffold(
+      backgroundColor: AppColors.bgColor,
+    
       appBar: AppBar(
-                elevation: 0,
+leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back_ios)),
+                  elevation: 0,
                 backgroundColor: AppColors.white,
                 foregroundColor: AppColors.black,
                 title: Text(

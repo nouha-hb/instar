@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:instar/core/style/colors.dart';
 import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
+import 'package:instar/presentation/UI/screens/my_profile/profile_address.dart';
 import 'package:instar/presentation/UI/screens/settings/settings.dart';
 
 import '../../widgets/profile_button_component.dart';
@@ -15,11 +16,15 @@ class MyProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-           leading: IconButton(
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) =>MainPage() ,));
-            },
-            icon: Icon(Icons.arrow_back_ios)),
+          leading: IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MainPage(),
+                    ));
+              },
+              icon: Icon(Icons.arrow_back_ios)),
           elevation: 0,
           backgroundColor: AppColors.white,
           title: Text("Profile"),
@@ -41,13 +46,19 @@ class MyProfile extends StatelessWidget {
             ),
             InkWell(
                 onTap: () {
-                 // Get.to(page)
+                  // Get.to(page)
                 },
                 child: ProfileButton(icon: Icons.wallet, text: "Mes achats")),
             SizedBox(
               height: 10.h,
             ),
-            ProfileButton(icon: Icons.location_on, text: "Mon adresse"),
+            InkWell(
+                onTap: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (_) => ProfileAddress()));
+                },
+                child: ProfileButton(
+                    icon: Icons.location_on, text: "Mon adresse")),
             SizedBox(
               height: 10.h,
             ),
@@ -57,9 +68,8 @@ class MyProfile extends StatelessWidget {
             ),
             InkWell(
                 onTap: () {
-                 Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(
-                                          builder: (_) => Settings()));
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (_) => Settings()));
                 },
                 child: ProfileButton(icon: Icons.settings, text: "Paramétres")),
             SizedBox(

@@ -12,6 +12,7 @@ import 'package:instar/presentation/UI/widgets/profile_button_component.dart';
 
 import '../../../../core/style/colors.dart';
 import '../../../../core/style/text_style.dart';
+import '../my_profile/profile_address.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
@@ -38,7 +39,12 @@ class Profile extends StatelessWidget {
       SizedBox(
         height: 10.h,
       ),
-      ProfileButton(icon: Icons.location_on, text: "Mon adresse"),
+      InkWell(
+     onTap: () {
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (_) => ProfileAddress()));
+                },
+        child: ProfileButton(icon: Icons.location_on, text: "Mon adresse")),
       SizedBox(
         height: 10.h,
       ),
