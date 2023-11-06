@@ -40,7 +40,7 @@ class FavoriteList extends StatelessWidget {
                               SplashScreen.wishList!.productsId.toString());
                           return FutureBuilder(
                             future: GetOneProductsUsecase(sl())
-                                .call(SplashScreen.wishList.productsId[index]),
+                                .call(SplashScreen.wishList!.productsId[index]),
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 final res = snapshot.data;

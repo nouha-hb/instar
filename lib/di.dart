@@ -22,6 +22,7 @@ import 'package:instar/domain/usecases/authentication_usecases/get_user_usecase.
 import 'package:instar/domain/usecases/authentication_usecases/google_login_usecase.dart';
 import 'package:instar/domain/usecases/authentication_usecases/logout_usecase.dart';
 import 'package:instar/domain/usecases/authentication_usecases/update_profil_usecase.dart';
+import 'package:instar/domain/usecases/fournisseur_usecases/get_fournisseur_by_id_usecase.dart';
 import 'package:instar/domain/usecases/product_usecases/get_all_products_usecase.dart';
 import 'package:instar/domain/usecases/product_usecases/get_one_product_usecase.dart';
 import 'package:instar/domain/usecases/product_usecases/get_products_by_category_usecase.dart';
@@ -29,6 +30,7 @@ import 'package:instar/domain/usecases/product_usecases/get_products_by_subcateg
 import 'package:instar/domain/usecases/promotion_usecases/get_all_promotions_usecase.dart';
 import 'package:instar/domain/usecases/rating_usecases/add_rating_usecase.dart';
 import 'package:instar/domain/usecases/rating_usecases/delete_rating_usecase.dart';
+import 'package:instar/domain/usecases/rating_usecases/get_rating_average_use_case.dart';
 import 'package:instar/domain/usecases/rating_usecases/get_ratings_usecase.dart';
 import 'package:instar/domain/usecases/rating_usecases/get_single_rating_usecase.dart';
 import 'package:instar/domain/usecases/rating_usecases/update_rating_usecase.dart';
@@ -157,10 +159,16 @@ Future<void> init() async {
 
   /*---fournisseur usecases---*/
   sl.registerLazySingleton(() => GetAllFournisseursUsecase(sl()));
+  sl.registerLazySingleton(() => GetFournisseursByIdUsecase(sl()));
+  
   /*---rating usecases---*/
   sl.registerLazySingleton(() => AddRatingUsecase(sl()));
   sl.registerLazySingleton(() => GetRatingsUsecase(sl()));
   sl.registerLazySingleton(() => GetSingleRatingUsecase(sl()));
   sl.registerLazySingleton(() => UpdateRatingUsecase(sl()));
   sl.registerLazySingleton(() => DeleteRatingUsecase(sl()));
+  sl.registerLazySingleton(() => GetRatingAverageUsecase(sl()));
+
+
+
 }

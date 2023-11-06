@@ -7,14 +7,12 @@ import 'package:image_picker/image_picker.dart';
 import 'package:instar/core/constant/api_const.dart';
 import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
-import 'package:instar/di.dart';
 import 'package:instar/domain/entities/review.dart';
-import 'package:instar/domain/usecases/review_usecases/update_review_usecase.dart';
 import 'package:instar/presentation/UI/widgets/custom_button.dart';
-import 'package:instar/presentation/UI/widgets/custom_textform.dart';
 import 'package:instar/presentation/state_managment/controllers/comment_controller.dart';
 import 'package:path/path.dart';
 
+// ignore: must_be_immutable
 class UpdateCommentDialog extends StatefulWidget {
   Review review;
   UpdateCommentDialog({super.key, required this.review});
@@ -33,6 +31,7 @@ class _UpdateCommentDialogState extends State<UpdateCommentDialog> {
   @override
   void initState() {
     commentController = Get.find();
+    fileName = widget.review.image??'';
     textEditingController = TextEditingController();
     textEditingController.text = widget.review.comment;
     super.initState();
@@ -131,7 +130,7 @@ class _UpdateCommentDialogState extends State<UpdateCommentDialog> {
                                     },
                                     icon: const Icon(Icons.clear)))
                           ])
-                        : widget.review.image == ""
+                        : fileName == ""
                             ? Image.asset('assets/images/add_image.png')
                             : Stack(
                                 children: [
@@ -143,7 +142,7 @@ class _UpdateCommentDialogState extends State<UpdateCommentDialog> {
                                       child: IconButton(
                                           onPressed: () {
                                             setState(() {
-                                              widget.review.image = '';
+                                              fileName = '';
                                             });
                                           },
                                           icon: const Icon(Icons.clear)))
@@ -158,7 +157,7 @@ class _UpdateCommentDialogState extends State<UpdateCommentDialog> {
                     minLines: 1,
                     maxLines: 3,
                     controller: textEditingController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "write your comment",
                     ),
                   ),

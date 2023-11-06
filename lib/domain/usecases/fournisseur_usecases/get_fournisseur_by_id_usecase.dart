@@ -4,11 +4,11 @@ import 'package:instar/domain/entities/fournisseur.dart';
 import '../../../core/errors/failures/failures.dart';
 import '../../repositories/fournisseur_repository.dart';
 
-class GetAllFournisseursUsecase {
+class GetFournisseursByIdUsecase {
   final FournisseurRepository repository;
 
- const GetAllFournisseursUsecase(this.repository);
+ const GetFournisseursByIdUsecase(this.repository);
 
-  Future<Either<Failure, List<Fournisseur>>> call() async =>
-      await repository.getAllFournisseurs();
+  Future<Either<Failure, Fournisseur>> call(String id) async =>
+      await repository.getFournisseurById(id);
 }

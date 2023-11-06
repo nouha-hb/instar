@@ -8,9 +8,10 @@ class ApiConst {
   static const String paiement = "$baseUrl/payment";
 
   //product apis
-  static const String products = "$baseUrl/products";
   static const String category = "$baseUrl/products/category";
   static const String subCategory = "$baseUrl/products/subCategory";
+  //product apis
+  static const String products = "$baseUrl/products";
 
   //review apis
   static const String reviews = "$baseUrl/reviews";
@@ -23,18 +24,22 @@ class ApiConst {
 
   //wishlist apis
   static const String wishlist = "$baseUrl/wishlist";
-  // static const String getWishlist = "$baseUrl/wishlist/find";
+  static const String getWishlist = "$baseUrl/wishlist/find";
 
   //cart apis
   static const String cart = "$baseUrl/carts";
   static const String getCart = "$baseUrl/carts/find";
+
+  //category apis
+  static const String getCategories = "$baseUrl/categories";
+
+  //assets apis
+  static const String files = "http://$ipAddress:9000/public/images";
+  //fournisseur apis
+
   //fournisseur apis
   static const String fournisseur = "$baseUrl/fournisseurs";
 
   //category apis
-  static const String getCategories = "$baseUrl/categories";
   static const String getSubCategories = "$baseUrl/subCategories";
-
-  //assets apis
-  static const String files = "http://$ipAddress:9000/public/images";
 }

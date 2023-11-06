@@ -16,7 +16,7 @@ class MainController extends GetxController {
     currentIndex = index;
     update();
   }
-List favoriteproductsId = SplashScreen.wishList.productsId;
+List favoriteproductsId = SplashScreen.wishList!.productsId;
 List shoppingproductsId = SplashScreen.cart.productsId;
 
 

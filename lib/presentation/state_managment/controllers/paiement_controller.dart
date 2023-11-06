@@ -1,16 +1,9 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:instar/core/errors/failures/failures.dart';
-import 'package:instar/domain/repositories/authentication_repository.dart';
-import 'package:instar/domain/usecases/authentication_usecases/facebook_login_usecase.dart';
-import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
-import 'package:instar/presentation/UI/screens/sign_up/sign_up_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../../../core/errors/exceptions/exceptions.dart';
+import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
 import '../../../di.dart';
 import '../../../domain/entities/paiement.dart';
-import '../../../domain/usecases/authentication_usecases/login_usecase.dart';
 import '../../../domain/usecases/paiement_usecases/paiement_usecase.dart';
 
 class PaiementController extends GetxController {

@@ -1,10 +1,7 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:instar/core/errors/exceptions/exceptions.dart';
 import 'package:instar/data/data_Sources/local_data_source/authentication_local_data_source.dart';
 import 'package:instar/data/models/fournisseur_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/constant/api_const.dart';
 
 abstract class FournisseurRemoteDataSource {
@@ -17,7 +14,6 @@ class FournisseurRemoteDataSourceImpl implements FournisseurRemoteDataSource {
   Dio dio = Dio();
 
   Future<String> get token async {
-    final _sp = await SharedPreferences.getInstance();
     final _tk = await AuthenticationLocalDataSourceImpl().getUserInformations();
     return _tk.token;
   }
@@ -61,6 +57,7 @@ class FournisseurRemoteDataSourceImpl implements FournisseurRemoteDataSource {
       );
       final data = response.data;
       fournisseur = FournisseurModel.fromJson(data);
+      print('fourniseur loaded: $fournisseur');
       return fournisseur;
     } on DioException catch (e) {
       if (e.response!.statusCode == 401) {

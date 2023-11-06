@@ -1,26 +1,15 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_social_button/flutter_social_button.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
-import 'package:instar/core/style/colors.dart';
-import 'package:instar/core/style/text_style.dart';
-import 'package:instar/domain/usecases/authentication_usecases/facebook_login_usecase.dart';
-import 'package:instar/domain/usecases/authentication_usecases/google_login_usecase.dart';
-import 'package:instar/domain/usecases/authentication_usecases/login_usecase.dart';
-import 'package:instar/domain/usecases/widhlist_usecases/create_wishlist_usecase.dart';
-import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
-import 'package:instar/presentation/UI/screens/settings/language_settings.dart';
-
-import 'package:instar/presentation/UI/screens/sign_up/sign_up_screen.dart';
-import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
-import 'package:instar/presentation/UI/widgets/custom_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+
+import '../../../../core/style/colors.dart';
+import 'package:instar/core/style/text_style.dart';
+import 'package:instar/presentation/UI/screens/sign_up/sign_up_screen.dart';
+import 'package:instar/presentation/UI/widgets/custom_button.dart';
 
 import '../../../../core/style/assets.dart';
-import '../../../../di.dart';
-import '../../../../domain/usecases/authentication_usecases/login_usecase.dart';
 import '../../../state_managment/controllers/sign_in_controller.dart';
 import '../../widgets/custom_textform.dart';
 import '../forget_password/forgetpassword.dart';
@@ -33,7 +22,9 @@ class SignIn extends StatelessWidget {
     return Scaffold(
       body: GetBuilder<SignInController>(
           init: SignInController(),
-          initState: (_) {},
+          initState: (_) {
+            
+          },
           builder: (controller) {
             controller.context = context;
             return SingleChildScrollView(

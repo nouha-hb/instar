@@ -65,8 +65,9 @@ class CommentController extends GetxController {
                           if (img != null) {
                             f = File(img!.path);
                             fileName = basename(f!.path);
-                          }
                           update();
+                          }
+                         
                           Navigator.pop(context);
                         },
                         icon: const Icon(
@@ -81,8 +82,9 @@ class CommentController extends GetxController {
                           if (img != null) {
                             f = File(img!.path);
                             fileName = basename(f!.path);
-                          }
                           update();
+                          }
+                          
                           Navigator.pop(context);
                         },
                         icon: const Icon(

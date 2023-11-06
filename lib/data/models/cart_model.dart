@@ -1,6 +1,7 @@
 
 import 'package:instar/domain/entities/cart.dart';
 
+// ignore: must_be_immutable
 class CartModel extends Cart {
   CartModel(
       {required super.id, required super.userId, required super.productsId});

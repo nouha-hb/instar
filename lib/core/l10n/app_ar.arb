@@ -23,5 +23,8 @@
     "shipping":"شحن",
     "delivery":"توصيل",
     "item":"عنصر واحد",
+    "on_stock":"متوفر",
+    "out_of_stock":"غير متوفر",
+    "by_order":"حسب الطلب",
     "items":"عناصر"
 }

@@ -1,7 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:instar/data/models/wishlist_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../core/constant/api_const.dart';
 import '../../../core/errors/exceptions/exceptions.dart';
 import '../local_data_source/authentication_local_data_source.dart';
@@ -16,7 +14,6 @@ class WishlistRemoteDataSourceImpl implements WishlistRemoteDataSource {
   Dio dio = Dio();
 
   Future<String> get token async {
-    final _sp = await SharedPreferences.getInstance();
     final _tk = await AuthenticationLocalDataSourceImpl().getUserInformations();
     return _tk.token;
   }
@@ -41,7 +38,7 @@ class WishlistRemoteDataSourceImpl implements WishlistRemoteDataSource {
   Future<WishListModel> getWishlist({required String userId}) async {
     try {
       final response = await dio.get(
-        "${ApiConst.wishlist}/$userId",
+        "${ApiConst.getWishlist}/$userId",
         options: Options(
           headers: {
             "authorization": "Bearer ${await token}",
@@ -64,11 +61,11 @@ class WishlistRemoteDataSourceImpl implements WishlistRemoteDataSource {
   @override
   Future<void> updateWishlist({required WishListModel wishlist}) async {
     try {
-      await dio.post(
+      await dio.put(
         "${ApiConst.wishlist}/${wishlist.id}",
         data: {
           "userId": wishlist.userId,
-          "products": wishlist.productsId.map((e) => {"productId": e})
+          "products": wishlist.productsId
         },
         options: Options(
           headers: {
@@ -77,6 +74,7 @@ class WishlistRemoteDataSourceImpl implements WishlistRemoteDataSource {
         ),
       );
     } on DioException catch (e) {
+      print('fav error $e');
       if (e.response!.statusCode == 401) {
         throw NotAuthorizedException();
       } else {

@@ -14,6 +14,9 @@ import 'package:instar/presentation/UI/screens/settings/settings.dart';
 import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
 import 'package:instar/presentation/UI/widgets/sheet_app_bar.dart';
 import 'package:instar/presentation/state_managment/controllers/profile_controller.dart';
+import 'package:instar/domain/entities/product.dart';
+import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
+import 'package:instar/presentation/UI/widgets/product_component.dart';
 
 import '../../../../core/style/colors.dart';
 import '../../../../di.dart';
