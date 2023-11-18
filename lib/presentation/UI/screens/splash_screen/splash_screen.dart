@@ -59,7 +59,7 @@ class SplashScreen extends StatefulWidget {
 
         return res = false;
       }, (r) {
-        print(' wishlist  right');
+        print(' wishlist  right $r');
 
         SplashScreen.wishList = r;
       });

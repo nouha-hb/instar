@@ -9,11 +9,11 @@ class WishListModel extends WishList {
       id: json['_id'],
       userId: json['userId'],
       productsId:
-          (json['products'] as List).map((e) => e['_id'].toString()).toList());
+          (json['products'] as List).map((e) => e.toString()).toList());
 
   Map<String, dynamic> toJson() => {
     "_id":id,
     "userId":userId,
-    "products":productsId.map((e) =>{'_id':id}).toList()
+    "products":productsId.map((e) =>id).toList()
   };
 }

@@ -8,6 +8,7 @@ import 'package:instar/domain/usecases/rating_usecases/delete_rating_usecase.dar
 import 'package:instar/domain/usecases/rating_usecases/get_rating_average_use_case.dart';
 import 'package:instar/domain/usecases/rating_usecases/get_ratings_usecase.dart';
 import 'package:instar/domain/usecases/rating_usecases/update_rating_usecase.dart';
+import 'package:instar/domain/usecases/widhlist_usecases/update_wishlist_usecase.dart';
 import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
@@ -18,7 +19,7 @@ class ProductDetailsController extends GetxController {
   int orderedQuantity = 1;
   double avgRate = 0.0;
   late Fournisseur provider;
-
+  bool isLiked = false;
 
   setRate(int newRate) {
     localRate = newRate;
@@ -40,6 +41,7 @@ class ProductDetailsController extends GetxController {
 
   Future<void> getExistingRate(String prodID) async {
     Rating? existingRate;
+    isLiked = SplashScreen.wishList!.productsId.contains(prodID);
     final res = await GetRatingsUsecase(sl()).call(prodID);
     res.fold((l) => print('cant get rating'), (r) {
       numberRates = r.length;
@@ -124,6 +126,18 @@ class ProductDetailsController extends GetxController {
   void getRatingAverage(String prodID) async {
     final res = await GetRatingAverageUsecase(sl()).call(prodID);
     res.fold((l) => avgRate = 0.0, (r) => avgRate = r);
+    update();
+  }
+
+  void favouriteToggle(String prodId) async {
+    if (isLiked && SplashScreen.wishList!.productsId.contains(prodId)) {
+      SplashScreen.wishList!.productsId.remove(prodId);
+      isLiked = !isLiked;
+    } else {
+      SplashScreen.wishList!.productsId.add(prodId);
+      isLiked = !isLiked;
+    }
+    await UpdateWishListUsecase(sl()).call(wishlist: SplashScreen.wishList!);
     update();
   }
 }

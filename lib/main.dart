@@ -5,6 +5,7 @@ import 'package:instar/domain/usecases/authentication_usecases/auto_login_usecas
 import 'package:instar/domain/usecases/authentication_usecases/logout_usecase.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:instar/presentation/UI/screens/admin/admin_home_screen.dart';
 import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
 import 'package:instar/presentation/UI/screens/sign_in/sign_in_screen.dart';
 import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
