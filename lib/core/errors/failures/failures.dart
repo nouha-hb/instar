@@ -9,6 +9,7 @@ class Failure extends Equatable {
 }
 
 class ServerFailure extends Failure {
+  @override
   final String? message;
 
   ServerFailure({this.message});
@@ -19,6 +20,7 @@ class ConnectionFailure extends Failure {}
 class RegistrationFailure extends Failure {}
 
 class LoginFailure extends Failure {
+  @override
   final String message;
 
   LoginFailure(this.message);

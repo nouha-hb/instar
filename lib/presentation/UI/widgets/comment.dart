@@ -15,7 +15,7 @@ import 'package:intl/intl.dart';
 class CommentWidget extends StatefulWidget {
   final String productId;
 
-  const CommentWidget({Key? key, required this.productId}) : super(key: key);
+  const CommentWidget({super.key, required this.productId});
 
   @override
   State<CommentWidget> createState() => _CommentWidgetState();

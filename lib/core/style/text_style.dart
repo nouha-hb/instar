@@ -54,4 +54,10 @@ class AppTextStyle {
       fontWeight: FontWeight.w700, fontSize: 13.sp, color: AppColors.red);
       static TextStyle ratingTextStyle = GoogleFonts.alata(
       fontWeight: FontWeight.w700, fontSize: 30.sp, color: AppColors.primary);
+
+        static TextStyle greyTextStyle1 = GoogleFonts.alata(
+      fontWeight: FontWeight.w400, fontSize: 10.sp, color: AppColors.grey);
+      static TextStyle blueTextStyle1 = GoogleFonts.alata(
+      fontWeight: FontWeight.w500, fontSize: 12.sp, color: AppColors.primary);
+ 
 }

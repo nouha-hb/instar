@@ -32,7 +32,7 @@ class FavoriteComponent extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ProductDesc(product: this.product),
+                      builder: (context) => ProductDesc(product: product),
                     ));
               },
               child: Container(
@@ -49,7 +49,7 @@ class FavoriteComponent extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15.r)),
                 child: Slidable(
                   endActionPane: ActionPane(
-                    motion: BehindMotion(),
+                    motion: const BehindMotion(),
                     children: [
                       SlidableAction(
                           borderRadius: BorderRadius.circular(15.r),
@@ -58,11 +58,11 @@ class FavoriteComponent extends StatelessWidget {
                           label: "Delete",
                           onPressed: (context) async{
                             SplashScreen.wishList!.productsId
-                                .remove(this.product.id);
+                                .remove(product.id);
                            controller.update();
 
                             controller.favoriteproductsId
-                                .remove(this.product.id);
+                                .remove(product.id);
                             WishList wishlist = WishList(
                                 id: SplashScreen.wishList!.id,
                                 userId: SplashScreen.wishList!.userId,
@@ -93,7 +93,7 @@ class FavoriteComponent extends StatelessWidget {
                                     color: AppColors.lightgrey,
                                     borderRadius: BorderRadius.circular(15.r)),
                                 child: Image.network(
-                                    "${ApiConst.files}/${this.product.image}"),
+                                    "${ApiConst.files}/${product.image}"),
                               ),
                               SizedBox(
                                 width: 20.w,
@@ -104,16 +104,16 @@ class FavoriteComponent extends StatelessWidget {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   Text(
-                                    this.product.name,
+                                    product.name,
                                     style: AppTextStyle.elementNameTextStyle13,
                                   ),
                                   Text(
-                                    this.product.category,
+                                    product.category,
                                     style:
                                         AppTextStyle.smallLightLabelTextStyle,
                                   ),
                                   Text(
-                                    ((this.product.price)).toString(),
+                                    ((product.price)).toString(),
                                     style: AppTextStyle.blueLabelTextStyle,
                                   ),
                                 ],

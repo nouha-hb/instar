@@ -40,16 +40,16 @@ class Paiementt extends StatelessWidget {
                             size: 30.sp,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 50,
                         ),
-                        Text("Méthode de paiement"),
+                        const Text("Méthode de paiement"),
                       ],
                     ),
                     SizedBox(
                       height: 30.h,
                     ),
-                    Text("Détails de la carte"),
+                    const Text("Détails de la carte"),
                     SizedBox(
                       height: 20.h,
                     ),
@@ -111,19 +111,16 @@ class Paiementt extends StatelessWidget {
                             child: Column(
                               children: [
                                 Text(
-                                  "Détails de paiements : " +
-                                      ProductDescController.total.toString(),
+                                  "Détails de paiements : ${ProductDescController.total}",
                                   style: AppTextStyle.darkLabelTextStyle,
                                 ),
                                   Text(
-                                  "Sous toale  : " +
-                                      ProductDescController.total.toString(),
+                                  "Sous toale  : ${ProductDescController.total}",
                                       
                                   style: AppTextStyle.darkLabelTextStyle,
                                 ),
                                   Text(
-                                  "Livraison : 8DT"  +
-                                      ProductDescController.total.toString(),
+                                  "Livraison : 8DT${ProductDescController.total}",
                                   style: AppTextStyle.darkLabelTextStyle,
                                 ),
                               ],
@@ -133,8 +130,7 @@ class Paiementt extends StatelessWidget {
                             top: 110.h,
                             left: 10.w,
                             child: Text(
-                              "Totale : " +
-                                  (ProductDescController.total+8).toString(),
+                              "Totale : ${ProductDescController.total+8}",
                               style: AppTextStyle.darkLabelTextStyle,
                             ),
                           )

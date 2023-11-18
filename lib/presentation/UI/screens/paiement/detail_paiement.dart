@@ -1,15 +1,10 @@
 import 'package:checkbox_grouped/checkbox_grouped.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:instar/core/style/colors.dart';
-import 'package:instar/core/style/text_style.dart';
-import 'package:instar/domain/entities/paiement.dart';
 import 'package:instar/presentation/UI/screens/main_page/shopping_cart.dart';
 import 'package:instar/presentation/UI/screens/paiement/paiement.dart';
-import 'package:instar/presentation/UI/widgets/custom_button.dart';
 
-import '../../../state_managment/controllers/product_desc_controller.dart';
 
 class PaiementDetail extends StatefulWidget {
   const PaiementDetail({super.key});
@@ -48,13 +43,13 @@ class _PaiementDetailState extends State<PaiementDetail> {
                             size: 30.sp,
                           ),
                         ),
-                        Text("Détails de paiement",
+                        const Text("Détails de paiement",
                             style: TextStyle(fontWeight: FontWeight.bold)),
                         IconButton(
                           onPressed: () => Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ShoppingList())),
+                                  builder: (context) => const ShoppingList())),
                           icon: Icon(
                             Icons.shopping_cart_checkout_rounded,
                             color: AppColors.black,
@@ -66,16 +61,16 @@ class _PaiementDetailState extends State<PaiementDetail> {
                     SizedBox(
                       height: 30.h,
                     ),
-                    Text(
+                    const Text(
                       "Payment",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    Container(
+                    SizedBox(
                       height: 230.0,
                       child: SimpleGroupedCheckbox<String>(
                         controller: controllerg,
                         itemsTitle: text,
-                        values: ["A", "S", "B"],
+                        values: const ["A", "S", "B"],
                         onItemSelected: (value) {
                           info = value.join("").toString();
                           print(info);
@@ -96,17 +91,15 @@ class _PaiementDetailState extends State<PaiementDetail> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         ElevatedButton(
-                          child: Text("Annuler"),
                           onPressed: () {
                             // Fonction à exécuter lorsque le bouton est pressé
                           },
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.white, // Couleur de l'arrière-plan
-                            onPrimary: Color(0Xff93B6F9),
+                            foregroundColor: const Color(0Xff93B6F9), backgroundColor: Colors.white,
     
                             // Couleur du texte
-                            fixedSize: Size(140, 50),
-                            side: BorderSide(
+                            fixedSize: const Size(140, 50),
+                            side: const BorderSide(
                                 color:
                                     Color(0Xff93B6F9)), // Couleur de la bordure
                             shape: RoundedRectangleBorder(
@@ -114,22 +107,19 @@ class _PaiementDetailState extends State<PaiementDetail> {
                                   BorderRadius.circular(8.0), // Bordure arrondie
                             ),
                           ),
+                          child: const Text("Annuler"),
                         ),
                         ElevatedButton(
-                          child: Text("Confirmer"),
                           onPressed: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => Paiementt(),
+                                  builder: (context) => const Paiementt(),
                                 ));
                           },
                           style: ElevatedButton.styleFrom(
-                            fixedSize: Size(140, 50),
-                            primary:
-                                Color(0Xff93B6F9), // Couleur de l'arrière-plan
-                            onPrimary: Colors.white, // Couleur du texte
-                            side: BorderSide(
+                            foregroundColor: Colors.white, backgroundColor: const Color(0Xff93B6F9), fixedSize: const Size(140, 50), // Couleur du texte
+                            side: const BorderSide(
                                 color:
                                     Color(0Xff93B6F9)), // Couleur de la bordure
                             shape: RoundedRectangleBorder(
@@ -137,6 +127,7 @@ class _PaiementDetailState extends State<PaiementDetail> {
                                   BorderRadius.circular(8.0), // Bordure arrondie
                             ),
                           ),
+                          child: const Text("Confirmer"),
                         ),
                       ],
                     ),

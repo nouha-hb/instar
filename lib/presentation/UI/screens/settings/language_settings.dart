@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
 import 'package:instar/presentation/UI/widgets/custom_button.dart';
@@ -25,7 +23,7 @@ class SelectLanguageScreen extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(Icons.arrow_back_ios)),
+            icon: const Icon(Icons.arrow_back_ios)),
         elevation: 0,
         centerTitle: true,
         backgroundColor: AppColors.bgColor,
@@ -43,7 +41,7 @@ class SelectLanguageScreen extends StatelessWidget {
                 Provider.of<SettingsController>(context, listen: true).language,
             onChanged: (v) {
               Provider.of<SettingsController>(context, listen: false)
-                  .setLocale(Locale('fr'), 0);
+                  .setLocale(const Locale('fr'), 0);
             },
           ),
           LanguageItem(
@@ -53,7 +51,7 @@ class SelectLanguageScreen extends StatelessWidget {
                   .language,
               onChanged: (v) {
                 Provider.of<SettingsController>(context, listen: false)
-                    .setLocale(Locale('en'), 1);
+                    .setLocale(const Locale('en'), 1);
               }),
           LanguageItem(
             language: AppLocalizations.of(context)!.ar,
@@ -62,7 +60,7 @@ class SelectLanguageScreen extends StatelessWidget {
                 Provider.of<SettingsController>(context, listen: true).language,
             onChanged: (v) {
               Provider.of<SettingsController>(context, listen: false)
-                  .setLocale(Locale('ar'), 2);
+                  .setLocale(const Locale('ar'), 2);
             },
           ),
           SizedBox(
@@ -76,7 +74,7 @@ class SelectLanguageScreen extends StatelessWidget {
                         Provider.of<SettingsController>(context, listen: false)
                             .language);
                 Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (_) => MainPage()));
+                    MaterialPageRoute(builder: (_) => const MainPage()));
               })
         ],
       ),

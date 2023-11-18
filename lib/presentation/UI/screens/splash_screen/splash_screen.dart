@@ -8,29 +8,37 @@ import 'package:instar/domain/entities/cart.dart';
 
 import 'package:instar/domain/usecases/authentication_usecases/auto_login_usecase.dart';
 import 'package:instar/domain/usecases/authentication_usecases/get_user_usecase.dart';
+import 'package:instar/domain/usecases/fournisseur_usecases/get_fournisseur_by_id_usecase.dart';
+import 'package:instar/domain/usecases/fournisseur_usecases/get_fournisseurs_usecase.dart';
 import 'package:instar/domain/usecases/widhlist_usecases/get_wishlist_usecase.dart';
+import 'package:instar/presentation/UI/screens/admin/admin_home_screen.dart';
 import 'package:instar/presentation/UI/screens/landing_screen/landing_screen.dart';
 import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
+import 'package:instar/presentation/UI/screens/provider/providers_screen.dart';
 
 //import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../di.dart';
+import '../../../../domain/entities/fournisseur.dart';
 import '../../../../domain/entities/token.dart';
 import '../../../../domain/usecases/cart_usecases/get_cart_usecase.dart';
 
 class SplashScreen extends StatefulWidget {
   static late Token userToken;
   static late User currentUser;
-  static    WishList? wishList;
+  static  WishList? wishList;
   static  late Cart cart;
+
+  const SplashScreen({super.key});
 
 
   static Future<void> init(BuildContext context, int duration) async {
+     Fournisseur? provider;
     bool res = true;
     final autologiVarReturn = await AutoLoginUsecase(sl()).call();
     print(' autologin');
     autologiVarReturn.fold((l) {
-      print(' autologin left');
+      print(' autologin left $l');
 
       return res = false;
     }, (r) async {
@@ -40,11 +48,16 @@ class SplashScreen extends StatefulWidget {
           await GetUserUsecase(sl()).call(SplashScreen.userToken.userId);
       print(' getuser');
       user.fold((l) {
-        print(' getuser  left');
-
+        print(' getuser  left $l');
         return res = false;
-      }, (r) {
+      }, (r)async {
         print(' getuser  right $r');
+          if(r.role=="admin"){
+            final prov=await GetAllFournisseursUsecase(sl()).call();
+            prov.fold((l) => null, (r) {
+            provider=r.firstWhere((element) => element.userID == SplashScreen.userToken.userId);
+    });
+          }
 
         SplashScreen.currentUser = r;
       });
@@ -55,7 +68,7 @@ class SplashScreen extends StatefulWidget {
       print(' get wishlist');
 
       wishlist.fold((l) {
-        print(' wishlist  left');
+        print(' wishlist  left $l');
 
         return res = false;
       }, (r) {
@@ -68,7 +81,7 @@ class SplashScreen extends StatefulWidget {
       print(' get cart ');
 
       cart.fold((l) {
-        print(' cart  left');
+        print(' cart  left $l');
 
         return res = false;
       }, (r) {
@@ -77,12 +90,12 @@ class SplashScreen extends StatefulWidget {
         SplashScreen.cart = r;
       });
     });
-    print(res.toString()+"res");
+    print("${res}res");
     Future.delayed( Duration(seconds: duration), () {
-      Navigator.push(
+      Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (context) => res ? const MainPage() : const LandingPage()));
+              builder: (context) => res ? SplashScreen.currentUser.role =='admin' ?  AdminHomeScreen(provider: provider!)   :const MainPage():const LandingPage()));
     });
   }
   @override

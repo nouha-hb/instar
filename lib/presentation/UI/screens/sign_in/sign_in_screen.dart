@@ -185,7 +185,7 @@ class SignIn extends StatelessWidget {
                             recognizer: TapGestureRecognizer()
                               ..onTap = () => Navigator.of(context)
                                   .pushReplacement(MaterialPageRoute(
-                                      builder: (_) => SignUp())),
+                                      builder: (_) => const SignUp())),
                           )
                         ]),
                       ),

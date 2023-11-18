@@ -21,7 +21,7 @@ class Categories extends StatelessWidget {
     //   "Salle de bain",
     //   "Décoration"
     // ];
-    List image_svg_names = [
+    List imageSvgNames = [
       Assets.categorie_literie,
       Assets.categorie_enfants,
       Assets.categorie_cuisine,
@@ -50,14 +50,14 @@ class Categories extends StatelessWidget {
                     return null;
                   }, (r) {
                     categoryList = r;
-                    print('rightttttttt ' + categoryList.toString());
+                    print('rightttttttt $categoryList');
                   });
                 } else if (snapshot.connectionState ==
                     ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
                 }
                 return categoryList.isEmpty
-                    ? Text("no category")
+                    ? const Text("no category")
                     : Container(
                         //width: MediaQuery.sizeOf(context).width,
                         height: 120.h,
@@ -73,7 +73,7 @@ class Categories extends StatelessWidget {
                                   child: CategoryComponeny(
                                       width: 100.w,
                                       height: 90.h,
-                                      image_path: image_svg_names[index],
+                                      image_path: imageSvgNames[index],
                                       category_name:
                                           categoryList[index].name),
                                 )),

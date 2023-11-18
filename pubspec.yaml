@@ -49,7 +49,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_svg: ^2.0.7
-  fluttertoast: ^8.2.2
+  fluttertoast: 
   anim_search_bar: ^2.0.3
   checkbox_grouped: ^2.0.0
   email_validator: ^2.1.17
@@ -111,7 +111,7 @@ flutter:
     - assets/images/white.glb
     - assets/images/blue.glb
     - assets/images/tapisbleu.glb
-   # - assets/images/avatar.png
+    - assets/images/avatar.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

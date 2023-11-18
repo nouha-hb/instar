@@ -5,7 +5,6 @@ import 'package:instar/core/style/colors.dart';
 import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
 import 'package:instar/presentation/UI/screens/my_profile/change_mobile_number.dart';
 import 'package:instar/presentation/UI/screens/my_profile/change_password.dart';
-import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
 import 'package:instar/presentation/UI/widgets/edit_profile_button.dart';
 import 'package:instar/presentation/state_managment/controllers/profile_controller.dart';
 
@@ -20,14 +19,14 @@ class EditProfile extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: AppColors.white,
-          title: Text("Mes informations"),
+          title: const Text("Mes informations"),
           centerTitle: true,
           foregroundColor: AppColors.black,
           leading: IconButton(
               onPressed: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainPage(),));
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MainPage(),));
               },
-              icon: Icon(Icons.arrow_back_ios)),
+              icon: const Icon(Icons.arrow_back_ios)),
         ),
         body: GetBuilder<ProfileController>(
             init: ProfileController(),
@@ -46,7 +45,7 @@ class EditProfile extends StatelessWidget {
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             border: Border.all(color: AppColors.primary)),
-                        child: Center(
+                        child: const Center(
                           child: FlutterLogo(),
                         ),
                       ),
@@ -142,7 +141,7 @@ class EditProfile extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ChangePassword()));
+                                  builder: (context) => const ChangePassword()));
                         },
                       ),
                       SizedBox(
@@ -155,7 +154,7 @@ class EditProfile extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ChangePhone(),
+                                builder: (context) => const ChangePhone(),
                               ));
                         },
                       ),

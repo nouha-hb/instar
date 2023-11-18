@@ -24,7 +24,7 @@ class _MeublatexState extends State<Meublatex> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: IconButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage(),)), icon: Icon(Icons.arrow_back_ios)),
+          leading: IconButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const MainPage(),)), icon: const Icon(Icons.arrow_back_ios)),
       elevation: 0,
       backgroundColor: AppColors.white,
       foregroundColor: AppColors.black,
@@ -41,7 +41,7 @@ class _MeublatexState extends State<Meublatex> {
           ),
           SizedBox(
               width: 350.w,
-              child: SearchBar(
+              child: const SearchBar(
                 hintText: 'Recherche ...',
                 leading: Icon(Icons.search),
               )),

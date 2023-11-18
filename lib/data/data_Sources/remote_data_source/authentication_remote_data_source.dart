@@ -64,23 +64,23 @@ class AuthenticationRemoteDataSourceImpl
       final googleSignIN = GoogleSignIn();
       final user = await googleSignIN.signIn();
       if (user != null) {
-        final _name = user.displayName!.split(' ');
-        final _email = user.email;
-        final _id = user.id;
+        final name = user.displayName!.split(' ');
+        final email = user.email;
+        final id = user.id;
         final usr = UserModel(
-            firstName: _name[0],
-            lastName: _name[1],
-            email: _email,
+            firstName: name[0],
+            lastName: name[1],
+            email: email,
             phone: '',
             password: '123',
             ban: false,
             role: 'user',
-            id: _id);
+            id: id);
         try {
-          token = await login(_email, '123');
+          token = await login(email, '123');
         } catch (e) {
           await createAccount(usr);
-          token = await login(_email, '123');
+          token = await login(email, '123');
         }
         googleSignIN.signOut;
         await googleSignIN.disconnect();
@@ -99,9 +99,11 @@ class AuthenticationRemoteDataSourceImpl
   @override
   Future<User> getcurrentUser(String id) async {
     try {
-      final _response = await dio.post(ApiConst.getProfile, data: {"_id": id});
-      return UserModel.fromJson(_response.data['user']);
+      final response = await dio.post(ApiConst.getProfile, data: {"_id": id});
+      print('user $response');
+      return UserModel.fromJson(response.data['user']);
     } catch (e) {
+      print(e.toString());
       throw ServerException(message: 'User not Found');
     }
   }
@@ -130,22 +132,22 @@ class AuthenticationRemoteDataSourceImpl
       final LoginResult result = await FacebookAuth.instance.login();
       if (result.status == LoginStatus.success) {
         final userData = await FacebookAuth.instance.getUserData();
-        final _name = userData['name'].split(' ');
-        final _id = userData['id'];
+        final name = userData['name'].split(' ');
+        final id = userData['id'];
         final usr = UserModel(
-            firstName: _name[0],
-            lastName: _name[1],
-            email: _id.toString(),
+            firstName: name[0],
+            lastName: name[1],
+            email: id.toString(),
             phone: '',
             password: '123',
             ban: false,
             role: 'user',
-            id: _id);
+            id: id);
         try {
-          token = await login(_id, '123');
+          token = await login(id, '123');
         } catch (e) {
           await createAccount(usr);
-          token = await login(_id, '123');
+          token = await login(id, '123');
         }
         await FacebookAuth.instance.logOut();
         return token;

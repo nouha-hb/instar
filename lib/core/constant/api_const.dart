@@ -34,6 +34,12 @@ class ApiConst {
   //category apis
   static const String getCategories = "$baseUrl/categories";
 
+ //category apis
+  static const String sales = "$baseUrl/sales";
+
+  //category apis
+  static const String reclamations = "$baseUrl/reclamations";
+
   //assets apis
   static const String files = "http://$ipAddress:9000/public/images";
 }

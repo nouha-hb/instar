@@ -1,18 +1,14 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
 import 'package:instar/domain/entities/Promotion.dart';
-import 'package:instar/domain/entities/fournisseur.dart';
 import 'package:instar/domain/entities/product.dart';
 import 'package:instar/domain/usecases/promotion_usecases/get_all_promotions_usecase.dart';
-import 'package:instar/presentation/UI/screens/main_page/categories_page.dart';
 import 'package:instar/presentation/UI/screens/products/product_tendance_page.dart';
 import 'package:instar/presentation/UI/screens/products/product_vente_page.dart';
 import 'package:instar/presentation/UI/widgets/categroy_component.dart';
-import 'package:instar/presentation/brands_screens/Meublatex.dart';
 
 import '../../../../core/style/assets.dart';
 import '../../../../di.dart';
@@ -25,7 +21,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List image_svg_names = [
+    List imageSvgNames = [
       Assets.categorie_literie,
       Assets.categorie_enfants,
       Assets.categorie_cuisine,
@@ -51,13 +47,13 @@ class Home extends StatelessWidget {
                 return null;
               }, (r) {
                 promotionList = r;
-                print('rightttttttt ' + promotionList.toString());
+                print('rightttttttt $promotionList');
               });
             } else if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             }
             return promotionList.isEmpty
-                ? Text("no promotion")
+                ? const Text("no promotion")
                 : Container(
                     width: 326.w,
                     height: 210.h,
@@ -75,8 +71,7 @@ class Home extends StatelessWidget {
                                   width: 40.w,
                                 ),
                                 Text(
-                                  promotionList[index].discount.toString() +
-                                      "%",
+                                  "${promotionList[index].discount}%",
                                   style: AppTextStyle.titleTextStyle,
                                   textAlign: TextAlign.center,
                                 ),
@@ -123,13 +118,13 @@ class Home extends StatelessWidget {
                 return null;
               }, (r) {
                 fournisseurList = r;
-                print('rightttttttt ' + fournisseurList.toString());
+                print('rightttttttt $fournisseurList');
               });
             } else if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             }
             return fournisseurList.isEmpty
-                ? Text("no fournisseur")
+                ? const Text("no fournisseur")
                 : Container(
                     //width: MediaQuery.sizeOf(context).width,
                     height: 120.h,
@@ -145,7 +140,7 @@ class Home extends StatelessWidget {
                               child: CategoryComponeny(
                                   width: 100.w,
                                   height: 90.h,
-                                  image_path: image_svg_names[index],
+                                  image_path: imageSvgNames[index],
                                   category_name: fournisseurList[index].name),
                             )),
                   );
@@ -195,7 +190,7 @@ class Home extends StatelessWidget {
                                   ..onTap = () => Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => VenteProduct(),
+                                        builder: (context) => const VenteProduct(),
                                       )))
                           ]),
                     ),
@@ -255,7 +250,7 @@ class Home extends StatelessWidget {
                                   ..onTap = () => Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => Tendance(),
+                                        builder: (context) => const Tendance(),
                                       )))
                           ]),
                     ),

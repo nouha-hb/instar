@@ -24,23 +24,23 @@ List shoppingproductsId = SplashScreen.cart.productsId;
   final pages =  [
     {
       "name": "Acceuil",
-      "page": Home(),
+      "page": const Home(),
     },
     {
       "name": "Catégories",
-      "page": Categories(),
+      "page": const Categories(),
     },
     {
       "name": "Panier",
-      "page": ShoppingList(),
+      "page": const ShoppingList(),
     },
     {
       "name": "favorite",
-      "page": FavoriteList(),
+      "page": const FavoriteList(),
     },
       {
       "name": "Profile",
-      "page": Profile(),
+      "page": const Profile(),
     },
   ];
 

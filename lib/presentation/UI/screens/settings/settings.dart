@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
 import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
-import 'package:instar/presentation/UI/screens/main_page/profile_page.dart';
 import 'package:instar/presentation/UI/screens/my_profile/edit_profile.dart';
 import 'package:instar/presentation/UI/screens/settings/language_settings.dart';
 import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
@@ -26,10 +24,10 @@ class Settings extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MainPage(),
+                    builder: (context) => const MainPage(),
                   ));
             },
-            icon: Icon(Icons.arrow_back_ios)),
+            icon: const Icon(Icons.arrow_back_ios)),
         elevation: 0,
         backgroundColor: AppColors.white,
         foregroundColor: AppColors.black,
@@ -56,7 +54,7 @@ class Settings extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      FlutterLogo(
+                      const FlutterLogo(
                         size: 40,
                       ),
                       SizedBox(
@@ -81,7 +79,6 @@ class Settings extends StatelessWidget {
                               res!.fold((l) {
                                 return Center(
                                     child: Text(l.message.toString()));
-                                print("setting left");
                               }, (r) {
                                 print("right side ");
 
@@ -106,7 +103,7 @@ class Settings extends StatelessWidget {
                                     Text(ProfileController.name),
                                     Text(ProfileController.lastName),
                                   ],
-                                );;
+                                );
                           }),
                     ],
                   ),
@@ -115,10 +112,10 @@ class Settings extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => EditProfile(),
+                              builder: (context) => const EditProfile(),
                             ));
                       },
-                      icon: Icon(Icons.arrow_forward_ios_sharp))
+                      icon: const Icon(Icons.arrow_forward_ios_sharp))
                 ],
               ),
             ),
@@ -129,7 +126,7 @@ class Settings extends StatelessWidget {
               onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SelectLanguageScreen(),
+                    builder: (context) => const SelectLanguageScreen(),
                   )),
               child: SettingComponent(
                   text: "Languages",

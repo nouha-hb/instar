@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
-import 'package:instar/core/style/assets.dart';
 import 'package:instar/core/style/text_style.dart';
 import 'package:instar/di.dart';
-import 'package:instar/domain/entities/paiement.dart';
 import 'package:instar/domain/entities/product.dart';
 import 'package:instar/domain/usecases/product_usecases/get_one_product_usecase.dart';
 import 'package:instar/presentation/UI/screens/paiement/detail_paiement.dart';
@@ -36,8 +34,7 @@ class ShoppingList extends StatelessWidget {
                       child: ListView.builder(
                         itemCount: controller.shoppingproductsId.length,
                         itemBuilder: (context, index) {
-                          print("productss carttt " +
-                              SplashScreen.cart.productsId.toString());
+                          print("productss carttt ${SplashScreen.cart.productsId}");
 
                           return FutureBuilder(
                             future: GetOneProductsUsecase(sl())
@@ -67,7 +64,7 @@ class ShoppingList extends StatelessWidget {
                     height: 10.h,
                   ),
                   Text(
-                    "Totale : " + ProductDescController.total.toString() + "DT",
+                    "Totale : ${ProductDescController.total}DT",
                     style: AppTextStyle.darkLabelTextStyle,
                   ),
                   SizedBox(
@@ -79,7 +76,7 @@ class ShoppingList extends StatelessWidget {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => PaiementDetail(),
+                            builder: (context) => const PaiementDetail(),
                           ));
                     },
                   )

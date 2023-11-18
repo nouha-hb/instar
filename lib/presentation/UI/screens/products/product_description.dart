@@ -177,7 +177,7 @@ class _ProductDescState extends State<ProductDesc> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "${controller.provider.name}",
+                                      controller.provider.name,
                                       style: AppTextStyle.lightLabelTextStyle,
                                     ),
                                     PluralStrings.onOrder(
@@ -266,7 +266,7 @@ class _ProductDescState extends State<ProductDesc> {
                                     ),
                                   ],
                                 ),
-                                RatingSection(),
+                                 RatingSection(),
 
                                 SizedBox(
                                   height: 15.h,

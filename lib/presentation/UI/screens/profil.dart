@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:instar/domain/usecases/authentication_usecases/get_user_usecase.dart';
 
 import '../../../di.dart';
-import '../../../domain/entities/user.dart';
 
 class DemoProfil extends StatefulWidget {
   const DemoProfil({super.key});
@@ -49,7 +48,7 @@ class _DemoProfilState extends State<DemoProfil> {
             } else if (snapshot.hasData) {
               final res = snapshot.data;
               res!.fold((l) {
-                return Center(child: Text('error'));
+                return const Center(child: Text('error'));
               }, (r) {
                 return Center(
                   child: Form(
@@ -74,7 +73,7 @@ class _DemoProfilState extends State<DemoProfil> {
                 );
               });
              
-            } return Center(child: Text('text'));
+            } return const Center(child: Text('text'));
           }),
     );
   }

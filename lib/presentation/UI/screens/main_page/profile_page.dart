@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:instar/di.dart';
-import 'package:instar/domain/entities/paiement.dart';
 import 'package:instar/domain/usecases/authentication_usecases/logout_usecase.dart';
-import 'package:instar/presentation/UI/screens/main_page/shopping_cart.dart';
 import 'package:instar/presentation/UI/screens/paiement/detail_paiement.dart';
 import 'package:instar/presentation/UI/screens/settings/settings.dart';
 import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
@@ -34,25 +31,25 @@ class Profile extends StatelessWidget {
       // ),
       InkWell(
           onTap: () {},
-          child: ProfileButton(icon: Icons.wallet, text: "Mes achats")),
+          child: const ProfileButton(icon: Icons.wallet, text: "Mes achats")),
       SizedBox(
         height: 10.h,
       ),
-      ProfileButton(icon: Icons.location_on, text: "Mon adresse"),
-      SizedBox(
-        height: 10.h,
-      ),
-
-      InkWell(
-        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PaiementDetail())),
-        child: ProfileButton(icon: Icons.payment, text: "Mode de paiement")),
+      const ProfileButton(icon: Icons.location_on, text: "Mon adresse"),
       SizedBox(
         height: 10.h,
       ),
 
       InkWell(
-        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Settings(),)),
-        child: ProfileButton(icon: Icons.settings, text: "Paramétres", )),
+        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const PaiementDetail())),
+        child: const ProfileButton(icon: Icons.payment, text: "Mode de paiement")),
+      SizedBox(
+        height: 10.h,
+      ),
+
+      InkWell(
+        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const Settings(),)),
+        child: const ProfileButton(icon: Icons.settings, text: "Paramétres", )),
       SizedBox(
         height: 10.h,
       ),
@@ -63,7 +60,7 @@ class Profile extends StatelessWidget {
           res.fold(
               (l) => null,
               (r) => Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => SplashScreen(),)));
+                  context, MaterialPageRoute(builder: (context) => const SplashScreen(),)));
         },
         child: Container(
           width: 325.w,

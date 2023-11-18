@@ -3,6 +3,7 @@ import 'package:instar/domain/entities/Product3D.dart';
 
 class Product extends Equatable {
   final String id;
+  final String  reference;
   final String name;
   final String description;
   final double price;
@@ -15,6 +16,7 @@ class Product extends Equatable {
   final String dimensions;
   const Product(
       {required this.category,
+      required this.reference,
       required this.id,
       required this.dimensions,
       required this.name,
@@ -29,6 +31,7 @@ class Product extends Equatable {
   @override
   List<Object?> get props => [
         name,
+        reference,
         description,
         price,
         quantity,

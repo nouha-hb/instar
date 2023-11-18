@@ -3,15 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:instar/core/style/assets.dart';
 import 'package:instar/core/style/text_style.dart';
-import 'package:instar/presentation/UI/screens/main_page/profile_page.dart';
-import 'package:instar/presentation/UI/screens/my_profile/my_profile.dart';
+import 'package:instar/presentation/UI/screens/commands/commands_screen.dart';
 import 'package:instar/presentation/UI/screens/order_tracking/order_tracking.dart';
-import 'package:instar/presentation/UI/screens/paiement/detail_paiement.dart';
-import 'package:instar/presentation/UI/screens/paiement/paiement.dart';
-import 'package:instar/presentation/UI/screens/settings/language_settings.dart';
+import 'package:instar/presentation/UI/screens/provider/providers_screen.dart';
 import 'package:instar/presentation/UI/screens/settings/settings.dart';
 import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
-import 'package:instar/presentation/UI/widgets/sheet_app_bar.dart';
 import 'package:instar/presentation/state_managment/controllers/profile_controller.dart';
 
 import '../../../../core/style/colors.dart';
@@ -21,8 +17,8 @@ import '../../../state_managment/controllers/main_page_controller.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +57,7 @@ class MainPage extends StatelessWidget {
                         }, (r) {
                           print("drawer right");
 
-                          return Text("drawer right fold");
+                          return const Text("drawer right fold");
                         });
                       }
                       return ListView(
@@ -71,9 +67,9 @@ class MainPage extends StatelessWidget {
 
                           UserAccountsDrawerHeader(
                             // <-- SEE HERE
-                            decoration: BoxDecoration(color: AppColors.white),
+                            decoration: const BoxDecoration(color: AppColors.white),
                             accountName: Text(
-                              "Hi👋 " + ProfileController.name,
+                              "Hi👋 ${ProfileController.name}",
                               style: AppTextStyle.elementNameTextStyle,
                             ),
                             accountEmail: Text(
@@ -112,11 +108,8 @@ class MainPage extends StatelessWidget {
                       style: AppTextStyle.elementNameTextStyle16,
                     ),
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => OrderTrackingScreen(),
-                          ));
+                      Navigator.of(context).push(MaterialPageRoute(builder: (_)=>const CommandsScreen()));
+
                     },
                   ),
                   ListTile(
@@ -133,7 +126,7 @@ class MainPage extends StatelessWidget {
                     title: Text('Nouvel arrivage',
                         style: AppTextStyle.elementNameTextStyle16),
                     onTap: () {
-                     
+                     Navigator.of(context).push(MaterialPageRoute(builder: (_)=>Providersscreen()));
                     },
                   ),
                   ListTile(
@@ -148,7 +141,8 @@ class MainPage extends StatelessWidget {
                     title: Text('Promotion',
                         style: AppTextStyle.elementNameTextStyle16),
                     onTap: () {
-                     
+                          Navigator.of(context).push(MaterialPageRoute(builder: (_)=>CommandsScreen()));
+
                     },
                   ),
                   ListTile(
@@ -166,7 +160,7 @@ class MainPage extends StatelessWidget {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Settings(),
+                            builder: (context) => const Settings(),
                           ));
                     },
                   ),

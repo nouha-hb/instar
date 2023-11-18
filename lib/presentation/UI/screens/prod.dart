@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:instar/domain/usecases/product_usecases/get_all_products_usecase.dart';
 import 'package:instar/domain/usecases/product_usecases/get_products_by_subcategory_usecase.dart';
 
 import '../../../di.dart';
@@ -27,9 +26,9 @@ class ProductsScreen extends StatelessWidget {
                     });
               });
             } else if (snap.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator();
+              return const CircularProgressIndicator();
             } else {
-              return Text('error');
+              return const Text('error');
             }
           }),
       //floatingActionButton: FloatingActionButton(onPressed: (){}),

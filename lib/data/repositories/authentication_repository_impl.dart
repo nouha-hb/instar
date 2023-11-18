@@ -49,10 +49,10 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   @override
   Future<Either<Failure, Token>> autologin() async {
     try {
-      final _savedToken = await authLocalDataSource.getUserInformations();
-      print('login info $_savedToken');
-      if (_savedToken.expiryDate.isAfter(DateTime.now())) {
-        return right(_savedToken);
+      final savedToken = await authLocalDataSource.getUserInformations();
+      print('login info $savedToken');
+      if (savedToken.expiryDate.isAfter(DateTime.now())) {
+        return right(savedToken);
       } else {
         throw NotAuthorizedException();
       }
@@ -72,13 +72,13 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   @override
   Future<Either<Failure, Token>> facebookLogin() async {
     try {
-      TokenModel _tm = await authRemoteDataSource.facebookLogin();
-      await authLocalDataSource.saveUserInformations(_tm);
+      TokenModel tm = await authRemoteDataSource.facebookLogin();
+      await authLocalDataSource.saveUserInformations(tm);
       Token t = Token(
-          token: _tm.token,
-          refreshToken: _tm.refreshToken,
-          expiryDate: _tm.expiryDate,
-          userId: _tm.userId);
+          token: tm.token,
+          refreshToken: tm.refreshToken,
+          expiryDate: tm.expiryDate,
+          userId: tm.userId);
       return right(t);
     } on LoginException catch (e) {
       return left(LoginFailure(e.message));
@@ -91,13 +91,13 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   @override
   Future<Either<Failure, Token>> googleLogin() async {
     try {
-      TokenModel _tm = await authRemoteDataSource.googleLogin();
-      await authLocalDataSource.saveUserInformations(_tm);
+      TokenModel tm = await authRemoteDataSource.googleLogin();
+      await authLocalDataSource.saveUserInformations(tm);
       Token t = Token(
-          token: _tm.token,
-          refreshToken: _tm.refreshToken,
-          expiryDate: _tm.expiryDate,
-          userId: _tm.userId);
+          token: tm.token,
+          refreshToken: tm.refreshToken,
+          expiryDate: tm.expiryDate,
+          userId: tm.userId);
       return right(t);
     } on LoginException catch (e) {
       return left(LoginFailure(e.message));
