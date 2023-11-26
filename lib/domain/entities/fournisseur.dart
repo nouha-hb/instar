@@ -4,13 +4,12 @@ class Fournisseur extends Equatable {
   final String name;
   final String address;
   final num phone;
-  final  String image;
+  
 
   const Fournisseur({
     required this.name,
     required this.address,
     required this.phone,
-    required this.image,
   });
 
   @override
@@ -18,6 +17,6 @@ class Fournisseur extends Equatable {
         name,
         address,
         phone,
-        image
+        
       ];
 }

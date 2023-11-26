@@ -5,7 +5,6 @@ import 'package:instar/data/models/token_model.dart';
 import 'package:instar/data/models/user_model.dart';
 import 'package:instar/domain/entities/user.dart';
 import 'package:dio/dio.dart';
-
 import '../../../core/errors/exceptions/exceptions.dart';
 
 abstract class AuthenticationRemoteDataSource {

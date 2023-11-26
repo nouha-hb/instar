@@ -1,5 +1,5 @@
 class ApiConst {
-  static const String ipAddress = "192.168.154.1";
+  static const String ipAddress = "192.168.80.1";
   static const String baseUrl = "http://$ipAddress:9000/api"; //ip Address
   static const String register = "$baseUrl/register";
   static const String login = "$baseUrl/login";
@@ -7,9 +7,8 @@ class ApiConst {
   static const String updateProfil = "$baseUrl/UpdateProfil";
   static const String paiement = "$baseUrl/payment";
 
-  //product apis
+  //category apis
   static const String category = "$baseUrl/products/category";
-  static const String subCategory = "$baseUrl/products/subCategory";
   //product apis
   static const String products = "$baseUrl/products";
 
@@ -35,11 +34,13 @@ class ApiConst {
 
   //assets apis
   static const String files = "http://$ipAddress:9000/public/images";
-  //fournisseur apis
 
   //fournisseur apis
   static const String fournisseur = "$baseUrl/fournisseurs";
 
   //category apis
   static const String getSubCategories = "$baseUrl/subCategories";
+  static const String ForgetPassword="$baseUrl/ForgetPassword";
+    static const String VerifCode="$baseUrl//VerifCode";
+      static const String Resetpassword="$baseUrl/Resetpassword";
 }

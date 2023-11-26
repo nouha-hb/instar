@@ -3,17 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:instar/core/style/assets.dart';
 import 'package:instar/core/style/text_style.dart';
-import 'package:instar/presentation/UI/screens/main_page/profile_page.dart';
-import 'package:instar/presentation/UI/screens/my_profile/my_profile.dart';
 import 'package:instar/presentation/UI/screens/order_tracking/order_tracking.dart';
-import 'package:instar/presentation/UI/screens/paiement/detail_paiement.dart';
-import 'package:instar/presentation/UI/screens/paiement/paiement.dart';
-import 'package:instar/presentation/UI/screens/settings/language_settings.dart';
 import 'package:instar/presentation/UI/screens/settings/settings.dart';
 import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
-import 'package:instar/presentation/UI/widgets/sheet_app_bar.dart';
 import 'package:instar/presentation/state_managment/controllers/profile_controller.dart';
-
 import '../../../../core/style/colors.dart';
 import '../../../../di.dart';
 import '../../../../domain/usecases/authentication_usecases/get_user_usecase.dart';
@@ -120,38 +113,7 @@ class MainPage extends StatelessWidget {
                           ));
                     },
                   ),
-                  ListTile(
-                    leading: Container(
-                      width: 30.w,
-                      height: 30.h,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5.r),
-                          border: Border.all(color: AppColors.primary)),
-                      child: Image.asset(
-                        Assets.nvlarrivage,
-                      ),
-                    ),
-                    title: Text('Nouvel arrivage',
-                        style: AppTextStyle.elementNameTextStyle16),
-                    onTap: () {
-                     
-                    },
-                  ),
-                  ListTile(
-                    leading: Container(
-                      width: 30.w,
-                      height: 30.h,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5.r),
-                          border: Border.all(color: AppColors.primary)),
-                      child: Image.asset(Assets.promotion),
-                    ),
-                    title: Text('Promotion',
-                        style: AppTextStyle.elementNameTextStyle16),
-                    onTap: () {
-                     
-                    },
-                  ),
+                 
                   ListTile(
                     leading: Container(
                       width: 30.w,

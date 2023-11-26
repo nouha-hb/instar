@@ -20,7 +20,6 @@ class FournisseurRepositoryImpl implements FournisseurRepository {
               name: e.name,
               address: e.address,
               phone: e.phone,
-              image: e.image
               
               ))
           .toList();

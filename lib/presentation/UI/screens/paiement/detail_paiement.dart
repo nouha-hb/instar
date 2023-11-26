@@ -8,6 +8,7 @@ import 'package:instar/domain/entities/paiement.dart';
 import 'package:instar/presentation/UI/screens/main_page/shopping_cart.dart';
 import 'package:instar/presentation/UI/screens/paiement/paiement.dart';
 import 'package:instar/presentation/UI/widgets/custom_button.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import '../../../state_managment/controllers/product_desc_controller.dart';
 
@@ -23,8 +24,15 @@ class _PaiementDetailState extends State<PaiementDetail> {
 
   List<String> text = ["E-dianar", "Carte Bancaire ", "Konnect"];
 
-  GroupController controllerg = GroupController(isMultipleSelection: false);
 
+
+  GroupController controllerg = GroupController(isMultipleSelection:false);
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+     OneSignal.initialize("a3169b3f-c11f-44a6-9ccb-91db64a6020d");
+  }
   @override
   Widget build(BuildContext context) {
     return  Scaffold(

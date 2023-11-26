@@ -26,8 +26,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
  
-    List<Promotion> promotionList = [];
-    List<Fournisseur> fournisseurList = [];
+
   
 
     return Column(
@@ -38,6 +37,8 @@ class Home extends StatelessWidget {
         FutureBuilder(
           future: GetAllPromotionsUsecase(sl()).call(),
           builder: (context, snapshot) {
+                List<Promotion> promotionList = [];
+
             if (snapshot.hasData) {
               final res = snapshot.data;
               print('data = $res');
@@ -75,7 +76,7 @@ class Home extends StatelessWidget {
                                   style: AppTextStyle.titleTextStyle,
                                   textAlign: TextAlign.center,
                                 ),
-                                Image.asset(promotionList[index].image),
+                               // Image.asset(promotionList[index].image),
                               ],
                             )),
                   );
@@ -109,9 +110,9 @@ class Home extends StatelessWidget {
         FutureBuilder(
           future: GetAllFournisseursUsecase(sl()).call(),
           builder: (context, snapshot) {
+                List<Fournisseur> fournisseurList = [];
             if (snapshot.hasData) {
               final res = snapshot.data;
-
               print('data  fournisseurs r= $res');
               res!.fold((l) {
                 print("left fournisseursssss");
@@ -144,37 +145,16 @@ class Home extends StatelessWidget {
                                       builder: (context) => FournisseurPage(
                                           fournisseur: fournisseurList[index]),
                                     )),
-                                child: CategoryComponeny(
-                                    width: 100.w,
-                                    height: 90.h,
-                                    image_path: fournisseurList[index].image,
-                                    category_name: fournisseurList[index].name),
+                                child:Padding(
+                                  padding:  EdgeInsets.all(8.0.r),
+                                  child: Text(fournisseurList[index].name, style: AppTextStyle.elementNameTextStyle16,),
+                                )
                               ),
                             )),
                   );
           },
         ),
-        // Container(
-        //   width: MediaQuery.sizeOf(context).width,
-        //   height: 120.h,
-        //   decoration: BoxDecoration(
-        //       color: AppColors.bgColor,
-        //       borderRadius: BorderRadius.circular(15.r)),
-        //   child: ListView.builder(
-        //       scrollDirection: Axis.horizontal,
-        //       itemCount: fournisseurList.length,
-        //       itemBuilder: (_, index) => Padding(
-        //             padding: EdgeInsets.all(8.0.r),
-        //             child: GestureDetector(
-        //               onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) =>Meublatex() ,)),
-        //               child: CategoryComponeny(
-        //                   width: 100.w,
-        //                   height: 90.h,
-        //                   image_path: image_svg_names[index],
-        //                   category_name: fournisseurList[index]),
-        //             ),
-        //           )),
-        // ),
+     
         Padding(
           padding: EdgeInsets.all(10.0.r),
           child: SingleChildScrollView(
@@ -229,7 +209,7 @@ class Home extends StatelessWidget {
                               child: CircularProgressIndicator());
                         }
                         return productList.isEmpty
-                            ? Container()
+                            ? Text("No product")
                             : Center(
                                 child: ListView.builder(
                                     scrollDirection: Axis.horizontal,

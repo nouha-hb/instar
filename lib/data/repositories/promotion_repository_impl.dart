@@ -19,7 +19,7 @@ class PromotionRepositoryImpl implements PromotionRepository {
       final promotions = promotionModels
           .map((e) => Promotion(
               id: e.id,
-              image: e.image,
+              //image: e.image,
               discount: e.discount,
               endDate: e.endDate,
               startDate: e.startDate,

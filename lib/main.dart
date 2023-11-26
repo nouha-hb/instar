@@ -10,13 +10,16 @@ import 'package:instar/presentation/UI/screens/sign_in/sign_in_screen.dart';
 import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
 import 'package:instar/presentation/state_managment/controllers/settings_controller.dart';
 import 'package:provider/provider.dart';
-
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'di.dart' as di;
 import 'di.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
+ OneSignal.initialize("a3169b3f-c11f-44a6-9ccb-91db64a6020d");
+  
+    
   print(DateTime.parse("2023-08-16 17:29:21").isAfter(DateTime.now()));
   runApp(ChangeNotifierProvider(
     create: (_) => SettingsController(),
@@ -34,6 +37,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   bool loggedin = false;
   // This widget is the root of your application.
+  
   @override
   void initState() {
     Provider.of<SettingsController>(context, listen: false).loadLanguage();
@@ -59,6 +63,9 @@ class _MyAppState extends State<MyApp> {
         ],
       ),
     );
+  }
+  Future<void>initPlatform()async{ 
+ OneSignal.initialize("a3169b3f-c11f-44a6-9ccb-91db64a6020d");
   }
 }
 
