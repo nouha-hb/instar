@@ -89,7 +89,7 @@ class SignInController extends GetxController {
             fontSize: 16.0);
         print("left $l");
       }, (r) async{
-        await SplashScreen.init(context, 0);
+        await SplashScreen.init(context, 1);
         print("right");
       });
     } finally {

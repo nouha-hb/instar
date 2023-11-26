@@ -40,7 +40,7 @@ class SplashScreen extends StatefulWidget {
     autologiVarReturn.fold((l) {
       print(' autologin left $l');
 
-      return res = false;
+       res = false;
     }, (r) async {
       print(' autologin right $r');
       SplashScreen.userToken = r;
@@ -49,7 +49,7 @@ class SplashScreen extends StatefulWidget {
       print(' getuser');
       user.fold((l) {
         print(' getuser  left $l');
-        return res = false;
+         res = false;
       }, (r)async {
         print(' getuser  right $r');
           if(r.role=="admin"){
@@ -70,20 +70,20 @@ class SplashScreen extends StatefulWidget {
       wishlist.fold((l) {
         print(' wishlist  left $l');
 
-        return res = false;
+         res = false;
       }, (r) {
         print(' wishlist  right $r');
 
         SplashScreen.wishList = r;
       });
-      final cart = await GetCartUsecase(sl())
+      final crt = await GetCartUsecase(sl())
           .call(userId: SplashScreen.userToken.userId);
       print(' get cart ');
 
-      cart.fold((l) {
+      crt.fold((l) {
         print(' cart  left $l');
 
-        return res = false;
+         res = false;
       }, (r) {
         print(' cart  right');
 
@@ -113,17 +113,20 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
    // print(SplashScreen.userToken.token.toString());
-    return Container(
-      width: 375.w,
-      height: 812.h,
-      color: AppColors.white,
-      child: Center(
-        child: Container(
-          width: 198.w,
-          height: 198.h,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(Assets.indar), fit: BoxFit.fitHeight),
+    return FutureBuilder(
+      future: SplashScreen.init(context, 3),
+      builder:(_,snapshot)=> Container(
+        width: 375.w,
+        height: 812.h,
+        color: AppColors.white,
+        child: Center(
+          child: Container(
+            width: 198.w,
+            height: 198.h,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(Assets.indar), fit: BoxFit.fitHeight),
+            ),
           ),
         ),
       ),
