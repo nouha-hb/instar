@@ -35,7 +35,7 @@ class PaiementController extends GetxController {
       var DateExp = DateExpController.text.trim();
       var CVV = CVVController.text.trim();
 
-      Paiement paiement = new Paiement(
+      Paiement paiement = Paiement(
         Nom: Nom,
         Code: Code,
         DateExp: DateExp,

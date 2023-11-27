@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class StepItem {
   static Step makeStep(
-      {required String title,
+      {
+        required StepState state, 
+        required bool isActive,
+      required String title,
       required String location,
-      required String date,
-      required BuildContext context}) {
+      required String date,}) {
     return Step(
-        isActive: title == AppLocalizations.of(context)!.in_preparation
-            ? true
-            : false,
+      state: state,
+        isActive:isActive,
         title: Text(title),
         content: const SizedBox(),
-        subtitle: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(location),
-            Text(date),
-          ],
-        ));
+        // subtitle: Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //   children: [
+        //     Text(location),
+        //     Text(date),
+        //   ],
+        // )
+        );
   }
 }

@@ -17,8 +17,8 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   Dio dio = Dio();
 
   Future<String> get token async {
-    final _tk = await AuthenticationLocalDataSourceImpl().getUserInformations();
-    return _tk.token;
+    final tk = await AuthenticationLocalDataSourceImpl().getUserInformations();
+    return tk.token;
   }
 
   @override
@@ -60,6 +60,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
       prod = ProductModel.fromJson(data);
       return prod;
     }on DioException catch (e) {
+      print('prod error ${e.toString()}');
       if (e.response!.statusCode == 401) {
         throw NotAuthorizedException();
       } else {
@@ -81,9 +82,9 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
         ),
       );
 
-      List<dynamic> _data = response.data;
+      List<dynamic> data = response.data;
       List<ProductModel> products =
-          _data.map((e) => ProductModel.fromJson(e)).toList();
+          data.map((e) => ProductModel.fromJson(e)).toList();
       print(products);
       return products;
     } on DioException catch (e) {
@@ -107,9 +108,9 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
         ),
       );
 
-      List<dynamic> _data = response.data;
+      List<dynamic> data = response.data;
       List<ProductModel> products =
-          _data.map((e) => ProductModel.fromJson(e)).toList();
+          data.map((e) => ProductModel.fromJson(e)).toList();
       print(products);
       return products;
     } on DioException catch (e) {

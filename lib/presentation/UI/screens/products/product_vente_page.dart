@@ -1,22 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:instar/core/style/assets.dart';
 import 'package:instar/di.dart';
-import 'package:instar/domain/entities/paiement.dart';
 import 'package:instar/domain/entities/product.dart';
-import 'package:instar/domain/usecases/product_usecases/get_one_product_usecase.dart';
-import 'package:instar/presentation/UI/screens/paiement/detail_paiement.dart';
-import 'package:instar/presentation/UI/widgets/custom_button.dart';
-import 'package:instar/presentation/UI/widgets/shopping_list_component.dart';
 
 import '../../../../core/style/colors.dart';
 import '../../../../core/style/text_style.dart';
 import '../../../../domain/usecases/product_usecases/get_all_products_usecase.dart';
 import '../../../state_managment/controllers/main_page_controller.dart';
-import '../../../state_managment/controllers/product_desc_controller.dart';
 import '../../widgets/product_component.dart';
-import '../splash_screen/splash_screen.dart';
 
 class VenteProduct extends StatelessWidget {
   const VenteProduct({super.key});
@@ -30,7 +22,7 @@ class VenteProduct extends StatelessWidget {
         backgroundColor: AppColors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: AppColors.darkGrey,),
+          icon: const Icon(Icons.arrow_back_ios, color: AppColors.darkGrey,),
           onPressed: () {
             Navigator.pop(context);
           },

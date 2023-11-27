@@ -37,7 +37,7 @@ class SignUpController extends GetxController {
       actions: [
         TextButton(
             onPressed: () {
-              Get.to(SignIn());
+              Get.to(const SignIn());
             },
             child: const Text("Ok"))
       ],

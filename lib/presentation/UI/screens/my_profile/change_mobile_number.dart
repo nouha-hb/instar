@@ -3,9 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:instar/core/style/colors.dart';
-import 'package:instar/core/style/text_style.dart';
-import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
-import 'package:instar/presentation/UI/screens/main_page/profile_page.dart';
 import 'package:instar/presentation/UI/screens/my_profile/edit_profile.dart';
 import 'package:instar/presentation/UI/widgets/custom_button.dart';
 import 'package:instar/presentation/UI/widgets/custom_textform.dart';
@@ -13,9 +10,9 @@ import 'package:instar/presentation/UI/widgets/custom_textform.dart';
 import '../../../state_managment/controllers/profile_controller.dart';
 
 class ChangePhone extends StatelessWidget {
-  ChangePhone({
-    Key? key,
-  }) : super(key: key);
+  const ChangePhone({
+    super.key,
+  });
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -24,14 +21,14 @@ class ChangePhone extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: AppColors.white,
-          title: Text("Modifier le numéro du téléphone"),
+          title: const Text("Modifier le numéro du téléphone"),
           centerTitle: true,
           foregroundColor: AppColors.black,
           leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: Icon(Icons.arrow_back_ios)),
+              icon: const Icon(Icons.arrow_back_ios)),
         ),
         body: GetBuilder<ProfileController>(
             init: ProfileController(),
@@ -80,7 +77,7 @@ class ChangePhone extends StatelessWidget {
                                          
                                           TextButton(
                                             onPressed: () =>
-                                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => EditProfile(),)),
+                                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const EditProfile(),)),
                                             child: const Text('OK'),
                                           ),
                                         ],
@@ -90,7 +87,7 @@ class ChangePhone extends StatelessWidget {
                            
                               //controller.resetPhone();
 
-                              Get.dialog(AlertDialog(
+                              Get.dialog(const AlertDialog(
                                 title: Text("phone number  changed "),
                               ));
                             }),

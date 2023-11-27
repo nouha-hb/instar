@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
-import 'package:instar/core/style/assets.dart';
 import 'package:instar/core/style/colors.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instar/core/style/text_style.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:instar/domain/entities/cart.dart';
@@ -35,7 +33,7 @@ class ShoppingComponent extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ProductDesc(product: this.product),
+                      builder: (context) => ProductDesc(product: product),
                     ));
               },
               child: Container(
@@ -52,7 +50,7 @@ class ShoppingComponent extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15.r)),
                 child: Slidable(
                   endActionPane: ActionPane(
-                    motion: BehindMotion(),
+                    motion: const BehindMotion(),
                     children: [
                       SlidableAction(
                           borderRadius: BorderRadius.circular(15.r),
@@ -62,11 +60,11 @@ class ShoppingComponent extends StatelessWidget {
                           onPressed: (context) async {
                            controller.update();
 
-                            SplashScreen.cart!.productsId
-                                .remove(this.product.id);
+                            SplashScreen.cart.productsId
+                                .remove(product.id);
                             controller.shoppingproductsId
-                                .remove(this.product.id);
-                            ProductDescController.total -= this.product.price;
+                                .remove(product.id);
+                            ProductDescController.total -= product.price;
                             ProductDescController.addToCartItems--;
                            controller.update();
 
@@ -98,7 +96,7 @@ class ShoppingComponent extends StatelessWidget {
                                     color: AppColors.lightgrey,
                                     borderRadius: BorderRadius.circular(15.r)),
                                 child: Image.network(
-                                    "${ApiConst.files}/${this.product.image}"),
+                                    "${ApiConst.files}/${product.image}"),
                               ),
                               SizedBox(
                                 width: 20.w,
@@ -109,16 +107,16 @@ class ShoppingComponent extends StatelessWidget {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   Text(
-                                    this.product.name,
+                                    product.name,
                                     style: AppTextStyle.elementNameTextStyle13,
                                   ),
                                   Text(
-                                    this.product.category,
+                                    product.category,
                                     style:
                                         AppTextStyle.smallLightLabelTextStyle,
                                   ),
                                   Text(
-                                    ((this.product.price) * controller.quantity)
+                                    ((product.price) * controller.quantity)
                                         .toString(),
                                     style: AppTextStyle.blueLabelTextStyle,
                                   ),
@@ -156,7 +154,7 @@ class ShoppingComponent extends StatelessWidget {
                                 child: Center(
                                     child: Text(
                                   controller.quantity.toString(),
-                                  style: TextStyle(color: AppColors.white),
+                                  style: const TextStyle(color: AppColors.white),
                                 )),
                               ),
                             ),

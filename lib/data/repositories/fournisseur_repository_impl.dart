@@ -16,10 +16,12 @@ class FournisseurRepositoryImpl implements FournisseurRepository {
       final fournisseurModels = await fournisseurRemoteDataSource.getAllFournisseurs();
       final fournisseurs = fournisseurModels
           .map((e) => Fournisseur(
-       
+            id: e.id,
+              userID: e.userID,
               name: e.name,
               address: e.address,
               phone: e.phone,
+
               
               ))
           .toList();

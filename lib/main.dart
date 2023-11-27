@@ -5,6 +5,8 @@ import 'package:instar/domain/usecases/authentication_usecases/auto_login_usecas
 import 'package:instar/domain/usecases/authentication_usecases/logout_usecase.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:instar/presentation/UI/screens/admin/admin_home_screen.dart';
+import 'package:instar/presentation/UI/screens/commands/commands_screen.dart';
 import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
 import 'package:instar/presentation/UI/screens/sign_in/sign_in_screen.dart';
 import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
@@ -51,7 +53,7 @@ class _MyAppState extends State<MyApp> {
       designSize: const Size(375, 812),
       builder: (_, __) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: SplashScreen(),
+        home: const  SplashScreen(),
         supportedLocales: L10n.all,
         locale:  Provider.of<SettingsController>(context).locale ??
             const Locale('fr'),
@@ -82,7 +84,7 @@ class MyWidget extends StatelessWidget {
           // await LoginUsecase(sl()).call(email: 'emafghil', password: '1234');
           final res = await AutoLoginUsecase(sl()).call();
           res.fold((l) {
-            print(l.toString() + "error *********");
+            print("${l}error *********");
             return Navigator.of(context)
                 .push(MaterialPageRoute(builder: (_) => SignIn()));
           }, (r) {

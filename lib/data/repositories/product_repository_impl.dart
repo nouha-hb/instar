@@ -17,6 +17,7 @@ class ProductRepositoryImp implements ProductRepository {
       final products = productModels
           .map((e) => Product(
               id: e.id,
+              reference: e.reference,
               dimensions:e.dimensions,
               provider: e.provider,
               category: e.category,
@@ -59,6 +60,7 @@ class ProductRepositoryImp implements ProductRepository {
       final products = productModels
           .map((e) => Product(
               id: e.id,
+              reference: e.reference,
               dimensions:e.dimensions,
               provider: e.provider,
               category: e.category,
@@ -87,6 +89,7 @@ class ProductRepositoryImp implements ProductRepository {
       final products = productModels
           .map((e) => Product(
               id: e.id,
+              reference: e.reference,
               dimensions:e.dimensions,
               provider: e.provider,
               category: e.category,

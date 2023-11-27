@@ -6,6 +6,8 @@ import 'package:instar/core/style/text_style.dart';
 import 'package:instar/presentation/UI/screens/order_tracking/order_tracking.dart';
 import 'package:instar/presentation/UI/screens/settings/settings.dart';
 import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
+import 'package:instar/presentation/UI/screens/commands/commands_screen.dart';
+
 import 'package:instar/presentation/state_managment/controllers/profile_controller.dart';
 import '../../../../core/style/colors.dart';
 import '../../../../di.dart';
@@ -14,8 +16,8 @@ import '../../../state_managment/controllers/main_page_controller.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +26,7 @@ class MainPage extends StatelessWidget {
         initState: (_) {},
         builder: (controller) {
           return Scaffold(
-            backgroundColor: AppColors.bgColor,
-            
+              backgroundColor: AppColors.bgColor,
               appBar: AppBar(
                 elevation: 0,
                 backgroundColor: AppColors.white,
@@ -55,19 +56,19 @@ class MainPage extends StatelessWidget {
                         }, (r) {
                           print("drawer right");
 
-                          return Text("drawer right fold");
+                          return const Text("drawer right fold");
                         });
                       }
                       return ListView(
                         // Important: Remove any padding from the ListView.
                         padding: EdgeInsets.zero,
                         children: [
-
                           UserAccountsDrawerHeader(
                             // <-- SEE HERE
-                            decoration: BoxDecoration(color: AppColors.white),
+                            decoration:
+                                const BoxDecoration(color: AppColors.white),
                             accountName: Text(
-                              "Hi👋 " + ProfileController.name,
+                              "Hi👋 ${ProfileController.name}",
                               style: AppTextStyle.elementNameTextStyle,
                             ),
                             accountEmail: Text(
@@ -75,65 +76,60 @@ class MainPage extends StatelessWidget {
                               style: AppTextStyle.elementNameTextStyle,
                             ),
                           ),
-                         ListTile(
-                    leading: Container(
-                      width: 30.w,
-                      height: 30.h,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5.r),
-                          border: Border.all(color: AppColors.primary)),
-                      child: Image.asset(Assets.home),
-                    ),
-                    title: Text(
-                      'Acceuil',
-                      style: AppTextStyle.elementNameTextStyle16,
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                    leading: Container(
-                      width: 30.w,
-                      height: 30.h,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5.r),
-                          border: Border.all(color: AppColors.primary)),
-                      child: Image.asset(Assets.marques),
-                    ),
-                    title: Text(
-                      'mes commandes',
-                      style: AppTextStyle.elementNameTextStyle16,
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => OrderTrackingScreen(),
-                          ));
-                    },
-                  ),
-                 
-                  ListTile(
-                    leading: Container(
-                      width: 30.w,
-                      height: 30.h,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5.r),
-                          border: Border.all(color: AppColors.primary)),
-                      child: Image.asset(Assets.settings),
-                    ),
-                    title: Text('Paramétres',
-                        style: AppTextStyle.elementNameTextStyle16),
-                    onTap: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Settings(),
-                          ));
-                    },
-                  ),
-                          
+                          ListTile(
+                            leading: Container(
+                              width: 30.w,
+                              height: 30.h,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5.r),
+                                  border: Border.all(color: AppColors.primary)),
+                              child: Image.asset(Assets.home),
+                            ),
+                            title: Text(
+                              'Acceuil',
+                              style: AppTextStyle.elementNameTextStyle16,
+                            ),
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                          ListTile(
+                            leading: Container(
+                              width: 30.w,
+                              height: 30.h,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5.r),
+                                  border: Border.all(color: AppColors.primary)),
+                              child: Image.asset(Assets.marques),
+                            ),
+                            title: Text(
+                              'mes commandes',
+                              style: AppTextStyle.elementNameTextStyle16,
+                            ),
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (_) => const CommandsScreen()));
+                            },
+                          ),
+                          ListTile(
+                            leading: Container(
+                              width: 30.w,
+                              height: 30.h,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5.r),
+                                  border: Border.all(color: AppColors.primary)),
+                              child: Image.asset(Assets.settings),
+                            ),
+                            title: Text('Paramétres',
+                                style: AppTextStyle.elementNameTextStyle16),
+                            onTap: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const Settings(),
+                                  ));
+                            },
+                          ),
                         ],
                       );
                     }),
@@ -189,7 +185,7 @@ class MainPage extends StatelessWidget {
                                 size: 30.sp,
                               ),
                               label: 'favorite'),
-                              BottomNavigationBarItem(
+                          BottomNavigationBarItem(
                               icon: Icon(
                                 Icons.person,
                                 size: 30.sp,

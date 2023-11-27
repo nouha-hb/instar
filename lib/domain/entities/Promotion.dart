@@ -7,6 +7,7 @@ class Promotion extends Equatable {
   final int discount;
   final DateTime startDate;
   final DateTime endDate;
+  final String image;
 
   const Promotion(
       {
@@ -15,8 +16,8 @@ class Promotion extends Equatable {
       required this.discount,
       required this.startDate,
       required this.endDate,
-     });
+      required this.image});
 
   @override
-  List<Object?> get props => [id,product, discount, startDate, endDate, ];
+  List<Object?> get props => [id,product, discount, startDate, endDate, image];
 }

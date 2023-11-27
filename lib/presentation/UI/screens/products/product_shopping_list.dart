@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:instar/core/style/assets.dart';
 import 'package:instar/di.dart';
-import 'package:instar/domain/entities/paiement.dart';
 import 'package:instar/domain/entities/product.dart';
 import 'package:instar/domain/usecases/product_usecases/get_one_product_usecase.dart';
 import 'package:instar/presentation/UI/screens/paiement/detail_paiement.dart';
@@ -55,8 +53,7 @@ leading: IconButton(
                       child: ListView.builder(
                         itemCount: controller.shoppingproductsId.length,
                         itemBuilder: (context, index) {
-                          print("productss carttt " +
-                              SplashScreen.cart!.productsId.toString());
+                          print("productss carttt ${SplashScreen.cart.productsId}");
 
                           return FutureBuilder(
                             future: GetOneProductsUsecase(sl())
@@ -86,7 +83,7 @@ leading: IconButton(
                     height: 10.h,
                   ),
                   Text(
-                    "Totale : " + ProductDescController.total.toString() + "DT",
+                    "Totale : ${ProductDescController.total}DT",
                     style: AppTextStyle.darkLabelTextStyle,
                   ),
                   SizedBox(
@@ -98,7 +95,7 @@ leading: IconButton(
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => PaiementDetail(),
+                            builder: (context) => const PaiementDetail(),
                           ));
                     },
                   )

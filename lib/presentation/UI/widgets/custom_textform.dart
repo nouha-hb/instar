@@ -23,8 +23,8 @@ class ReusableTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: this.width.w,
-      height: this.height.h,
+      width: width.w,
+      height: height.h,
       child: TextFormField(
         controller: controller,
         validator: validator,
@@ -32,10 +32,10 @@ class ReusableTextField extends StatelessWidget {
         cursorColor: Colors.black,
         style: TextStyle(color: Colors.black.withOpacity(0.9)),
         decoration: InputDecoration(
-             enabledBorder: UnderlineInputBorder(      
+             enabledBorder: const UnderlineInputBorder(      
                       borderSide: BorderSide(color:AppColors.grey),   
                       ),  
-              focusedBorder: UnderlineInputBorder(
+              focusedBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(color: AppColors.primary),
                    ),  
          
@@ -52,7 +52,7 @@ class ReusableTextField extends StatelessWidget {
 }
 
 class NumberInput extends StatelessWidget {
-  NumberInput({
+  const NumberInput({super.key, 
     this.controller,
     this.value,
     this.onChanged,

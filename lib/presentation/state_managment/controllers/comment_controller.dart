@@ -121,7 +121,7 @@ class CommentController extends GetxController {
       final index =
           comments.indexWhere((element) => element.id == newComment.id);
       print('old comment ${comments[index]}');
-      print('new comment ${newComment}');
+      print('new comment $newComment');
       comments[index] = newComment;
       update();
     });

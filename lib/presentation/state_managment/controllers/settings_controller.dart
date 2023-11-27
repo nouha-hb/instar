@@ -19,7 +19,7 @@ class SettingsController extends ChangeNotifier {
   }
 
   void clearLocale() {
-    _locale = Locale('fr');
+    _locale = const Locale('fr');
     notifyListeners();
   }
 

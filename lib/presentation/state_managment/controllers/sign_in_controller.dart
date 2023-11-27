@@ -2,8 +2,6 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instar/domain/usecases/authentication_usecases/facebook_login_usecase.dart';
-import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
-import 'package:instar/presentation/UI/screens/sign_up/sign_up_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
 import '../../../di.dart';
@@ -91,7 +89,7 @@ class SignInController extends GetxController {
             fontSize: 16.0);
         print("left $l");
       }, (r) async{
-        await SplashScreen.init(context, 0);
+        await SplashScreen.init(context, 1);
         print("right");
       });
     } finally {
