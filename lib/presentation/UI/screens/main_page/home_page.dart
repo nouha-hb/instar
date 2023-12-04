@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
-import 'package:instar/domain/entities/Promotion.dart';
+import 'package:instar/domain/entities/promotion.dart';
 import 'package:instar/domain/entities/product.dart';
 import 'package:instar/domain/usecases/promotion_usecases/get_all_promotions_usecase.dart';
 import 'package:instar/presentation/UI/screens/products/product_tendance_page.dart';

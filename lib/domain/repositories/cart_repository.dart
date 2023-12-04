@@ -5,7 +5,7 @@ import '../entities/cart.dart';
 
 abstract class CartRepository {
   Future<Either<Failure, Unit>> createCart({required String userId});
-  Future<Either<Failure, Unit>> updateCart(
+  Future<Either<Failure, Cart>> updateCart(
       {required Cart cart});
   Future<Either<Failure,Cart>> getCart({required String userId});
 }

@@ -60,7 +60,7 @@ class ShoppingComponent extends StatelessWidget {
                           onPressed: (context) async {
                            controller.update();
 
-                            SplashScreen.cart.productsId
+                            SplashScreen.cart.sales
                                 .remove(product.id);
                             controller.shoppingproductsId
                                 .remove(product.id);
@@ -71,7 +71,7 @@ class ShoppingComponent extends StatelessWidget {
                             Cart cart = Cart(
                                 id: SplashScreen.wishList!.id,
                                 userId: SplashScreen.wishList!.userId,
-                                productsId: SplashScreen.wishList!.productsId);
+                                sales: SplashScreen.wishList!.productsId);
                             await UpdateCartUsecase(sl()).call(cart: cart);
                             controller.update();
                           }),

@@ -30,7 +30,7 @@ class CartRepositoryImpl implements CartRepository {
   try {
       final result = await cartRemoteDataSource.getCart(userId: userId);
       final cart = Cart(
-          id: result.id, userId: result.userId, productsId: result.productsId);
+          id: result.id, userId: result.userId, sales: result.sales);
       return right(cart);
     } on ServerException {
       return left(ServerFailure());
@@ -40,14 +40,16 @@ class CartRepositoryImpl implements CartRepository {
   }
 
   @override
-  Future<Either<Failure, Unit>> updateCart({required Cart cart}) async{
+  Future<Either<Failure, Cart>> updateCart({required Cart cart}) async{
    try {
       CartModel cModel = CartModel(
           id: cart.id,
           userId: cart.userId,
-          productsId: cart.productsId);
-      await cartRemoteDataSource.updateCart(cart: cModel);
-      return right(unit);
+          sales: cart.sales);
+     final result = await cartRemoteDataSource.updateCart(cart: cModel);
+      final crt = Cart(
+          id: result.id, userId: result.userId, sales: result.sales);
+      return right(crt);
     } on ServerException {
       return left(ServerFailure());
     } on NotAuthorizedException {

@@ -27,7 +27,6 @@ class ProductRepositoryImp implements ProductRepository {
               quantity: e.quantity,
               subCategory: e.subCategory,
               image: e.image,
-              image3D: e.image3D
               ))
           .toList();
       return right(products);
@@ -69,8 +68,7 @@ class ProductRepositoryImp implements ProductRepository {
               price: e.price,
               quantity: e.quantity,
                subCategory: e.subCategory,
-              image: e.image,
-              image3D: e.image3D))
+              image: e.image))
           .toList();
       return right(products);
   } on ServerException {
@@ -98,8 +96,7 @@ class ProductRepositoryImp implements ProductRepository {
               price: e.price,
               quantity: e.quantity,
                subCategory: e.subCategory,
-              image: e.image,
-              image3D: e.image3D))
+              image: e.image,))
           .toList();
       return right(products);
 } on ServerException {

@@ -17,7 +17,7 @@ class MainController extends GetxController {
     update();
   }
 List favoriteproductsId = SplashScreen.wishList!.productsId;
-List shoppingproductsId = SplashScreen.cart.productsId;
+List shoppingproductsId = SplashScreen.cart.sales;
 
 
   TextEditingController textController = TextEditingController();

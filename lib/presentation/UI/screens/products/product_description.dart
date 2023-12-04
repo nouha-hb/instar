@@ -5,13 +5,16 @@ import 'package:get/get.dart';
 import 'package:instar/core/l10n/plural_strings.dart';
 import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
-import 'package:instar/domain/entities/Product3D.dart';
+import 'package:instar/domain/entities/product3D.dart';
 import 'package:instar/domain/entities/product.dart';
+import 'package:instar/domain/entities/sales.dart';
 import 'package:instar/presentation/UI/screens/main_page/shopping_cart.dart';
+import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
 import 'package:instar/presentation/UI/widgets/comment.dart';
 import 'package:instar/presentation/UI/widgets/custom_button.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:instar/presentation/UI/widgets/rating_widgets/rating_section.dart';
+import 'package:instar/presentation/state_managment/controllers/cart_controller.dart';
 import 'package:instar/presentation/state_managment/controllers/product_details_controller.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
 import '../../../../core/constant/api_const.dart';
@@ -25,13 +28,14 @@ class ProductDesc extends StatefulWidget {
 }
 
 class _ProductDescState extends State<ProductDesc> {
-  late Product3D currentTexture;
+  //late Product3D currentTexture;
   Key _refreshKey = UniqueKey();
   @override
   void initState() {
     productDetailsController = ProductDetailsController();
     expandableController = ExpandableController();
-    currentTexture = widget.product.image3D[0];
+    cartController = CartController();
+    //productDetailsController.currentTexture = widget.tex;
     super.initState();
   }
 
@@ -39,6 +43,7 @@ class _ProductDescState extends State<ProductDesc> {
   void dispose() {
     expandableController.dispose();
     productDetailsController.dispose();
+    cartController.dispose();
     super.dispose();
   }
 
@@ -47,6 +52,7 @@ class _ProductDescState extends State<ProductDesc> {
   int addToCartItems = 0;
   late ExpandableController expandableController;
   late ProductDetailsController productDetailsController;
+  late CartController cartController;
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ProductDetailsController>(
@@ -77,7 +83,7 @@ class _ProductDescState extends State<ProductDesc> {
                           ),
                         ),
                         title: Text(
-                          "Product details",
+                          "Détails du produit",
                           style: AppTextStyle.elementNameTextStyle,
                         ),
                         centerTitle: true,
@@ -149,7 +155,7 @@ class _ProductDescState extends State<ProductDesc> {
                                     backgroundColor: const Color.fromARGB(
                                         0xFF, 0xEE, 0xEE, 0xEE),
                                     src:
-                                        'assets/images/${currentTexture.model3D}',
+                                        'assets/images/${controller.currentmodel.model3D}',
                                     alt: 'A 3D model of an astronaut',
                                     ar: true,
                                     autoRotate: true,
@@ -181,7 +187,7 @@ class _ProductDescState extends State<ProductDesc> {
                                       style: AppTextStyle.lightLabelTextStyle,
                                     ),
                                     PluralStrings.onOrder(
-                                        currentTexture.quantity, context),
+                                        controller.currentmodel.quantity, context),
                                   ],
                                 ),
 
@@ -193,18 +199,18 @@ class _ProductDescState extends State<ProductDesc> {
                                   style: AppTextStyle.subTitleTextStyle,
                                 ),
                                 Row(
-                                  children: widget.product.image3D.map((e) {
+                                  children: controller.textures.map((e) {
                                     return GestureDetector(
                                       onTap: () {
                                         setState(() {
-                                          currentTexture = e;
+                                          controller.currentmodel = e;
                                           _refreshKey = UniqueKey();
                                         });
                                       },
                                       child: Padding(
                                         padding: const EdgeInsets.all(2.0),
                                         child: CircleAvatar(
-                                            radius: e.id == currentTexture.id
+                                            radius: e.id ==  controller.currentmodel.id
                                                 ? 13
                                                 : 10,
                                             backgroundImage: NetworkImage(
@@ -390,10 +396,9 @@ class _ProductDescState extends State<ProductDesc> {
                                 ),
                                 PrimaryButton(
                                     text: "Add to cart",
-                                    onClick: () {
-                                      setState(() {
-                                        addToCartItems++;
-                                      });
+                                    onClick:() async{
+                                    await cartController.addSale(Sales(productId: widget.product.id, providerId: controller.provider.id, userId: SplashScreen.userToken.userId, quantity: quantity, status: "Confirmation de commande", totalPrice:productDetailsController.orderedQuantity * widget.product.price ));
+                                     //cartController.sailExist(widget.product.id);
                                     })
                               ],
                             ))

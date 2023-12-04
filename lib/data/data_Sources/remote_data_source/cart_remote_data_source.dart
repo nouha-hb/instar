@@ -6,7 +6,7 @@ import '../local_data_source/authentication_local_data_source.dart';
 
 abstract class CartRemoteDataSource {
   Future<void> createCart({required String userId});
-  Future<void> updateCart(
+  Future<CartModel> updateCart(
       {required CartModel cart});
   Future<CartModel> getCart({required String userId});
 }
@@ -59,23 +59,23 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
   }
   
   @override
-  Future<void> updateCart({required CartModel cart}) async{
+  Future<CartModel> updateCart({required CartModel cart}) async{
    try {
-       await dio.post(
-        "${ApiConst.getCart}/${cart.id}",
-        data: {"userId": cart.userId,
-              "products": cart.productsId.map((e) => {"productId":e})
-              },
+     final response =  await dio.put(
+        "${ApiConst.cart}/${cart.id}",
+        data: cart.toJson(),
         options: Options(
           headers: {
             "authorization": "Bearer ${await token}",
           },
         ),
       );
+      final data = response.data;
+      CartModel res = CartModel.fromJson(data);
+      return res;
     } on DioException catch (e) {
-      if (e.response!.statusCode == 401) {
-        throw NotAuthorizedException();
-      } else {
+      print("cart error ${e.toString()}");
+        {
         throw ServerException();
       }
     }

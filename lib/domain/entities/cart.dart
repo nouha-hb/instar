@@ -4,10 +4,10 @@ import 'package:equatable/equatable.dart';
 class Cart extends Equatable{
     final String id;
   final String userId;
-  List<String> productsId;
+  List<dynamic> sales;
 
-   Cart({required this.id, required this.userId, required this.productsId});
+   Cart({required this.id, required this.userId, required this.sales});
 
   @override
-  List<Object?> get props => [id, userId, productsId];
+  List<Object?> get props => [id, userId, sales];
 }

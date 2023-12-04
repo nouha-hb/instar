@@ -13,11 +13,12 @@ class SalesRepositoryImpl implements SalesRepository{
   SalesRepositoryImpl(this.salesRemoteDataSource);
 
   @override
-  Future<Either<Failure, Unit>> addSale(Sales newSale) async{
+  Future<Either<Failure, Sales>> addSale(Sales newSale) async{
      try {
       final SalesModel sale = SalesModel( productId: newSale.productId, providerId: newSale.providerId, userId: newSale.userId, quantity: newSale.quantity, status: newSale.status, totalPrice: newSale.totalPrice);
-      await salesRemoteDataSource.addSale(sale);
-      return const Right(unit);
+      final res = await salesRemoteDataSource.addSale(sale);
+      final s =Sales(productId: res.productId, providerId: res.providerId, userId: res.userId, quantity: res.quantity, status: res.status, totalPrice: res.totalPrice , id: res.id);
+      return Right(s);
     } on ServerException {
       return Left(ServerFailure());
     }
@@ -42,6 +43,16 @@ class SalesRepositoryImpl implements SalesRepository{
       final salesModels = await salesRemoteDataSource.getSingleSales(saleId);
       final Sales sale= Sales(id:salesModels.id ,productId: salesModels.productId, providerId: salesModels.providerId, userId: salesModels.userId, quantity: salesModels.quantity, status: salesModels.status, totalPrice: salesModels.totalPrice) ;
       return right(sale);
+    } on ServerException {
+      return left(ServerFailure());
+    }
+  }
+  
+  @override
+  Future<Either<Failure, Unit>> deleteSale(String saleId) async{
+              try {
+      await salesRemoteDataSource.deleteSales(saleId);
+      return right(unit);
     } on ServerException {
       return left(ServerFailure());
     }

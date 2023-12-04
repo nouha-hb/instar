@@ -2,10 +2,8 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:instar/domain/entities/fournisseur.dart';
 import 'package:instar/domain/entities/product.dart';
 import 'package:instar/domain/usecases/category_usecases/get_categories_usecase.dart';
-import 'package:instar/domain/usecases/fournisseur_usecases/get_fournisseur_by_id_usecase.dart';
 import 'package:instar/domain/usecases/fournisseur_usecases/get_fournisseurs_usecase.dart';
 import 'package:instar/domain/usecases/product_usecases/get_all_products_usecase.dart';
-import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
 
 import '../../../di.dart';
 import '../../../domain/entities/category.dart';

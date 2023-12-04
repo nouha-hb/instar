@@ -46,7 +46,7 @@ class ShoppingListPage extends StatelessWidget {
                       child: ListView.builder(
                         itemCount: controller.shoppingproductsId.length,
                         itemBuilder: (context, index) {
-                          print("productss carttt ${SplashScreen.cart.productsId}");
+                          print("productss carttt ${SplashScreen.cart.sales}");
 
                           return FutureBuilder(
                             future: GetOneProductsUsecase(sl())

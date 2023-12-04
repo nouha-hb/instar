@@ -4,10 +4,10 @@ import 'package:instar/domain/repositories/sales_repository.dart';
 import '../../../core/errors/failures/failures.dart';
 import '../../entities/sales.dart';
 
-class AddSaleUsecase{
+class DeleteSaleUsecase{
   final SalesRepository repository;
 
-  AddSaleUsecase(this.repository);
+  DeleteSaleUsecase(this.repository);
 
-  Future<Either<Failure,Sales>> call(Sales newSale)async=>await repository.addSale(newSale);
+  Future<Either<Failure,Unit>> call(String saleId)async=>await repository.deleteSale(saleId);
 }

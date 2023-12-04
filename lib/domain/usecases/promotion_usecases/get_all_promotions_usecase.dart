@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:instar/domain/repositories/promotion_repository.dart';
 
 import '../../../core/errors/failures/failures.dart';
-import '../../entities/Promotion.dart';
+import '../../entities/promotion.dart';
 
 class GetAllPromotionsUsecase {
   final PromotionRepository _repository;

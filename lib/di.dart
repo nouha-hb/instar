@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:instar/data/data_Sources/remote_data_source/product_3d_remote_data_source.dart';
 import 'package:instar/data/data_Sources/remote_data_source/product_remote_data_source.dart';
 import 'package:instar/data/data_Sources/remote_data_source/rating_remote_data_source.dart';
 import 'package:instar/data/data_Sources/remote_data_source/reclamations_remote_data_source.dart';
@@ -8,6 +9,7 @@ import 'package:instar/data/data_Sources/remote_data_source/wishlist_remote_data
 import 'package:instar/data/data_sources/remote_data_source/category_remote_data_source.dart';
 import 'package:instar/data/data_sources/remote_data_source/fournisseur_remote_data_source.dart';
 import 'package:instar/data/repositories/authentication_repository_impl.dart';
+import 'package:instar/data/repositories/product_3d_repository_impl.dart';
 import 'package:instar/data/repositories/product_repository_impl.dart';
 import 'package:instar/data/repositories/rating_repository_impl.dart';
 import 'package:instar/data/repositories/reclamations_repository_impl.dart';
@@ -16,6 +18,7 @@ import 'package:instar/data/repositories/sales_repository_impl.dart';
 import 'package:instar/data/repositories/wishlist_repository_impl.dart';
 import 'package:instar/domain/repositories/authentication_repository.dart';
 import 'package:instar/domain/repositories/cart_repository.dart';
+import 'package:instar/domain/repositories/product3d_repository.dart';
 import 'package:instar/domain/repositories/product_repository.dart';
 import 'package:instar/domain/repositories/rating_repository.dart';
 import 'package:instar/domain/repositories/reclamation_repository.dart';
@@ -28,6 +31,8 @@ import 'package:instar/domain/usecases/authentication_usecases/google_login_usec
 import 'package:instar/domain/usecases/authentication_usecases/logout_usecase.dart';
 import 'package:instar/domain/usecases/authentication_usecases/update_profil_usecase.dart';
 import 'package:instar/domain/usecases/fournisseur_usecases/get_fournisseur_by_id_usecase.dart';
+import 'package:instar/domain/usecases/product_3d/get_3d_product_by_id_usecase.dart';
+import 'package:instar/domain/usecases/product_3d/get_all_3d_products_usecase.dart';
 import 'package:instar/domain/usecases/product_usecases/get_all_products_usecase.dart';
 import 'package:instar/domain/usecases/product_usecases/get_one_product_usecase.dart';
 import 'package:instar/domain/usecases/product_usecases/get_products_by_category_usecase.dart';
@@ -47,6 +52,7 @@ import 'package:instar/domain/usecases/review_usecases/get_all_reviews_usecase.d
 import 'package:instar/domain/usecases/review_usecases/remove_review.dart';
 import 'package:instar/domain/usecases/review_usecases/update_review_usecase.dart';
 import 'package:instar/domain/usecases/sales_usecases/add_sale_usecase.dart';
+import 'package:instar/domain/usecases/sales_usecases/delete_sale_usecase.dart';
 import 'package:instar/domain/usecases/sales_usecases/get_all_sales_usecase.dart';
 import 'package:instar/domain/usecases/sales_usecases/get_single_sale_usecase.dart';
 import 'package:instar/domain/usecases/widhlist_usecases/create_wishlist_usecase.dart';
@@ -89,6 +95,7 @@ Future<void> init() async {
   sl.registerLazySingleton<SalesRepository>(()=>SalesRepositoryImpl(sl()));
   sl.registerLazySingleton<ReclamationRepository>(()=>ReclamationsRepositoryImpl(sl()));
   sl.registerLazySingleton<RatingRepository>(() =>RatingRepositoryImpl(sl()));
+  sl.registerLazySingleton<Product3DRepository>(() =>Product3DRepositoryImpl(sl()));
 
 
   // data sources
@@ -114,7 +121,10 @@ Future<void> init() async {
       () => RatingRemoteDataSourceImpl());  
   sl.registerLazySingleton<SalesRemoteDataSource>(
       () => SalesRemoteDataSourceImp());
-  sl.registerLazySingleton<ReclamtionsRemoteDataSource> (() => ReclamationRemoteDataSourceImpl());        
+  sl.registerLazySingleton<ReclamtionsRemoteDataSource> (
+      () => ReclamationRemoteDataSourceImpl());     
+    sl.registerLazySingleton<Product3DRemoteDataSource> (
+      () => Product3DRemoteDataSourceImpl());     
 
   // usecases
   /*---Auth usecases---*/
@@ -132,6 +142,11 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetOneProductsUsecase(sl()));
   sl.registerLazySingleton(() => GetProductsByCategoryUsecase(sl()));
   sl.registerLazySingleton(() => GetProductsBySubCategoryUsecase(sl()));
+
+    /*---3D product usecases---*/
+  sl.registerLazySingleton(() => GetAll3DProductsUseCase(sl()));
+  sl.registerLazySingleton(() => Get3DProductsByIdUseCase(sl()));
+
 
   /*---review usecases---*/
   sl.registerLazySingleton(() => AddReviewUsecase(sl()));
@@ -171,6 +186,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => AddSaleUsecase(sl()));
   sl.registerLazySingleton(() => GetAllSalesUsecase(sl()));
   sl.registerLazySingleton(() => GetSingleSalesUsecase(sl()));
+  sl.registerLazySingleton(() => DeleteSaleUsecase(sl()));
 
   /*---reclamations usecases---*/
   sl.registerLazySingleton(() => AddReclamationsUsecase(sl()));

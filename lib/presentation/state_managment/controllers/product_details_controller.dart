@@ -1,8 +1,10 @@
 import 'package:instar/di.dart';
+import 'package:instar/domain/entities/Product3D.dart';
 import 'package:instar/domain/entities/fournisseur.dart';
 import 'package:instar/domain/entities/product.dart';
 import 'package:instar/domain/entities/rating.dart';
 import 'package:instar/domain/usecases/fournisseur_usecases/get_fournisseur_by_id_usecase.dart';
+import 'package:instar/domain/usecases/product_3d/get_all_3d_products_usecase.dart';
 import 'package:instar/domain/usecases/rating_usecases/add_rating_usecase.dart';
 import 'package:instar/domain/usecases/rating_usecases/delete_rating_usecase.dart';
 import 'package:instar/domain/usecases/rating_usecases/get_rating_average_use_case.dart';
@@ -19,7 +21,9 @@ class ProductDetailsController extends GetxController {
   int orderedQuantity = 1;
   double avgRate = 0.0;
   late Fournisseur provider;
+  List<Product3D> textures=[];
   bool isLiked = false;
+  late Product3D currentmodel;
 
   setRate(int newRate) {
     localRate = newRate;
@@ -119,6 +123,8 @@ class ProductDetailsController extends GetxController {
   Future<bool> loadData(Product product) async {
     //await getExistingRate(product.id);
     await getProvider(product.provider);
+    await getProductTextures(product.id);
+    currentmodel = textures[0];
 
     return Future.value(true);
   }
@@ -140,4 +146,12 @@ class ProductDetailsController extends GetxController {
     await UpdateWishListUsecase(sl()).call(wishlist: SplashScreen.wishList!);
     update();
   }
+
+  Future getProductTextures(String product)async{
+    final txtr= await GetAll3DProductsUseCase(sl()).call(product);
+    txtr.fold((l) => null, (r) => {
+      textures = r
+    });
+  }
+
 }
