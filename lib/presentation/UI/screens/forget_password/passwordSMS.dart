@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
 import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
 import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
 import 'package:instar/presentation/UI/widgets/custom_button.dart';
 import 'package:instar/presentation/UI/widgets/custom_textform.dart';
 
-import 'newpassword.dart';
 
 class PasswordCODE extends StatelessWidget {
   String email;
-  PasswordCODE({Key? key, this.email = ''}) : super(key: key);
+  PasswordCODE({super.key, this.email = ''});
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _code = TextEditingController();
   @override
@@ -36,7 +34,7 @@ class PasswordCODE extends StatelessWidget {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.arrow_back,
                       color: AppColors.darkGrey,
                     ),
@@ -55,7 +53,7 @@ class PasswordCODE extends StatelessWidget {
               ),
               SizedBox(
                 width: 300.w,
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     NumberInput(),
@@ -76,7 +74,7 @@ class PasswordCODE extends StatelessWidget {
                     // }
                   Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
-                                          builder: (_) => MainPage()));
+                                          builder: (_) => const MainPage()));
                   }),
             ],
           ),

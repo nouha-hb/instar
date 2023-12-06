@@ -8,11 +8,11 @@ class DrawerContainer extends StatelessWidget {
   final double? width;
 
   const DrawerContainer({
-    Key? key,
+    super.key,
     this.height,
     required this.child,
     this.width,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

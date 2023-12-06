@@ -24,6 +24,9 @@
     "shipping":"Expédition",
     "delivery":"Livraison",
     "item":"un seul article",
+    "on_stock":"en stock",
+    "out_of_stock":"hors stock",
+    "by_order":"sur commande",
     "items":"articles"
 
 }

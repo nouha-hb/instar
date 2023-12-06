@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:instar/domain/repositories/review_repository.dart';
 
 import '../../../core/errors/failures/failures.dart';
-import '../../entities/review.dart';
 
 class RemoveReviewUsecase {
   final ReviewRepository _repository;

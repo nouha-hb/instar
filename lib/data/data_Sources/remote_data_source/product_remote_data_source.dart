@@ -1,12 +1,8 @@
-import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:instar/core/errors/exceptions/exceptions.dart';
 import 'package:instar/data/data_Sources/local_data_source/authentication_local_data_source.dart';
 import 'package:instar/data/models/product_model.dart';
-import 'package:instar/domain/entities/token.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../core/constant/api_const.dart';
 
 abstract class ProductRemoteDataSource {
@@ -21,9 +17,8 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   Dio dio = Dio();
 
   Future<String> get token async {
-    final _sp = await SharedPreferences.getInstance();
-    final _tk = await AuthenticationLocalDataSourceImpl().getUserInformations();
-    return _tk.token;
+    final tk = await AuthenticationLocalDataSourceImpl().getUserInformations();
+    return tk.token;
   }
 
   @override
@@ -65,6 +60,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
       prod = ProductModel.fromJson(data);
       return prod;
     }on DioException catch (e) {
+      print('prod error ${e.toString()}');
       if (e.response!.statusCode == 401) {
         throw NotAuthorizedException();
       } else {
@@ -86,9 +82,9 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
         ),
       );
 
-      List<dynamic> _data = response.data;
+      List<dynamic> data = response.data;
       List<ProductModel> products =
-          _data.map((e) => ProductModel.fromJson(e)).toList();
+          data.map((e) => ProductModel.fromJson(e)).toList();
       print(products);
       return products;
     } on DioException catch (e) {
@@ -112,9 +108,9 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
         ),
       );
 
-      List<dynamic> _data = response.data;
+      List<dynamic> data = response.data;
       List<ProductModel> products =
-          _data.map((e) => ProductModel.fromJson(e)).toList();
+          data.map((e) => ProductModel.fromJson(e)).toList();
       print(products);
       return products;
     } on DioException catch (e) {

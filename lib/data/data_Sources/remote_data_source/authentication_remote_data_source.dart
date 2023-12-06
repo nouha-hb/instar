@@ -5,7 +5,6 @@ import 'package:instar/data/models/token_model.dart';
 import 'package:instar/data/models/user_model.dart';
 import 'package:instar/domain/entities/user.dart';
 import 'package:dio/dio.dart';
-
 import '../../../core/errors/exceptions/exceptions.dart';
 
 abstract class AuthenticationRemoteDataSource {
@@ -48,11 +47,10 @@ class AuthenticationRemoteDataSourceImpl
       final response = await dio.post(ApiConst.login, data: user);
       final data = response.data;
       msg = data['message'];
-      print(msg);
       final TokenModel token = TokenModel.fromJson(data);
       return token;
     } catch (e) {
-      print('server error');
+      print(e);
       throw LoginException(msg);
     }
   }
@@ -65,7 +63,7 @@ class AuthenticationRemoteDataSourceImpl
       final googleSignIN = GoogleSignIn();
       final user = await googleSignIN.signIn();
       if (user != null) {
-        final _name = user!.displayName!.split(' ');
+        final _name = user.displayName!.split(' ');
         final _email = user.email;
         final _id = user.id;
         final usr = UserModel(
@@ -101,7 +99,6 @@ class AuthenticationRemoteDataSourceImpl
   Future<User> getcurrentUser(String id) async {
     try {
       final _response = await dio.post(ApiConst.getProfile, data: {"_id": id});
-      print("current userrrr" + _response.data.toString());
       return UserModel.fromJson(_response.data['user']);
     } catch (e) {
       throw ServerException(message: 'User not Found');
@@ -131,9 +128,7 @@ class AuthenticationRemoteDataSourceImpl
     try {
       final LoginResult result = await FacebookAuth.instance.login();
       if (result.status == LoginStatus.success) {
-        final _accessToken = result.accessToken;
         final userData = await FacebookAuth.instance.getUserData();
-        print('user data ${userData.toString()}');
         final _name = userData['name'].split(' ');
         final _id = userData['id'];
         final usr = UserModel(

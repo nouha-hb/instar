@@ -6,7 +6,6 @@ import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
 import 'package:instar/presentation/UI/screens/sign_in/sign_in_screen.dart';
 import 'package:instar/presentation/UI/widgets/custom_button.dart';
-import 'package:instar/presentation/UI/widgets/term&conditions_dialog.dart';
 
 import '../../../state_managment/controllers/sign_up_controller.dart';
 import '../../widgets/custom_textform.dart';
@@ -38,7 +37,7 @@ class SignUp extends StatelessWidget {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.arrow_back,
                               color: AppColors.darkGrey,
                             ),
@@ -247,7 +246,7 @@ class SignUp extends StatelessWidget {
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      SignIn(),
+                                                      const SignIn(),
                                                 )),
                                             child: const Text('OK'),
                                           ),
@@ -273,7 +272,7 @@ class SignUp extends StatelessWidget {
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () => Navigator.of(context)
                                         .pushReplacement(MaterialPageRoute(
-                                            builder: (_) => SignIn())),
+                                            builder: (_) => const SignIn())),
                                 )
                               ]),
                             ),

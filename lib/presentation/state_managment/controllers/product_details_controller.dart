@@ -1,101 +1,143 @@
-import 'dart:io';
 import 'package:instar/di.dart';
-import 'package:instar/domain/entities/review.dart';
-import 'package:instar/domain/usecases/review_usecases/get_all_reviews_usecase.dart';
-import 'package:path/path.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:instar/domain/entities/fournisseur.dart';
+import 'package:instar/domain/entities/product.dart';
+import 'package:instar/domain/entities/rating.dart';
+import 'package:instar/domain/usecases/fournisseur_usecases/get_fournisseur_by_id_usecase.dart';
+import 'package:instar/domain/usecases/rating_usecases/add_rating_usecase.dart';
+import 'package:instar/domain/usecases/rating_usecases/delete_rating_usecase.dart';
+import 'package:instar/domain/usecases/rating_usecases/get_rating_average_use_case.dart';
+import 'package:instar/domain/usecases/rating_usecases/get_ratings_usecase.dart';
+import 'package:instar/domain/usecases/rating_usecases/update_rating_usecase.dart';
+import 'package:instar/domain/usecases/widhlist_usecases/update_wishlist_usecase.dart';
+import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:instar/core/style/colors.dart';
-import 'package:instar/core/style/text_style.dart';
 
 class ProductDetailsController extends GetxController {
-  XFile? img;
-  File? f;
-  final ImagePicker _picker = ImagePicker();
-  String fileName = '';
-  String comment = '';
-  List<Review> comments = [];
-  bool loadingError = false;
+  int localRate = 0;
+  Rating? userRate;
+  int numberRates = 0;
+  int orderedQuantity = 1;
+  double avgRate = 0.0;
+  late Fournisseur provider;
+  bool isLiked = false;
 
-  void typeComment(String s) {
-    comment = s;
+  setRate(int newRate) {
+    localRate = newRate;
+  }
+
+  void incQuantity(int productQuantity) {
+    if (productQuantity > orderedQuantity) {
+      orderedQuantity++;
+    }
     update();
   }
 
-  //Clear image
-  void clearImage() {
-    f = null;
-    img = null;
-    fileName = '';
+  void decQuantity() {
+    if (orderedQuantity > 1) {
+      orderedQuantity--;
+    }
     update();
   }
 
-  //Clear comment
-  void clearComment() {
-    comment = '';
+  Future<void> getExistingRate(String prodID) async {
+    Rating? existingRate;
+    isLiked = SplashScreen.wishList!.productsId.contains(prodID);
+    final res = await GetRatingsUsecase(sl()).call(prodID);
+    res.fold((l) => print('cant get rating'), (r) {
+      numberRates = r.length;
+
+      if (r.isNotEmpty) {
+        try {
+          getRatingAverage(prodID);
+          existingRate = r.firstWhere((element) =>
+              element.productId == prodID &&
+              element.userId == SplashScreen.userToken.userId);
+        } catch (e) {
+          print('$e this user dont has rating');
+        }
+      }
+    });
+    if (existingRate == null) {
+      final newRate = Rating(
+          userId: SplashScreen.userToken.userId, productId: prodID, rating: 0);
+
+      userRate = newRate;
+    } else {
+      userRate = existingRate!;
+    }
+    localRate = userRate!.rating;
     update();
   }
 
-//pick image
-  Future<void> pickImage(BuildContext context) async {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Expanded(
-          child: AlertDialog(
-            title: Text(
-              'Upload image',
-              style: AppTextStyle.subTitleTextStyle,
-            ),
-            content: Padding(
-              padding: EdgeInsets.symmetric(vertical: 30.h),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    IconButton(
-                        onPressed: () async {
-                          img = await _picker.pickImage(
-                              source: ImageSource.gallery);
-                          if (img != null) {
-                            f = File(img!.path);
-                            fileName = basename(f!.path);
-                          }
-                          update();
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(
-                          Icons.image,
-                          size: 40,
-                          color: AppColors.primary,
-                        )),
-                    IconButton(
-                        onPressed: () async {
-                          img = await _picker.pickImage(
-                              source: ImageSource.camera);
-                          if (img != null) f = File(img!.path);
-                          fileName = basename(f!.path);
-                          update();
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(
-                          Icons.camera_alt,
-                          size: 40,
-                          color: AppColors.primary,
-                        )),
-                  ]),
-            ),
-          ),
-        );
-      },
-    );
+  Future<void> updateRating(int newRate) async {
+    print("rating: update rating");
+    final newRating = Rating(
+        id: userRate!.id,
+        userId: userRate!.userId,
+        productId: userRate!.productId,
+        rating: newRate);
+    final res = await UpdateRatingUsecase(sl()).call(newRating);
+    res.fold((l) => print('cant update rating'), (r) {
+      userRate = r;
+      localRate = r.rating;
+      getRatingAverage(userRate!.productId);
+      update();
+    });
   }
 
-//get comments
-  Future<void> getComments({required String productId}) async {
-    final res = await GetAllReviewsUsecase(sl()).call(productId);
-    res.fold((l) => loadingError = true, (r) => comments = r);
+  Future<void> deleteRating(String rateId) async {
+    print("rating: delete rating");
+    final res = await DeleteRatingUsecase(sl()).call(rateId);
+    res.fold((l) => print("cant delete rating"), (r) {
+      localRate = 0;
+      numberRates--;
+      getRatingAverage(userRate!.productId);
+      update();
+    });
+  }
+
+  Future<void> addRating(int newRating) async {
+    print("rating: add rating");
+    final newRate = Rating(
+        userId: userRate!.userId,
+        productId: userRate!.productId,
+        rating: newRating);
+    final res = await AddRatingUsecase(sl()).call(newRate);
+    res.fold((l) => print('cant add rate'), (r) {
+      userRate = r;
+      numberRates++;
+      getRatingAverage(userRate!.productId);
+      update();
+    });
+  }
+
+  Future getProvider(String providerID) async {
+    final res = await GetFournisseursByIdUsecase(sl()).call(providerID);
+    res.fold((l) => print(l), (r) => provider = r);
+  }
+
+  Future<bool> loadData(Product product) async {
+    //await getExistingRate(product.id);
+    await getProvider(product.provider);
+
+    return Future.value(true);
+  }
+
+  void getRatingAverage(String prodID) async {
+    final res = await GetRatingAverageUsecase(sl()).call(prodID);
+    res.fold((l) => avgRate = 0.0, (r) => avgRate = r);
+    update();
+  }
+
+  void favouriteToggle(String prodId) async {
+    if (isLiked && SplashScreen.wishList!.productsId.contains(prodId)) {
+      SplashScreen.wishList!.productsId.remove(prodId);
+      isLiked = !isLiked;
+    } else {
+      SplashScreen.wishList!.productsId.add(prodId);
+      isLiked = !isLiked;
+    }
+    await UpdateWishListUsecase(sl()).call(wishlist: SplashScreen.wishList!);
     update();
   }
 }

@@ -4,17 +4,15 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
-import 'package:instar/presentation/UI/screens/forget_password/passwordSMS.dart';
 import 'package:instar/presentation/UI/screens/my_profile/edit_profile.dart';
 import 'package:instar/presentation/UI/widgets/custom_button.dart';
-import 'package:instar/presentation/UI/widgets/custom_textform.dart';
 
 import '../../../state_managment/controllers/profile_controller.dart';
 
 class ChangePassword extends StatelessWidget {
   const ChangePassword({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +20,14 @@ class ChangePassword extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColors.white,
-        title: Text("Nouveau mot de passe"),
+        title: const Text("Nouveau mot de passe"),
         centerTitle: true,
         foregroundColor: AppColors.black,
         leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(Icons.arrow_back_ios)),
+            icon: const Icon(Icons.arrow_back_ios)),
       ),
       body: GetBuilder<ProfileController>(
           init: ProfileController(),
@@ -139,11 +137,11 @@ class ChangePassword extends StatelessWidget {
                               showDialog(
                                 context: context,
                                 builder: (context) => AlertDialog(
-                                  title: Text("Passwords changed "),
+                                  title: const Text("Passwords changed "),
                                   actions: [
                                     TextButton(
                                             onPressed: () =>
-                                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => EditProfile(),)),
+                                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const EditProfile(),)),
                                             child: const Text('OK'),
                                           ),
                                   ],

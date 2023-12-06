@@ -11,11 +11,10 @@ class PromotionModel extends Promotion {
       required super.image});
 
   factory PromotionModel.fromJson(Map<String, dynamic> json) => PromotionModel(
-      id:json['_id'],    
-      product: ProductModel.fromJson(json['product']) ,
+      id: json['_id'],
+      product: ProductModel.fromJson(json['product']),
       discount: json['discountPercentage'],
       startDate: DateTime.parse(json['startDate']),
       endDate: DateTime.parse(json['endDate']),
-      image: json['']);
-
+      image: "assets/images/indar.png");
 }

@@ -1,4 +1,4 @@
-import 'package:email_validator/email_validator.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instar/domain/usecases/authentication_usecases/update_profil_usecase.dart';
@@ -17,11 +17,17 @@ class ProfileController extends GetxController {
   final formKey = GlobalKey<FormState>();
   final formKeypass = GlobalKey<FormState>();
 
-
   late TextEditingController passwordController = TextEditingController();
   late TextEditingController confirmPasswordController =
       TextEditingController();
   TextEditingController phoneController = TextEditingController();
+     TextEditingController adrresseController =  TextEditingController();
+    TextEditingController gouvernoratController =  TextEditingController();
+    TextEditingController villeController =  TextEditingController();
+    TextEditingController codePostalController =  TextEditingController();
+    TextEditingController numTelController =  TextEditingController();
+
+    final _formKey = GlobalKey<FormState>();
 
   bool isPressed = false;
   bool isPressed_confirm = false;
@@ -83,6 +89,7 @@ class ProfileController extends GetxController {
     }
     return null;
   }
+
   Future change_name(String name) async {
     try {
       ProfileController.name = name;
@@ -101,7 +108,7 @@ class ProfileController extends GetxController {
       print(SplashScreen.currentUser.firstName);
       update();
     } on Exception catch (e) {
-      // TODO
+      print(e);
     }
   }
 
@@ -116,16 +123,18 @@ class ProfileController extends GetxController {
           lastName: ProfileController.name,
           email: SplashScreen.currentUser.email,
           phone: ProfileController.phone,
-          password:password);
+          password: password);
       final res = await UpdateProfilUsecase(sl()).call(user);
       res.fold((l) => print("user update phone left"), (r) {});
       print("update profile password right");
 
       update();
     } on Exception catch (e) {
-      // TODO
+            print(e);
+
     }
   }
+
   Future change_phone(String phone) async {
     try {
       ProfileController.phone = phone;
@@ -144,7 +153,8 @@ class ProfileController extends GetxController {
 
       update();
     } on Exception catch (e) {
-      // TODO
+           print(e);
+
     }
   }
 
@@ -166,7 +176,8 @@ class ProfileController extends GetxController {
       print(SplashScreen.currentUser.firstName);
       update();
     } on Exception catch (e) {
-      // TODO
+            print(e);
+
     }
   }
 
@@ -180,5 +191,4 @@ class ProfileController extends GetxController {
   //   // }
   //   return null;
   // }
-
 }

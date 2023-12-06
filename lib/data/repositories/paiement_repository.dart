@@ -13,7 +13,7 @@ class PaiementRepositoryImpl implements PaiementRepository {
   final PaiementRemoteDataSource paiementremoteDataSource;
 
 
-  const PaiementRepositoryImpl(
+  const PaiementRepositoryImpl(Object object, 
       {required this.paiementremoteDataSource});
 
 

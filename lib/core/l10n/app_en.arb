@@ -23,6 +23,9 @@
     "shipping":"Shipping",
     "delivery":"Delivery",
     "item":"one item",
+    "on_stock":"on stock",
+    "out_of_stock":"out of stock",
+    "to_order":"to order",
     "items":"items"
 
 }

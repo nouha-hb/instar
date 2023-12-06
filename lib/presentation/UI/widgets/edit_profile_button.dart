@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:instar/core/style/colors.dart';
 
 class EditProfileButton extends StatelessWidget {
   final String text;

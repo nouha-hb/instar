@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 
+// ignore: must_be_immutable
 class Product3D extends Equatable {
    String model3D;
    String texture;

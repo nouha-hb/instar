@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:equatable/equatable.dart';
 
 class Failure extends Equatable {
@@ -15,6 +17,11 @@ class ServerFailure extends Failure {
 class ConnectionFailure extends Failure {}
 
 class RegistrationFailure extends Failure {}
+class ForgetPasswordnFailure extends Failure {}
+class VerifCodeFailure extends Failure {}
+class ResetpasswordFailure extends Failure {}
+
+
 
 class LoginFailure extends Failure {
   final String message;

@@ -11,7 +11,7 @@ class AppTextStyle {
   static TextStyle secondaryButtonTextStyle = GoogleFonts.alata(
       fontWeight: FontWeight.w400, fontSize: 16.sp, color: AppColors.primary);
   static TextStyle lightLabelTextStyle = GoogleFonts.alata(
-      fontWeight: FontWeight.w400, fontSize: 16.sp, color: AppColors.grey);
+      fontWeight: FontWeight.w400, fontSize: 16.sp, color: AppColors.darkGrey);
   static TextStyle smallLightLabelTextStyle = GoogleFonts.alata(
       fontWeight: FontWeight.w400, fontSize: 9.sp, color: AppColors.grey);
   static TextStyle darkLabelTextStyle = GoogleFonts.alata(
@@ -33,6 +33,31 @@ class AppTextStyle {
   static TextStyle greySubTitleTextStyle = GoogleFonts.alata(
     fontWeight: FontWeight.w400,
     fontSize: 13.sp,
-    color: AppColors.grey,
+    color: AppColors.darkGrey,
   );
+  static TextStyle greySubTitleLabelTextStyle = GoogleFonts.alata(
+    fontWeight: FontWeight.w600,
+    fontSize: 13.sp,
+    color: AppColors.darkGrey2,
+  );
+  static TextStyle smallprimaryButtonTextStyle = GoogleFonts.alata(
+      fontWeight: FontWeight.w400, fontSize: 9.sp, color: AppColors.white);
+
+  static TextStyle elementNameTextStyle16 = GoogleFonts.alata(
+      fontWeight: FontWeight.w400, fontSize: 16.sp, color: AppColors.black);
+  static TextStyle elementNameTextStyle13 = GoogleFonts.alata(
+      fontWeight: FontWeight.w400, fontSize: 13.sp, color: AppColors.black);
+
+  static TextStyle onstockTextStyle = GoogleFonts.alata(
+      fontWeight: FontWeight.w700, fontSize: 13.sp, color: AppColors.green);
+  static TextStyle outofstockTextStyle = GoogleFonts.alata(
+      fontWeight: FontWeight.w700, fontSize: 13.sp, color: AppColors.red);
+      static TextStyle ratingTextStyle = GoogleFonts.alata(
+      fontWeight: FontWeight.w700, fontSize: 30.sp, color: AppColors.primary);
+
+        static TextStyle greyTextStyle1 = GoogleFonts.alata(
+      fontWeight: FontWeight.w400, fontSize: 10.sp, color: AppColors.grey);
+      static TextStyle blueTextStyle1 = GoogleFonts.alata(
+      fontWeight: FontWeight.w500, fontSize: 12.sp, color: AppColors.primary);
+ 
 }

@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:instar/core/style/colors.dart';
 import 'package:instar/domain/entities/user.dart';
 import 'package:instar/domain/usecases/authentication_usecases/create_account_usecase.dart';
 import 'package:instar/domain/usecases/widhlist_usecases/create_wishlist_usecase.dart';
 import 'package:instar/presentation/UI/screens/sign_in/sign_in_screen.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
 import '../../../di.dart';
+import '../../../domain/usecases/cart_usecases/create_cart_usecase.dart';
 
 class SignUpController extends GetxController {
   static bool isPasswordType = false;
@@ -38,7 +37,7 @@ class SignUpController extends GetxController {
       actions: [
         TextButton(
             onPressed: () {
-              Get.to(SignIn());
+              Get.to(const SignIn());
             },
             child: const Text("Ok"))
       ],
@@ -127,6 +126,18 @@ class SignUpController extends GetxController {
           (l) => print("left wishlist"),
           (r) => Fluttertoast.showToast(
               msg: "wishlist created",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.black,
+              textColor: Colors.white,
+              fontSize: 16.0),
+        );
+         final cart = await CreateCartUsecase(sl()).call(userId: r);
+        cart.fold(
+          (l) => print("left cart"),
+          (r) => Fluttertoast.showToast(
+              msg: "cart created",
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.CENTER,
               timeInSecForIosWeb: 1,

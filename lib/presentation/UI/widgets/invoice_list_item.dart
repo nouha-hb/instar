@@ -27,7 +27,7 @@ class InvoiceListItem extends StatelessWidget {
             ),
           ],
         ),
-        Divider(
+        const Divider(
           color: Colors.black,
         )
       ],

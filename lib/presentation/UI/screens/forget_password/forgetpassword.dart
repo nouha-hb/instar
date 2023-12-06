@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
 import 'package:instar/core/style/text_style.dart';
 import 'package:instar/presentation/UI/screens/forget_password/newpassword.dart';
 import 'package:instar/presentation/UI/widgets/custom_button.dart';
@@ -11,7 +9,7 @@ import '../../../../core/style/colors.dart';
 
 class ForgetPassword extends StatelessWidget {
   String email;
-  ForgetPassword({Key? key, this.email = ''}) : super(key: key);
+  ForgetPassword({super.key, this.email = ''});
   final TextEditingController _emailController = TextEditingController();
   String? requiredValidator(String? text) {
     if (text == null || text.trim().isEmpty) {
@@ -40,7 +38,7 @@ class ForgetPassword extends StatelessWidget {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_back,
                   color: AppColors.darkGrey,
                 ),

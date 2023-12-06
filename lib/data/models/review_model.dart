@@ -1,7 +1,8 @@
 import 'package:instar/domain/entities/review.dart';
 
+// ignore: must_be_immutable
 class ReviewModel extends Review {
-  const ReviewModel(
+   ReviewModel(
       {required super.userID,
       required super.userName,
       required super.userImage,

@@ -1,25 +1,15 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_social_button/flutter_social_button.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
-import 'package:instar/core/style/colors.dart';
-import 'package:instar/core/style/text_style.dart';
-import 'package:instar/domain/usecases/authentication_usecases/facebook_login_usecase.dart';
-import 'package:instar/domain/usecases/authentication_usecases/google_login_usecase.dart';
-import 'package:instar/domain/usecases/authentication_usecases/login_usecase.dart';
-import 'package:instar/domain/usecases/widhlist_usecases/create_wishlist_usecase.dart';
-import 'package:instar/presentation/UI/screens/main_page/main_page.dart';
-import 'package:instar/presentation/UI/screens/settings/language_settings.dart';
-
-import 'package:instar/presentation/UI/screens/sign_up/sign_up_screen.dart';
-import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
-import 'package:instar/presentation/UI/widgets/custom_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
-import '../../../../di.dart';
-import '../../../../domain/usecases/authentication_usecases/login_usecase.dart';
+import '../../../../core/style/colors.dart';
+import 'package:instar/core/style/text_style.dart';
+import 'package:instar/presentation/UI/screens/sign_up/sign_up_screen.dart';
+import 'package:instar/presentation/UI/widgets/custom_button.dart';
+
+import '../../../../core/style/assets.dart';
 import '../../../state_managment/controllers/sign_in_controller.dart';
 import '../../widgets/custom_textform.dart';
 import '../forget_password/forgetpassword.dart';
@@ -32,7 +22,9 @@ class SignIn extends StatelessWidget {
     return Scaffold(
       body: GetBuilder<SignInController>(
           init: SignInController(),
-          initState: (_) {},
+          initState: (_) {
+            
+          },
           builder: (controller) {
             controller.context = context;
             return SingleChildScrollView(
@@ -159,49 +151,9 @@ class SignIn extends StatelessWidget {
                       SizedBox(
                         height: 60.h,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          FlutterSocialButton(
-                            onTap: () async {
-                              final res =
-                                  await FacebookLoginUsecase(sl()).call();
-                              res.fold((l) {
-                                print('facebook left');
-                              }, (r) async {
-                                print('fb right');
-                                SplashScreen.userToken = r;
-                                await CreateWishListUsecase(sl())
-                                    .call(userId: r.userId);
-                                
-                                return Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                        builder: (_) => const MainPage()));
-                              });
-                            },
-                            mini: true,
-                            buttonType: ButtonType.facebook,
-                          ),
-                          SizedBox(
-                            width: 20.w,
-                          ),
-                          FlutterSocialButton(
-                            onTap: () async {
-                              final res = await GoogleLoginUsecase(sl()).call();
-                              res.fold((l) {
-                                print('google left');
-                              }, (r) {
-                                SplashScreen.userToken = r;
-                                return Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                        builder: (_) => const MainPage()));
-                              });
-                            },
-                            mini: true,
-                            buttonType: ButtonType.google,
-                          ),
-                        ],
-                      ),
+                      SocialSecondaryButton(text: AppLocalizations.of(context)!.continue_with_google, onClick: () {}, asset: Assets.google),
+                                SizedBox(height: 20.h,),
+                                SocialSecondaryButton(text: AppLocalizations.of(context)!.continue_with_facebook, onClick: () {}, asset: Assets.facebook),
                       //SecondaryButton(
                       //     text: AppLocalizations.of(context)!
                       //         .continue_with_facebook
@@ -233,7 +185,7 @@ class SignIn extends StatelessWidget {
                             recognizer: TapGestureRecognizer()
                               ..onTap = () => Navigator.of(context)
                                   .pushReplacement(MaterialPageRoute(
-                                      builder: (_) => SignUp())),
+                                      builder: (_) => const SignUp())),
                           )
                         ]),
                       ),

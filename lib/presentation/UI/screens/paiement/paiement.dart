@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
-import 'package:instar/presentation/UI/screens/shopping_cart/shopping_cart_list.dart';
 import 'package:instar/presentation/UI/widgets/custom_button.dart';
+import 'package:instar/presentation/state_managment/controllers/product_desc_controller.dart';
 
 import '../../../state_managment/controllers/paiement_controller.dart';
 
@@ -31,7 +31,6 @@ class Paiementt extends StatelessWidget {
                       height: 30.h,
                     ),
                     Row(
-                   
                       children: [
                         IconButton(
                           onPressed: () => Navigator.pop(context),
@@ -41,44 +40,44 @@ class Paiementt extends StatelessWidget {
                             size: 30.sp,
                           ),
                         ),
-                        SizedBox(width: 50,),
-                        Text("Méthode de paiement"),
-                     
+                        const SizedBox(
+                          width: 50,
+                        ),
+                        const Text("Méthode de paiement"),
                       ],
                     ),
                     SizedBox(
                       height: 30.h,
                     ),
-                     Text("Détails de la carte"),
-                      SizedBox(
+                    const Text("Détails de la carte"),
+                    SizedBox(
                       height: 20.h,
                     ),
-                  ReusableTextField(
-                          width: 326,
-                          height: 40,
-                          controller: controller.NomController,
-                          keyboardType: TextInputType.name,
-                          text: 'Nom',
-                          validator: controller.requiredValidator,
-                        ),
-                      SizedBox(
+                    ReusableTextField(
+                      width: 326,
+                      height: 40,
+                      controller: controller.NomController,
+                      keyboardType: TextInputType.name,
+                      text: 'Nom',
+                      validator: controller.requiredValidator,
+                    ),
+                    SizedBox(
                       height: 20.h,
                     ),
+                    ReusableTextField(
+                      width: 326,
+                      height: 40,
+                      controller: controller.CodeController,
+                      keyboardType: TextInputType.name,
+                      text: 'Code',
+                      validator: controller.requiredValidator,
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Row(
+                      children: [
                         ReusableTextField(
-                          width: 326,
-                          height: 40,
-                          controller: controller.CodeController,
-                          keyboardType: TextInputType.name,
-                          text: 'Code',
-                          validator: controller.requiredValidator,
-                        ),
-                      SizedBox(
-                      height: 20.h,
-                    ),
-                    
-                
-                           Row(children: [
-                  ReusableTextField(
                           width: 150,
                           height: 40,
                           controller: controller.DateExpController,
@@ -86,10 +85,10 @@ class Paiementt extends StatelessWidget {
                           text: 'Date Exp',
                           validator: controller.requiredValidator,
                         ),
-                          SizedBox(
-                      width: 40.h,
-                    ),
-                            ReusableTextField(
+                        SizedBox(
+                          width: 40.h,
+                        ),
+                        ReusableTextField(
                           width: 150,
                           height: 40,
                           controller: controller.CVVController,
@@ -97,25 +96,62 @@ class Paiementt extends StatelessWidget {
                           text: 'CVV',
                           validator: controller.requiredValidator,
                         ),
-                           ],),
+                      ],
+                    ),
                     SizedBox(
                       height: 40.h,
                     ),
-                           
-                 
-                    Image.asset("assets/images/paymentinfo.png"),
-                          SizedBox(
+                    Center(
+                      child: Stack(
+                        children: [
+                          Image.asset("assets/images/elment.png"),
+                          Positioned(
+                            top: 40.h,
+                            left: 10.w,
+                            child: Column(
+                              children: [
+                                Text(
+                                  "Détails de paiements : ${ProductDescController.total}",
+                                  style: AppTextStyle.darkLabelTextStyle,
+                                ),
+                                  Text(
+                                  "Sous toale  : ${ProductDescController.total}",
+                                      
+                                  style: AppTextStyle.darkLabelTextStyle,
+                                ),
+                                  Text(
+                                  "Livraison : 8DT${ProductDescController.total}",
+                                  style: AppTextStyle.darkLabelTextStyle,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Positioned(
+                            top: 110.h,
+                            left: 10.w,
+                            child: Text(
+                              "Totale : ${ProductDescController.total+8}",
+                              style: AppTextStyle.darkLabelTextStyle,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
                       height: 20.h,
                     ),
-                   SizedBox(
+                    SizedBox(
                       height: 90.h,
                     ),
-                           
                     Align(
                         alignment: Alignment.bottomRight,
-                        child: PrimaryButton(text: "Payez maintenant", onClick: () {
-               controller.paiement();
-                        })),
+                        child: PrimaryButton(
+                            text: "Payez maintenant",
+                            onClick: () async {
+                                print("bouton paielenttt ===================================");
+
+                              await controller.paiement();
+                            })),
                   ],
                 ),
               ),

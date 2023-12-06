@@ -13,16 +13,20 @@ class ProductModel extends Product {
       required super.quantity,
       required super.subCategory,
       required super.image,
-      required super.image3D
+      required super.image3D,
+      required super.dimensions,
+      required super.provider,
+      required super.reference
 });
 
-  factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(id: json['_id'],category: json['category'],
+  factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(id: json['_id'],category: json['category'],reference: json['reference'],
       name: json['name'], description: json['description'], price: double.parse(json['price'].toString()) , quantity: json['quantity'],subCategory: json['subCategory'],
-      image: json['image'],image3D: (json['image3DInfo'] as List).map((e) => Product3DModel.fromJson(e)).toList()
-       );
+      image: json['image'],image3D: (json['image3DInfo'] as List).map((e) => Product3DModel.fromJson(e)).toList(),
+      provider: json['fournisseur'],dimensions: json['dimensions'] );
 
   Map<String, dynamic> toJson() => {
         '_id':id,
+        'reference':reference,
         'category':category,
         'name': name,
         'description': description,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
 import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
 import 'package:instar/presentation/UI/screens/forget_password/passwordSMS.dart';
@@ -10,7 +9,7 @@ import 'package:instar/presentation/UI/widgets/custom_textform.dart';
 
 class NewPassword extends StatelessWidget {
   String email;
-  NewPassword({Key? key, this.email = ''}) : super(key: key);
+  NewPassword({super.key, this.email = ''});
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _NewPasswordController = TextEditingController();
   String? requiredValidator(String? text) {
@@ -39,7 +38,7 @@ class NewPassword extends StatelessWidget {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.arrow_back,
                         color: AppColors.darkGrey,
                       ),
