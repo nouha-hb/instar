@@ -5,14 +5,17 @@ import 'package:get/get.dart';
 import 'package:instar/core/l10n/plural_strings.dart';
 import 'package:instar/core/style/colors.dart';
 import 'package:instar/core/style/text_style.dart';
-import 'package:instar/domain/entities/Product3D.dart';
 import 'package:instar/domain/entities/product.dart';
+import 'package:instar/domain/entities/sales.dart';
 import 'package:instar/presentation/UI/screens/main_page/shopping_cart.dart';
+import 'package:instar/presentation/UI/screens/splash_screen/splash_screen.dart';
 import 'package:instar/presentation/UI/widgets/comment.dart';
 import 'package:instar/presentation/UI/widgets/custom_button.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:instar/presentation/UI/widgets/rating_widgets/rating_section.dart';
+import 'package:instar/presentation/state_managment/controllers/cart_controller.dart';
 import 'package:instar/presentation/state_managment/controllers/product_details_controller.dart';
+import 'package:instar/presentation/state_managment/controllers/wishlist_controller.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
 import '../../../../core/constant/api_const.dart';
 
@@ -25,13 +28,14 @@ class ProductDesc extends StatefulWidget {
 }
 
 class _ProductDescState extends State<ProductDesc> {
-  late Product3D currentTexture;
+  //late Product3D currentTexture;
   Key _refreshKey = UniqueKey();
   @override
   void initState() {
     productDetailsController = ProductDetailsController();
     expandableController = ExpandableController();
-    currentTexture = widget.product.image3D[0];
+    cartController = CartController();
+    wishListController = WishListController();
     super.initState();
   }
 
@@ -39,6 +43,7 @@ class _ProductDescState extends State<ProductDesc> {
   void dispose() {
     expandableController.dispose();
     productDetailsController.dispose();
+    cartController.dispose();
     super.dispose();
   }
 
@@ -47,12 +52,15 @@ class _ProductDescState extends State<ProductDesc> {
   int addToCartItems = 0;
   late ExpandableController expandableController;
   late ProductDetailsController productDetailsController;
+  late CartController cartController;
+  late WishListController wishListController;
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ProductDetailsController>(
       init: productDetailsController,
       initState: (state) async {
         await productDetailsController.getExistingRate(widget.product.id);
+      //  wishListController.init(widget.product.id);
       },
       builder: (controller) {
         return Scaffold(
@@ -77,17 +85,18 @@ class _ProductDescState extends State<ProductDesc> {
                           ),
                         ),
                         title: Text(
-                          "Product details",
+                          "Détails du produit",
                           style: AppTextStyle.elementNameTextStyle,
                         ),
                         centerTitle: true,
                         actions: [
                           IconButton(
                             onPressed: () async {
-                               productDetailsController
-                                  .favouriteToggle(widget.product.id);
+                             await  controller
+                                  .favouriteToggle(widget.product).then((value) => controller.toggleIcon());
+                                  controller.updateWishlist();
                             },
-                            icon: productDetailsController.isLiked
+                            icon: controller.likedProduct(widget.product.id)
                                 ? const Icon(
                                     Icons.favorite,
                                     color: AppColors.primary,
@@ -101,7 +110,7 @@ class _ProductDescState extends State<ProductDesc> {
                             padding: EdgeInsets.only(right: 12.0.w, top: 4),
                             child: badges.Badge(
                               badgeContent: Text(
-                                addToCartItems.toString(),
+                              controller.salesCount.toString(),
                                 style: const TextStyle(color: Colors.white),
                               ),
                               badgeAnimation:
@@ -117,12 +126,14 @@ class _ProductDescState extends State<ProductDesc> {
                                 shape: badges.BadgeShape.circle,
                                 badgeColor: AppColors.primary,
                               ),
-                              child: IconButton(
+                              child: IconButton( 
                                 onPressed: () => Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            const ShoppingList())),
+                                            Scaffold(
+                                              appBar: AppBar(leading: IconButton(onPressed: (){Navigator.of(context).pop();},icon: Icon(Icons.arrow_back_ios,color: Colors.black,),),automaticallyImplyLeading: false,centerTitle: true ,title: Text("Cart",style: TextStyle(color: Colors.black),),backgroundColor: AppColors.background,elevation: 0,),
+                                              body: const ShoppingList()))),
                                 icon: const Icon(
                                   Icons.shopping_cart_outlined,
                                   color: AppColors.black,
@@ -149,7 +160,7 @@ class _ProductDescState extends State<ProductDesc> {
                                     backgroundColor: const Color.fromARGB(
                                         0xFF, 0xEE, 0xEE, 0xEE),
                                     src:
-                                        'assets/images/${currentTexture.model3D}',
+                                        'assets/images/${controller.currentmodel.model3D}',
                                     alt: 'A 3D model of an astronaut',
                                     ar: true,
                                     autoRotate: true,
@@ -181,7 +192,7 @@ class _ProductDescState extends State<ProductDesc> {
                                       style: AppTextStyle.lightLabelTextStyle,
                                     ),
                                     PluralStrings.onOrder(
-                                        currentTexture.quantity, context),
+                                        controller.currentmodel.quantity, context),
                                   ],
                                 ),
 
@@ -193,18 +204,18 @@ class _ProductDescState extends State<ProductDesc> {
                                   style: AppTextStyle.subTitleTextStyle,
                                 ),
                                 Row(
-                                  children: widget.product.image3D.map((e) {
+                                  children: controller.textures.map((e) {
                                     return GestureDetector(
                                       onTap: () {
                                         setState(() {
-                                          currentTexture = e;
+                                          controller.currentmodel = e;
                                           _refreshKey = UniqueKey();
                                         });
                                       },
                                       child: Padding(
                                         padding: const EdgeInsets.all(2.0),
                                         child: CircleAvatar(
-                                            radius: e.id == currentTexture.id
+                                            radius: e.id ==  controller.currentmodel.id
                                                 ? 13
                                                 : 10,
                                             backgroundImage: NetworkImage(
@@ -370,6 +381,7 @@ class _ProductDescState extends State<ProductDesc> {
                                           onTap: () {
                                             productDetailsController
                                                 .decQuantity();
+                                                
                                           },
                                           child: Container(
                                             color: AppColors.primary,
@@ -390,10 +402,10 @@ class _ProductDescState extends State<ProductDesc> {
                                 ),
                                 PrimaryButton(
                                     text: "Add to cart",
-                                    onClick: () {
-                                      setState(() {
-                                        addToCartItems++;
-                                      });
+                                    onClick:() async{
+                                    await cartController.addSale(Sales(productId: widget.product.id, providerId: controller.provider.id, userId: SplashScreen.userToken.userId, quantity: quantity, status: "Confirmation de commande", totalPrice:productDetailsController.orderedQuantity * widget.product.price ));
+                                    controller.updateSalesCount(SplashScreen.cart.sales.length);
+                                     //cartController.sailExist(widget.product.id);
                                     })
                               ],
                             ))

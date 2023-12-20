@@ -4,7 +4,7 @@ import 'package:instar/core/style/colors.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String text;
-  final void Function() onClick;
+  final void Function()? onClick;
   const PrimaryButton({super.key, required this.text, required this.onClick});
 
   @override

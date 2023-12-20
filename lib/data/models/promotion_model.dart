@@ -1,5 +1,5 @@
 import 'package:instar/data/models/product_model.dart';
-import 'package:instar/domain/entities/Promotion.dart';
+import 'package:instar/domain/entities/promotion.dart';
 
 class PromotionModel extends Promotion {
   const PromotionModel(

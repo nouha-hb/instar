@@ -65,7 +65,7 @@ dependencies:
   dropdown_search: ^5.0.6
   web_socket_channel: ^2.1.0
   onesignal_flutter: ^5.0.0
-  tflite: ^1.1.2
+ # tflite: ^1.1.2
 
 
 dev_dependencies:
@@ -114,6 +114,7 @@ flutter:
     - assets/images/black.glb
     - assets/images/white.glb
     - assets/images/blue.glb
+    - assets/images/carpet.glb
     - assets/images/tapisbleu.glb
    # - assets/images/avatar.png
     - assets/images/avatar.png

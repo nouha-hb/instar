@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:instar/core/style/assets.dart';
 import 'package:instar/core/style/colors.dart';
+import 'package:instar/domain/entities/sales.dart';
 import 'package:instar/domain/entities/user.dart';
 import 'package:instar/domain/entities/wishlist.dart';
 import 'package:instar/domain/entities/cart.dart';
@@ -10,6 +11,7 @@ import 'package:instar/domain/usecases/authentication_usecases/auto_login_usecas
 import 'package:instar/domain/usecases/authentication_usecases/get_user_usecase.dart';
 import 'package:instar/domain/usecases/fournisseur_usecases/get_fournisseur_by_id_usecase.dart';
 import 'package:instar/domain/usecases/fournisseur_usecases/get_fournisseurs_usecase.dart';
+import 'package:instar/domain/usecases/sales_usecases/get_single_sale_usecase.dart';
 import 'package:instar/domain/usecases/widhlist_usecases/get_wishlist_usecase.dart';
 import 'package:instar/presentation/UI/screens/admin/admin_home_screen.dart';
 import 'package:instar/presentation/UI/screens/landing_screen/landing_screen.dart';
@@ -76,7 +78,8 @@ class SplashScreen extends StatefulWidget {
 
         SplashScreen.wishList = r;
       });
-      final crt = await GetCartUsecase(sl())
+     
+final crt = await GetCartUsecase(sl())
           .call(userId: SplashScreen.userToken.userId);
       print(' get cart ');
 
@@ -84,11 +87,13 @@ class SplashScreen extends StatefulWidget {
         print(' cart  left $l');
 
          res = false;
-      }, (r) {
+      }, (r)async {
         print(' cart  right');
-
+        print('my cart ${r}');
+       
         SplashScreen.cart = r;
       });
+
     });
     print("${res}res");
     Future.delayed( Duration(seconds: duration), () {
@@ -133,3 +138,27 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 }
+
+
+// final crt = await GetCartUsecase(sl())
+//           .call(userId: SplashScreen.userToken.userId);
+//       print(' get cart ');
+
+//       crt.fold((l) {
+//         print(' cart  left $l');
+
+//          res = false;
+//       }, (r)async {
+//         print(' cart  right');
+//         List<Sales> sales =[];
+//         for (var element in r.sales) {
+//          Either<Failure, Sales> s = await GetSingleSalesUsecase(sl()).call(element);
+//          s.fold((l) => null, (r) => sales.add(r));
+          
+//         }
+//         SplashScreen.cart = r;
+//         SplashScreen.cart.sales = sales;
+
+    
+        
+//       });

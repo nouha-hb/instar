@@ -44,10 +44,7 @@ class MainPage extends StatelessWidget {
                     builder: (_, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return Center(
-                            child: SizedBox(
-                                width: 50.w,
-                                height: 50.h,
-                                child: const CircularProgressIndicator()));
+                           child: Container(),);
                       } else if (snapshot.hasData) {
                         final res = snapshot.data;
                         res!.fold((l) {

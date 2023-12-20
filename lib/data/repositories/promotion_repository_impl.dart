@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import 'package:instar/core/errors/failures/failures.dart';
-import 'package:instar/domain/entities/Promotion.dart';
+import 'package:instar/domain/entities/promotion.dart';
 
 import '../../core/errors/exceptions/exceptions.dart';
 import '../../domain/repositories/promotion_repository.dart';

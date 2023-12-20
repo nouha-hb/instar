@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:instar/data/models/wishlist_model.dart';
+import 'package:instar/di.dart';
+import 'package:instar/domain/entities/product.dart';
+import 'package:instar/domain/usecases/product_usecases/get_one_product_usecase.dart';
 import '../../../core/constant/api_const.dart';
 import '../../../core/errors/exceptions/exceptions.dart';
 import '../local_data_source/authentication_local_data_source.dart';
@@ -45,7 +48,13 @@ class WishlistRemoteDataSourceImpl implements WishlistRemoteDataSource {
           },
         ),
       );
-      final data = response.data;
+      final data = response.data; 
+      List<Product> prods=[];
+       for (var element in data['products']) {
+        final rs= await GetOneProductsUsecase(sl()).call(element);
+       rs.fold((l) => null, (r) => prods.add(r));
+      }
+     data['products']=prods;
       WishListModel wishlist = WishListModel.fromJson(data);
       return wishlist;
     } on DioException catch (e) {
@@ -60,13 +69,12 @@ class WishlistRemoteDataSourceImpl implements WishlistRemoteDataSource {
 
   @override
   Future<void> updateWishlist({required WishListModel wishlist}) async {
+      Map<String,dynamic> dt = wishlist.toJson();
+   dt['products']=wishlist.productsId.map((e) => e.id).toList();
     try {
-      await dio.put(
+     final response = await dio.put(
         "${ApiConst.wishlist}/${wishlist.id}",
-        data: {
-          "userId": wishlist.userId,
-          "products": wishlist.productsId
-        },
+        data:dt,
         options: Options(
           headers: {
             "authorization": "Bearer ${await token}",

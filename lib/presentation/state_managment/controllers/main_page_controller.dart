@@ -17,7 +17,7 @@ class MainController extends GetxController {
     update();
   }
 List favoriteproductsId = SplashScreen.wishList!.productsId;
-List shoppingproductsId = SplashScreen.cart.productsId;
+List shoppingproductsId = SplashScreen.cart.sales;
 
 
   TextEditingController textController = TextEditingController();
@@ -36,7 +36,7 @@ List shoppingproductsId = SplashScreen.cart.productsId;
     },
     {
       "name": "favorite",
-      "page": const FavoriteList(),
+      "page":  FavoriteList(),
     },
       {
       "name": "Profile",

@@ -1,7 +1,7 @@
 import 'package:instar/domain/entities/sales.dart';
 
 class SalesModel extends Sales{
- const SalesModel({ super.id,required super.productId,required super.providerId,required super.userId,required super.quantity,required super.status,required super.totalPrice});
+  SalesModel({ super.id,required super.productId,required super.providerId,required super.userId,required super.quantity,required super.status,required super.totalPrice});
   factory SalesModel.fromJson(Map<String,dynamic>json)=>SalesModel(
     id:json['_id'],
    productId:json['productId'],

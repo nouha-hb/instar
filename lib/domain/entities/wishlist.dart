@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
+import 'package:instar/domain/entities/product.dart';
 
-// ignore: must_be_immutable
 class WishList extends Equatable {
   final String id;
   final String userId;
-  List<String> productsId;
+  List<Product> productsId;
 
   WishList({required this.id, required this.userId, required this.productsId});
 

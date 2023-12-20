@@ -1,8 +1,11 @@
 import 'package:instar/di.dart';
+import 'package:instar/domain/entities/Product3D.dart';
 import 'package:instar/domain/entities/fournisseur.dart';
 import 'package:instar/domain/entities/product.dart';
 import 'package:instar/domain/entities/rating.dart';
+import 'package:instar/domain/entities/wishlist.dart';
 import 'package:instar/domain/usecases/fournisseur_usecases/get_fournisseur_by_id_usecase.dart';
+import 'package:instar/domain/usecases/product_3d/get_all_3d_products_usecase.dart';
 import 'package:instar/domain/usecases/rating_usecases/add_rating_usecase.dart';
 import 'package:instar/domain/usecases/rating_usecases/delete_rating_usecase.dart';
 import 'package:instar/domain/usecases/rating_usecases/get_rating_average_use_case.dart';
@@ -19,8 +22,23 @@ class ProductDetailsController extends GetxController {
   int orderedQuantity = 1;
   double avgRate = 0.0;
   late Fournisseur provider;
-  bool isLiked = false;
+  List<Product3D> textures=[];
+  late Product3D currentmodel;
+  int salesCount=SplashScreen.cart.sales.length;
 
+ WishList wishList = SplashScreen.wishList!;
+
+ void updateWishlist(){
+  wishList=SplashScreen.wishList!;
+  update();
+ }
+
+  void updateSalesCount(int newCount){
+  salesCount=newCount;
+  update();
+ }
+
+bool isliked=false;
   setRate(int newRate) {
     localRate = newRate;
   }
@@ -41,7 +59,6 @@ class ProductDetailsController extends GetxController {
 
   Future<void> getExistingRate(String prodID) async {
     Rating? existingRate;
-    isLiked = SplashScreen.wishList!.productsId.contains(prodID);
     final res = await GetRatingsUsecase(sl()).call(prodID);
     res.fold((l) => print('cant get rating'), (r) {
       numberRates = r.length;
@@ -119,6 +136,8 @@ class ProductDetailsController extends GetxController {
   Future<bool> loadData(Product product) async {
     //await getExistingRate(product.id);
     await getProvider(product.provider);
+    await getProductTextures(product.id);
+    currentmodel = textures[0];
 
     return Future.value(true);
   }
@@ -129,15 +148,59 @@ class ProductDetailsController extends GetxController {
     update();
   }
 
-  void favouriteToggle(String prodId) async {
-    if (isLiked && SplashScreen.wishList!.productsId.contains(prodId)) {
-      SplashScreen.wishList!.productsId.remove(prodId);
-      isLiked = !isLiked;
+
+  Future getProductTextures(String product)async{
+    final txtr= await GetAll3DProductsUseCase(sl()).call(product);
+    txtr.fold((l) => null, (r) => {
+      textures = r
+    });
+  }
+
+
+
+
+  List<String> get _favProductsId{
+  return SplashScreen.wishList!.productsId.map((e) => e.id).toList();
+}
+
+  Future<void> favouriteToggle(Product prod) async {
+    if (_prodExistInWishlist(prod.id)) {
+      SplashScreen.wishList!.productsId.removeAt(_getProdIndex(prod.id));
+      isliked = false;
     } else {
-      SplashScreen.wishList!.productsId.add(prodId);
-      isLiked = !isLiked;
+      SplashScreen.wishList!.productsId.add(prod);
+      isliked = true;
     }
-    await UpdateWishListUsecase(sl()).call(wishlist: SplashScreen.wishList!);
+    await UpdateWishListUsecase(sl()).call(wishlist: SplashScreen.wishList!); 
+      wishList=SplashScreen.wishList!;
+    update();   
+  }
+
+  bool likedProduct(String prodId) {
+    return _favProductsId.contains(prodId);
+  }
+
+  void init(String prodId ){
+   isliked = _prodExistInWishlist(prodId) ? true : false;
+   update();
+  }
+
+  bool _prodExistInWishlist(String prodId){
+    for (var element in _favProductsId) {
+      if(element == prodId){
+        return true;
+      }
+    }
+    return false;
+  }
+  int  _getProdIndex(String prodId){
+    return SplashScreen.wishList!.productsId.indexWhere((element) => element.id==prodId);
+  }
+
+
+  void toggleIcon(){
+    isliked= !isliked;
     update();
   }
+
 }

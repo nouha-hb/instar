@@ -38,7 +38,7 @@ class SaleItem extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(15.r),topRight: Radius.circular(15.r)),
                   child: Image.network(
-                    "${ApiConst.files}/${product.image}",fit: BoxFit.cover,height: isSelected? 120.h:100.h),
+                    "${ApiConst.files}/${product.image}",fit: BoxFit.cover,width: double.infinity ,height: isSelected? 120.h:100.h,),
                 ),      
                 Padding(
                   padding: const EdgeInsets.all( 8.0),

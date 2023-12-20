@@ -9,6 +9,6 @@ class UpdateCartUsecase {
 
    UpdateCartUsecase(this._repository);
 
-  Future<Either<Failure, Unit>> call( {required Cart cart}) async =>
+  Future<Either<Failure, Cart>> call( {required Cart cart}) async =>
       await _repository.updateCart(cart:cart);
 }

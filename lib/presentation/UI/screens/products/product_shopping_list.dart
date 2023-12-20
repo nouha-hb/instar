@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:instar/di.dart';
 import 'package:instar/domain/entities/product.dart';
+import 'package:instar/domain/entities/sales.dart';
 import 'package:instar/domain/usecases/product_usecases/get_one_product_usecase.dart';
 import 'package:instar/presentation/UI/screens/paiement/detail_paiement.dart';
 import 'package:instar/presentation/UI/widgets/custom_button.dart';
@@ -21,16 +22,9 @@ class ShoppingListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     late Product product;
     return Scaffold(
-      backgroundColor: AppColors.bgColor,
-    
       appBar: AppBar(
-leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(Icons.arrow_back_ios)),
-                  elevation: 0,
-                backgroundColor: AppColors.white,
+                elevation: 0,
+                backgroundColor: AppColors.bgColor,
                 foregroundColor: AppColors.black,
                 title: Text(
                   "Panier",
@@ -53,8 +47,6 @@ leading: IconButton(
                       child: ListView.builder(
                         itemCount: controller.shoppingproductsId.length,
                         itemBuilder: (context, index) {
-                          print("productss carttt ${SplashScreen.cart.productsId}");
-
                           return FutureBuilder(
                             future: GetOneProductsUsecase(sl())
                                 .call(controller.shoppingproductsId[index]),
@@ -72,7 +64,7 @@ leading: IconButton(
                                 return const Center(
                                     child: CircularProgressIndicator());
                               }
-                              return ShoppingComponent(product: product);
+                              return ShoppingComponent(product: product,sale:SplashScreen.cart.sales.firstWhere((element) =>(element as Sales).productId == product.id),);
                             },
                           );
 

@@ -72,7 +72,7 @@ class _ProductComponentState extends State<ProductComponent> {
 
                     setState(() {
                       SplashScreen.wishList!.productsId
-                          .add(widget.product.id);
+                          .add(widget.product);
                       UpdateWishListUsecase(sl())
                           .call(wishlist: wishlist);
                     });
